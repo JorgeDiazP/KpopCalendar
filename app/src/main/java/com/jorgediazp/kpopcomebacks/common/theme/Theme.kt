@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.ui.theme
+package com.jorgediazp.kpopcomebacks.common.theme
 
 import android.app.Activity
 import android.os.Build
