@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks
+package com.jorgediazp.kpopcomebacks.splash.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
