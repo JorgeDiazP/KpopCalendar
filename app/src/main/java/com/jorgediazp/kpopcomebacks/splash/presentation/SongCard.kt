@@ -1,7 +1,8 @@
 package com.jorgediazp.kpopcomebacks.splash.presentation
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -9,16 +10,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcomebacks.R
+import com.jorgediazp.kpopcomebacks.common.theme.CARD_ALPHA
 
 @Composable
-fun CustomCard(
+fun SongCard(
     text: String,
-    modifier: Modifier = Modifier
+    isOdd: Boolean
 ) {
+    val cardColor =
+        if (isOdd) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
     Card(
-        modifier = modifier
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = cardColor.copy(alpha = CARD_ALPHA)
+        )
     ) {
         Text(text = text)
         Image(

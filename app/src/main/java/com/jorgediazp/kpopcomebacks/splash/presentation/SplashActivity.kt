@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.jorgediazp.kpopcomebacks.common.Screen
@@ -24,10 +22,9 @@ class SplashActivity : ComponentActivity() {
 fun ColorTest() {
     Screen {
         Column {
-            CustomCard(text = "Stray Kids")
-            CustomCard(text = "aespa")
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Boton")
+            TitleCard(text = "2 November 2023") {
+                SongCard(text = "Stray Kids", true)
+                SongCard(text = "aespa", false)
             }
         }
     }
