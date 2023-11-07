@@ -32,7 +32,8 @@ fun TitleCard(
         Column {
             Text(
                 text = text,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                style = MaterialTheme.typography.titleMedium
             )
             content()
         }
