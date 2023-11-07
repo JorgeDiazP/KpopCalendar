@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcomebacks.R
-import com.jorgediazp.kpopcomebacks.common.theme.CARD_ALPHA
 
 @Composable
 fun SongCard(
@@ -26,7 +25,10 @@ fun SongCard(
             .fillMaxWidth()
             .padding(2.dp),
         colors = CardDefaults.cardColors(
-            containerColor = cardColor.copy(alpha = CARD_ALPHA)
+            containerColor = cardColor
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
         )
     ) {
         Text(text = text)

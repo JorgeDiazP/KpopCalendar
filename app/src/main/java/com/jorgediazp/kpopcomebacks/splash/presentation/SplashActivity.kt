@@ -22,9 +22,12 @@ class SplashActivity : ComponentActivity() {
 fun ColorTest() {
     Screen {
         Column {
-            TitleCard(text = "2 November 2023") {
-                SongCard(text = "Stray Kids", true)
-                SongCard(text = "aespa", false)
+            TitleCard(text = "November") {
+                TitleCard(text = "2 November 2023") {
+                    SongCard(text = "Stray Kids", true)
+                    SongCard(text = "aespa", false)
+                    SongCard(text = "ATEEZ", true)
+                }
             }
         }
     }

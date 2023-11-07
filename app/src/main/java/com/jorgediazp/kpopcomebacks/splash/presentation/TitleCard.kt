@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcomebacks.common.theme.CARD_ALPHA
 
 @Composable
 fun TitleCard(
@@ -21,7 +20,10 @@ fun TitleCard(
             .fillMaxWidth()
             .padding(2.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = CARD_ALPHA)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
         )
     ) {
         Text(text = text)
