@@ -4,31 +4,47 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.jorgediazp.kpopcomebacks.common.Screen
-import com.jorgediazp.kpopcomebacks.main.presentation.SongCard
-import com.jorgediazp.kpopcomebacks.main.presentation.TitleCard
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ColorTest()
+            CalendarTest()
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ColorTest() {
+fun CalendarTest() {
+    val dayList = mutableListOf<Int>()
+    for (i in 1..30) {
+        dayList.add(i)
+    }
+    val songList = mutableListOf<String>()
+    for (i in 0..20) {
+        songList.add("StrayKids $i")
+    }
+
     Screen {
         Column {
             TitleCard(text = "November") {
-                TitleCard(text = "2 November 2023") {
-                    SongCard(text = "Stray Kids", true)
-                    SongCard(text = "aespa", false)
-                    SongCard(text = "ATEEZ", true)
+                LazyColumn {
+                    itemsIndexed(dayList) { index, day ->
+
+                        TitleCard(text = "$day November 2023") {
+                            LazyColumn {
+                                itemsIndexed(songList) { index, song ->
+                                    SongCard(text = song, index % 2 != 0)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
