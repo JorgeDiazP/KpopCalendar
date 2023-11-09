@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun TitleCard(
     text: String,
-    content: @Composable () -> Unit
+    content: (@Composable () -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
@@ -35,7 +35,9 @@ fun TitleCard(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 style = MaterialTheme.typography.titleMedium
             )
-            content()
+            if (content != null) {
+                content()
+            }
         }
     }
 }
