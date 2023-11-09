@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     itemsIndexed(entry.value) { index, song ->
-                        SongCard(text = song, index % 2 != 0)
+                        SongCard(isOdd = index % 2 != 0, text = song, youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o")
                     }
                 }
             }
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
     private fun getSongMap(): Map<Date, List<String>> {
         val songList = mutableListOf<String>()
-        for (i in 0..20) {
+        for (i in 0..5) {
             songList.add("StrayKids $i")
         }
         val map = linkedMapOf<Date, List<String>>()
