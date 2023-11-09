@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcomebacks.main.presentation
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,14 +27,15 @@ fun SongCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(2.dp),
+            .padding(horizontal = 8.dp, vertical = 4.dp),
         colors = CardDefaults.cardColors(
             containerColor = cardColor
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(24.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
     ) {
         Column {
             Text(
