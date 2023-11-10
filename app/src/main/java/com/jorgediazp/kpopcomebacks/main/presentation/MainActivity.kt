@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     if (currentDate != entry.key) {
                         currentDate = entry.key
                         stickyHeader {
-                            TitleCard(text = currentDate.toString())
+                            DayCard(text = currentDate.toString())
                         }
                     }
                     itemsIndexed(entry.value) { index, song ->
