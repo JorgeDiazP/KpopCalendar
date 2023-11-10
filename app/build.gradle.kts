@@ -62,6 +62,8 @@ dependencies {
 
     // Youtube
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    // Coil: Load images by url
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Tests
     testImplementation("junit:junit:4.13.2")

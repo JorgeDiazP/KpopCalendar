@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     itemsIndexed(entry.value) { index, song ->
-                        SongCard(isOdd = index % 2 != 0, text = song, youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o")
+                        SongCard(isOdd = index % 2 != 0, text = song, youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o", thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg")
                     }
                 }
             }
