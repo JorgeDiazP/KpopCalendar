@@ -33,7 +33,7 @@ fun YoutubeVideoPlayer(
         override fun onReady(youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
             super.onReady(youTubePlayer)
             player = youTubePlayer
-            youTubePlayer.cueVideo(videoId, 0f)
+            youTubePlayer.loadVideo(videoId, 0f)
         }
 
         override fun onStateChange(
