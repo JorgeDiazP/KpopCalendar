@@ -60,6 +60,13 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
+    // Youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    // Coil: Load images by url
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    // Compose icons
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
     // Tests
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

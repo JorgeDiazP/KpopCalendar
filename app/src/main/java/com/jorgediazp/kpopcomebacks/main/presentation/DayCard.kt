@@ -13,28 +13,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TitleCard(
+fun DayCard(
     text: String,
-    content: @Composable () -> Unit
+    content: (@Composable () -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(2.dp),
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.dp
+            defaultElevation = 8.dp
         ),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(8.dp),
     ) {
         Column {
             Text(
                 text = text,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(16.dp),
+                style = MaterialTheme.typography.titleMedium
             )
-            content()
+            if (content != null) {
+                content()
+            }
         }
     }
 }
