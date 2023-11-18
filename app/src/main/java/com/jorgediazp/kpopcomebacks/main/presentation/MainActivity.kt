@@ -7,7 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import com.jorgediazp.kpopcomebacks.common.Screen
+import com.jorgediazp.kpopcomebacks.common.ui.Screen
 import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.DayCard
 import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.SongCard
 import java.time.LocalDate
