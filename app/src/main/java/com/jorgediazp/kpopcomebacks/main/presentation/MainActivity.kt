@@ -2,7 +2,7 @@ package com.jorgediazp.kpopcomebacks.main.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -10,16 +10,22 @@ import androidx.compose.runtime.Composable
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
 import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.DayCard
 import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.SongCard
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Date
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            CalendarTest(getSongMap())
-        }
+        viewModel.loadData()
+//        setContent {
+//            CalendarTest(getSongMap())
+//        }
     }
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -36,7 +42,12 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     itemsIndexed(entry.value) { index, song ->
-                        SongCard(isOdd = index % 2 != 0, text = song, youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o", thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg")
+                        SongCard(
+                            isOdd = index % 2 != 0,
+                            text = song,
+                            youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
+                            thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg"
+                        )
                     }
                 }
             }

@@ -1,59 +1,42 @@
 package com.jorgediazp.kpopcomebacks.main.data.remote
 
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
-import com.jorgediazp.kpopcomebacks.common.util.DateUtils
-import com.jorgediazp.kpopcomebacks.common.util.DateUtils.Companion.getStringFormat
-import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.mapToEntity
-import com.jorgediazp.kpopcomebacks.main.data.remote.model.ComebackRemoteDTO
+import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.COMEBACKS_COLLECTION
+import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.COMEBACKS_FIELD
+import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.DATE_FIELD
+import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.mapToComebackEntityList
 import com.jorgediazp.kpopcomebacks.main.domain.ComebacksDataSource
 import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
 import kotlinx.coroutines.tasks.await
-import java.util.Date
 
 class ComebacksRemoteDataSource : ComebacksDataSource {
 
-    override suspend fun getComebackMap(dateList: List<Date>): DataResult<Map<Date, List<ComebackEntity>>> {
+    override suspend fun getComebackMap(dateList: List<String>): DataResult<Map<String, List<ComebackEntity>>> {
         return try {
             val db = Firebase.firestore
-            val result = db.collection("comebacks")
-                .whereIn("date", dateList.getStringFormat(DateUtils.COMEBACK_DATE_FORMAT))
+            val result = db.collection(COMEBACKS_COLLECTION)
+                .whereIn(DATE_FIELD, dateList)
                 .get()
                 .await()
 
-            val comebackMap: Map<Date, List<ComebackEntity>> =
-                dateList.associateBy({ date -> date }, { mutableListOf() })
-            dateList.forEach { date ->
-
-            }
-            DataResult.Error()
-        } catch (e: Exception) {
-            DataResult.Error(message = e.message, exception = e)
-        }
-    }
-
-    override suspend fun getComebackList(dateList: List<String>): DataResult<List<ComebackEntity>> {
-        return try {
-            val db = Firebase.firestore
-            val result = db.collection("comebacks")
-                .whereIn("date", dateList)
-                .get()
-                .await()
-
-            val comebackList = mutableListOf<ComebackEntity>()
+            val comebackMap: MutableMap<String, List<ComebackEntity>> =
+                dateList.associateBy({ date -> date }, { mutableListOf<ComebackEntity>() })
+                    .toMutableMap()
             result.documents.forEach { document ->
                 try {
-                    document.toObject(ComebackRemoteDTO::class.java)?.let { remoteDto ->
-                        comebackList.add(remoteDto.mapToEntity())
-                    }
+                    comebackMap[document.get(DATE_FIELD) as String] =
+                        (document.get(COMEBACKS_FIELD) as List<HashMap<String, Any>>).mapToComebackEntityList()
                 } catch (e: Exception) {
-                    // nothing to do
+                    Firebase.crashlytics.recordException(e)
                 }
             }
-            DataResult.Success(data = comebackList)
+            DataResult.Success(data = comebackMap)
 
         } catch (e: Exception) {
+            Firebase.crashlytics.recordException(e)
             DataResult.Error(message = e.message, exception = e)
         }
     }
