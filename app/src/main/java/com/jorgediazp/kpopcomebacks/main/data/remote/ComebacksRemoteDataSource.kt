@@ -11,8 +11,9 @@ import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.mapTo
 import com.jorgediazp.kpopcomebacks.main.domain.ComebacksDataSource
 import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class ComebacksRemoteDataSource : ComebacksDataSource {
+class ComebacksRemoteDataSource @Inject constructor() : ComebacksDataSource {
 
     override suspend fun getComebackMap(dateList: List<String>): DataResult<Map<String, List<ComebackEntity>>> {
         return try {
