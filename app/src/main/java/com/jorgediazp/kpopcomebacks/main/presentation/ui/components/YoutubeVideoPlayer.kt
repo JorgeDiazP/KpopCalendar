@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.presentation
+package com.jorgediazp.kpopcomebacks.main.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable

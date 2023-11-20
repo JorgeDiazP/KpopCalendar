@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393544728555",
+    "project_id": "kpopcomebacks-c38e3",
+    "storage_bucket": "kpopcomebacks-c38e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393544728555:android:f639ed20dc5d6c6a91a3ae",
+        "android_client_info": {
+          "package_name": "com.jorgediazp.kpopcomebacks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK7x9BCaz93XvBMzvFqWTJaQJbDB_HI0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
