@@ -90,6 +90,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-firestore")
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     // Tests
     testImplementation("junit:junit:4.13.2")
