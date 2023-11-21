@@ -1,8 +1,8 @@
-package com.jorgediazp.kpopcomebacks.main.di
+package com.jorgediazp.kpopcomebacks.main.common.di
 
-import com.jorgediazp.kpopcomebacks.main.data.ComebacksRepository
-import com.jorgediazp.kpopcomebacks.main.data.remote.ComebacksRemoteDataSource
-import com.jorgediazp.kpopcomebacks.main.domain.ComebacksDataSource
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebacksRepository
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebacksRemoteDataSource
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebacksDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

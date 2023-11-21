@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.presentation
+package com.jorgediazp.kpopcomebacks.main.common.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,9 +9,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
-import com.jorgediazp.kpopcomebacks.main.presentation.model.ComebackVO
-import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.DayCard
-import com.jorgediazp.kpopcomebacks.main.presentation.ui.components.SongCard
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components.DayCard
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components.SongCard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

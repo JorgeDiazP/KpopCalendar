@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.domain.entity
+package com.jorgediazp.kpopcomebacks.main.common.domain
 
 data class ComebackEntity(
     val artist: String,

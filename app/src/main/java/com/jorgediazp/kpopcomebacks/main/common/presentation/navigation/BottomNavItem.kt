@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.navigation
+package com.jorgediazp.kpopcomebacks.main.common.presentation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth

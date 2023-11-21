@@ -1,13 +1,13 @@
-package com.jorgediazp.kpopcomebacks.main.presentation
+package com.jorgediazp.kpopcomebacks.main.common.presentation
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
-import com.jorgediazp.kpopcomebacks.main.domain.GetComebackUseCase
-import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
-import com.jorgediazp.kpopcomebacks.main.presentation.model.ComebackVO
+import com.jorgediazp.kpopcomebacks.main.common.domain.GetComebackUseCase
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
