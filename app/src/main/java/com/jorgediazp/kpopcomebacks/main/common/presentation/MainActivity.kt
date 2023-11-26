@@ -10,8 +10,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components.DayCard
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components.SongCard
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.component.DayCard
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.component.SongCard
+import com.jorgediazp.kpopcomebacks.main.common.presentation.screen.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,12 +22,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadData()
+        //viewModel.loadData()
 
-        viewModel.comebackMap.observe(this) {
-            setContent {
-                CalendarTest(it)
-            }
+        setContent {
+            MainScreen()
         }
     }
 

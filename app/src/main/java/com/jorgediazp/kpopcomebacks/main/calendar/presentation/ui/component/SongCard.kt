@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components
+package com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

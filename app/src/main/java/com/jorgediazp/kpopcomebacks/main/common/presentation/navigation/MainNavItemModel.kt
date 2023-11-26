@@ -7,21 +7,21 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.jorgediazp.kpopcomebacks.R
 
-sealed class BottomNavItem(val title: Int, val icon: ImageVector, val screenRoute: String) {
+sealed class MainNavItemModel(val title: Int, val icon: ImageVector, val route: String) {
 
-    object Calendar : BottomNavItem(
+    object Calendar : MainNavItemModel(
         title = R.string.navigation_calendar,
         icon = Icons.Default.CalendarMonth,
-        screenRoute = "calendar"
+        route = "calendar"
     )
-    object Search : BottomNavItem(
+    object Search : MainNavItemModel(
         title = R.string.navigation_search,
         icon = Icons.Default.Search,
-        screenRoute = "search"
+        route = "search"
     )
-    object About : BottomNavItem(
+    object About : MainNavItemModel(
         title = R.string.navigation_about,
         icon = Icons.Default.Info,
-        screenRoute = "about"
+        route = "about"
     )
 }

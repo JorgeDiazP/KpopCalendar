@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.components
+package com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

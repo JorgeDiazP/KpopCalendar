@@ -3,5 +3,5 @@
     <!-- Bottom Navigation   -->
     <string name="navigation_calendar">Calendario</string>
     <string name="navigation_search">Buscar</string>
-    <string name="navigation_about">Info</string>
+    <string name="navigation_about">Información</string>
 </resources>
