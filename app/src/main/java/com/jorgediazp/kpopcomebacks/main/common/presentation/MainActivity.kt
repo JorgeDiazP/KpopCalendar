@@ -28,30 +28,4 @@ class MainActivity : ComponentActivity() {
             MainScreen()
         }
     }
-
-    @OptIn(ExperimentalFoundationApi::class)
-    @Composable
-    fun CalendarTest(songMap: Map<String, List<ComebackVO>>) {
-        Screen {
-            LazyColumn {
-                var currentDate = songMap.entries.iterator().next().key
-                songMap.forEach { entry ->
-                    if (currentDate != entry.key) {
-                        currentDate = entry.key
-                        stickyHeader {
-                            DayCard(text = currentDate)
-                        }
-                    }
-                    itemsIndexed(entry.value) { index, comebackVO ->
-                        SongCard(
-                            isOdd = index % 2 != 0,
-                            text = comebackVO.artist,
-                            youtubeURL = comebackVO.youtubeUrl,
-                            thumbnailUrl = comebackVO.thumbnailUrl
-                        )
-                    }
-                }
-            }
-        }
-    }
 }

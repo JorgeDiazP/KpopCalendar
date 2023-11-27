@@ -16,7 +16,6 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getComebackUseCase: GetComebackUseCase
 ) : ViewModel() {
-
     val comebackMap = MutableLiveData<Map<String, List<ComebackVO>>>()
 
     fun loadData() {
