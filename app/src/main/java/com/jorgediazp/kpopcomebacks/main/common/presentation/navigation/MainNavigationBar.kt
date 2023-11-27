@@ -29,8 +29,8 @@ fun MainNavigationBar(navController: NavHostController) {
 
     NavigationBar(
         modifier = Modifier.height(74.dp),
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
     ) {
         screens.forEach { screen ->
             NavigationBarItem(
@@ -44,7 +44,7 @@ fun MainNavigationBar(navController: NavHostController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = MaterialTheme.colorScheme.errorContainer
+                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
                 )
             )
         }
