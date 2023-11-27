@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.calendar.presentation.ui.component
+package com.jorgediazp.kpopcomebacks.main.calendar.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
