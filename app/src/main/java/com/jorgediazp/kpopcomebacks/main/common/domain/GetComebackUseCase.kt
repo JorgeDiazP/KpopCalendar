@@ -1,9 +1,8 @@
-package com.jorgediazp.kpopcomebacks.main.domain
+package com.jorgediazp.kpopcomebacks.main.common.domain
 
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
 import com.jorgediazp.kpopcomebacks.common.util.DateUtils
-import com.jorgediazp.kpopcomebacks.main.di.ComebacksRepositoryModule
-import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.common.di.ComebacksRepositoryModule
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import javax.inject.Inject

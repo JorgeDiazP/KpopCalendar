@@ -1,6 +1,6 @@
-package com.jorgediazp.kpopcomebacks.main.data
+package com.jorgediazp.kpopcomebacks.main.common.data
 
-import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
 
 class ComebackExtensions {
 

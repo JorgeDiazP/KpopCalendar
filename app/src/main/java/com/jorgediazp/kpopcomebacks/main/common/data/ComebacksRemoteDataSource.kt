@@ -1,15 +1,15 @@
-package com.jorgediazp.kpopcomebacks.main.data.remote
+package com.jorgediazp.kpopcomebacks.main.common.data
 
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
-import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.COMEBACKS_COLLECTION
-import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.COMEBACKS_FIELD
-import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.DATE_FIELD
-import com.jorgediazp.kpopcomebacks.main.data.ComebackExtensions.Companion.mapToComebackEntityList
-import com.jorgediazp.kpopcomebacks.main.domain.ComebacksDataSource
-import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebackExtensions.Companion.COMEBACKS_COLLECTION
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebackExtensions.Companion.COMEBACKS_FIELD
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebackExtensions.Companion.DATE_FIELD
+import com.jorgediazp.kpopcomebacks.main.common.data.ComebackExtensions.Companion.mapToComebackEntityList
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebacksDataSource
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

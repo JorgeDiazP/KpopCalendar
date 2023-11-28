@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom Navigation   -->
+    <string name="navigation_calendar">Calendario</string>
+    <string name="navigation_search">Buscar</string>
+    <string name="navigation_about">Información</string>
+</resources>

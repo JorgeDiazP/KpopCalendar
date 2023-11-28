@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcomebacks.main.presentation.model
+package com.jorgediazp.kpopcomebacks.main.calendar.presentation.model
 
 data class ComebackVO(
     val artist: String,

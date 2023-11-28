@@ -1,9 +1,9 @@
-package com.jorgediazp.kpopcomebacks.main.data
+package com.jorgediazp.kpopcomebacks.main.common.data
 
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
-import com.jorgediazp.kpopcomebacks.main.di.ComebacksRepositoryModule
-import com.jorgediazp.kpopcomebacks.main.domain.ComebacksDataSource
-import com.jorgediazp.kpopcomebacks.main.domain.entity.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.common.di.ComebacksRepositoryModule
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebacksDataSource
+import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
 import javax.inject.Inject
 
 class ComebacksRepository @Inject constructor(
