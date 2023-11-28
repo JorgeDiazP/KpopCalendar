@@ -46,7 +46,7 @@ fun SongCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         colors = CardDefaults.cardColors(
             containerColor = cardColor
         ),
@@ -60,7 +60,7 @@ fun SongCard(
             Text(
                 text = text,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleSmall
             )
             if (loadVideo) {
                 YoutubeVideoPlayer(youtubeURL = youtubeURL, backgroundColor = cardColor)

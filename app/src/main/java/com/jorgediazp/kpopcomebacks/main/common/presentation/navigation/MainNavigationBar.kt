@@ -35,7 +35,7 @@ fun MainNavigationBar(navController: NavHostController) {
         screens.forEach { screen ->
             NavigationBarItem(
                 icon = { Icon(imageVector = screen.icon, contentDescription = null) },
-                label = { Text(text = stringResource(screen.title), fontSize = 10.sp) },
+                label = { Text(text = stringResource(screen.title), style = MaterialTheme.typography.labelSmall) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
                     navController.navigate(screen.route) {

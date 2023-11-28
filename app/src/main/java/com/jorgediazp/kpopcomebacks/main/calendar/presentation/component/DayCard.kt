@@ -21,17 +21,17 @@ fun DayCard(
         modifier = Modifier
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
         ),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(0.dp),
     ) {
         Column {
             Text(
                 text = text,
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
                 style = MaterialTheme.typography.titleMedium
             )
             if (content != null) {
