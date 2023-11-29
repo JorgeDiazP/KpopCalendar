@@ -27,7 +27,7 @@ class CalendarViewModel @Inject constructor(
             val comebackResult = getComebackUseCase.getComebackMapByMonth(2023, 11)
             if (comebackResult is DataResult.Success && comebackResult.data != null) {
                 state.postValue(CalendarState.ShowSongList(getComebackMap(comebackResult.data)))
-                showLoading.postValue(true)
+                showLoading.postValue(false)
             } else {
                 Log.e("KPC", "Error")
             }
