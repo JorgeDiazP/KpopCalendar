@@ -13,16 +13,19 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jorgediazp.kpopcomebacks.common.ui.LoadingView
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.DayCard
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.SongCard
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
-    val songMap = viewModel.comebackMap.observeAsState()
+    val state = viewModel.state.observeAsState()
+    val showLoading = viewModel.showLoading.observeAsState()
     var refreshCount by remember { mutableIntStateOf(1) }
 
     LaunchedEffect(key1 = refreshCount) {
@@ -30,11 +33,20 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     }
 
     Screen {
-        songMap.value?.let { songMap ->
-            Column {
-                CalendarTopAppBar(title = "Noviembre")
-                CalendarTest(songMap = songMap)
+        when (state.value) {
+            is CalendarState.ShowSongList -> {
+                Column() {
+                    CalendarTopAppBar(title = "Noviembre")
+                    CalendarTest(songMap = (state.value as CalendarState.ShowSongList).comebackMap)
+                }
             }
+
+            else -> {
+                // nothing to do
+            }
+        }
+        if (showLoading.value == true) {
+            LoadingView()
         }
     }
 }

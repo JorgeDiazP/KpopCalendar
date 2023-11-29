@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
 import com.jorgediazp.kpopcomebacks.main.common.domain.GetComebackUseCase
@@ -16,13 +17,17 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getComebackUseCase: GetComebackUseCase
 ) : ViewModel() {
-    val comebackMap = MutableLiveData<Map<String, List<ComebackVO>>>()
+    val state = MutableLiveData<CalendarState>()
+    val showLoading = MutableLiveData<Boolean>()
 
     fun loadData() {
+        showLoading.postValue(true)
+
         viewModelScope.launch {
             val comebackResult = getComebackUseCase.getComebackMapByMonth(2023, 11)
             if (comebackResult is DataResult.Success && comebackResult.data != null) {
-                comebackMap.postValue(getComebackMap(comebackResult.data))
+                state.postValue(CalendarState.ShowSongList(getComebackMap(comebackResult.data)))
+                showLoading.postValue(true)
             } else {
                 Log.e("KPC", "Error")
             }
