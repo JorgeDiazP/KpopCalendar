@@ -14,7 +14,7 @@ import com.jorgediazp.kpopcomebacks.main.search.SearchScreen
 fun MainNavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = MainNavItemModel.Calendar.route) {
         composable(MainNavItemModel.Calendar.route) {
-            CalendarScreen(hiltViewModel())
+            CalendarScreen()
         }
         composable(MainNavItemModel.Search.route) {
             SearchScreen()
