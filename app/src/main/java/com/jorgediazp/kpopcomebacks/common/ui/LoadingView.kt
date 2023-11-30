@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jorgediazp.kpopcomebacks.common.theme.LocalCustomColorsPalette
 
 @Preview
 @Composable
@@ -26,7 +27,7 @@ fun LoadingView() {
         CircularProgressIndicator(
             modifier = Modifier.size(64.dp),
             strokeWidth = 8.dp,
-            color = MaterialTheme.colorScheme.surface
+            color = LocalCustomColorsPalette.current.surfaceVariantSecondary
         )
     }
 }
