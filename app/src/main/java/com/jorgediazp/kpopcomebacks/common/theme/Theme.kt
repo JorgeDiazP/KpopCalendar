@@ -107,7 +107,8 @@ fun KpopComebacksTheme(
 //        darkTheme -> DarkColorScheme
 //        else -> LightColorScheme
 //    }
-    val colorScheme = if(darkTheme) DarkColorScheme else LightColorScheme
+//    val colorScheme = if(darkTheme) DarkColorScheme else LightColorScheme
+    val colorScheme = LightColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -118,9 +119,10 @@ fun KpopComebacksTheme(
     }
 
     // logic for which custom palette to use
-    val customColorsPalette =
-        if (darkTheme) DarkCustomColorsPalette
-        else LightCustomColorsPalette
+//    val customColorsPalette =
+//        if (darkTheme) DarkCustomColorsPalette
+//        else LightCustomColorsPalette
+    val customColorsPalette = LightCustomColorsPalette
 
     // here is the important point, where you will expose custom objects
     CompositionLocalProvider(
