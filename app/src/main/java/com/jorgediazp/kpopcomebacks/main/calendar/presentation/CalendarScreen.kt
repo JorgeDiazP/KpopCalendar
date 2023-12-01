@@ -7,14 +7,11 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jorgediazp.kpopcomebacks.common.ui.LoadingView
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.CalendarPicker
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.DayCard
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.SongCard
@@ -26,17 +23,19 @@ import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     val state = viewModel.state.observeAsState()
     val showLoading = viewModel.showLoading.observeAsState()
-    var refreshCount by remember { mutableIntStateOf(1) }
+    val showCalendarPicker = viewModel.showCalendarPicker.observeAsState()
 
-    LaunchedEffect(key1 = refreshCount) {
+    LaunchedEffect(key1 = viewModel) {
         viewModel.loadData()
     }
 
     Screen {
         when (state.value) {
             is CalendarState.ShowSongList -> {
-                Column() {
-                    CalendarTopAppBar(title = "Noviembre")
+                Column {
+                    CalendarTopAppBar(
+                        title = "Noviembre",
+                        onShowCalendarClick = { viewModel.showCalendarPicker.postValue(true) })
                     CalendarTest(songMap = (state.value as CalendarState.ShowSongList).comebackMap)
                 }
             }
@@ -47,6 +46,9 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
         }
         if (showLoading.value == true) {
             LoadingView()
+        }
+        if (showCalendarPicker.value == true) {
+            CalendarPicker(onCancel = {}, onAccept = {})
         }
     }
 }

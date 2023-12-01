@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">KpopComebacks</string>
 
-    <!-- Bottom Navigation   -->
+    <!-- Common -->
+
+    <!-- Bottom Navigation -->
     <string name="navigation_calendar">Calendar</string>
     <string name="navigation_search">Search</string>
     <string name="navigation_about">About</string>

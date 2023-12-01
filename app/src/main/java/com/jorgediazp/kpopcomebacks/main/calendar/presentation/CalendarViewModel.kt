@@ -19,6 +19,7 @@ class CalendarViewModel @Inject constructor(
 ) : ViewModel() {
     val state = MutableLiveData<CalendarState>()
     val showLoading = MutableLiveData<Boolean>()
+    val showCalendarPicker = MutableLiveData<Boolean>()
 
     fun loadData() {
         showLoading.postValue(true)
