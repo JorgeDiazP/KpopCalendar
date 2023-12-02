@@ -1,15 +1,16 @@
 package com.jorgediazp.kpopcomebacks.main.calendar.presentation
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarState
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
 import com.jorgediazp.kpopcomebacks.main.common.domain.GetComebackUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,21 +18,26 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getComebackUseCase: GetComebackUseCase
 ) : ViewModel() {
-    val state = MutableLiveData<CalendarState>()
-    val showLoading = MutableLiveData<Boolean>()
-    val showCalendarPicker = MutableLiveData<Boolean>()
+    val backgroundState =
+        MutableStateFlow<CalendarScreenBackgroundState>(CalendarScreenBackgroundState.ShowNothing)
+    val foregroundState =
+        MutableStateFlow<CalendarScreenForegroundState>(CalendarScreenForegroundState.ShowNothing)
 
     fun loadData() {
-        showLoading.postValue(true)
+        foregroundState.value = CalendarScreenForegroundState.ShowLoading
 
         viewModelScope.launch {
             val comebackResult = getComebackUseCase.getComebackMapByMonth(2023, 11)
             if (comebackResult is DataResult.Success && comebackResult.data != null) {
-                state.postValue(CalendarState.ShowSongList(getComebackMap(comebackResult.data)))
-                showLoading.postValue(false)
+                backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
+                    getComebackMap(
+                        comebackResult.data
+                    )
+                )
             } else {
                 Log.e("KPC", "Error")
             }
+            foregroundState.value = CalendarScreenForegroundState.ShowNothing
         }
     }
 

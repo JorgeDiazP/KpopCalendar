@@ -7,48 +7,62 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcomebacks.common.ui.LoadingView
 import com.jorgediazp.kpopcomebacks.common.ui.Screen
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.CalendarPicker
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.DayCard
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.SongCard
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarState
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
-    val state = viewModel.state.observeAsState()
-    val showLoading = viewModel.showLoading.observeAsState()
-    val showCalendarPicker = viewModel.showCalendarPicker.observeAsState()
+    val backgroundState = viewModel.backgroundState.collectAsStateWithLifecycle()
+    val foregroundState = viewModel.foregroundState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = viewModel) {
         viewModel.loadData()
     }
 
     Screen {
-        when (state.value) {
-            is CalendarState.ShowSongList -> {
+        when (backgroundState.value) {
+            is CalendarScreenBackgroundState.ShowNothing -> {
+                // nothing to do
+            }
+
+            is CalendarScreenBackgroundState.ShowSongList -> {
                 Column {
                     CalendarTopAppBar(
                         title = "Noviembre",
-                        onShowCalendarClick = { viewModel.showCalendarPicker.value = true })
-                    CalendarTest(songMap = (state.value as CalendarState.ShowSongList).comebackMap)
+                        onShowCalendarClick = {
+                            viewModel.foregroundState.value =
+                                CalendarScreenForegroundState.ShowCalendarPicker
+                        })
+                    CalendarTest(songMap = (backgroundState.value as CalendarScreenBackgroundState.ShowSongList).comebackMap)
                 }
             }
-
-            else -> {
+        }
+        when (foregroundState.value) {
+            CalendarScreenForegroundState.ShowNothing -> {
                 // nothing to do
             }
-        }
-        if (showLoading.value == true) {
-            LoadingView()
-        }
-        if (showCalendarPicker.value == true) {
-            CalendarPicker(onCancel = {}, onAccept = {})
+
+            CalendarScreenForegroundState.ShowLoading -> {
+                LoadingView()
+            }
+
+            CalendarScreenForegroundState.ShowCalendarPicker -> {
+                CalendarPicker(
+                    onAccept = {},
+                    onCancel = {
+                        viewModel.foregroundState.value = CalendarScreenForegroundState.ShowNothing
+                    })
+            }
         }
     }
 }

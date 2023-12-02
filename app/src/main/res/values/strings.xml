@@ -2,6 +2,8 @@
     <string name="app_name" translatable="false">KpopComebacks</string>
 
     <!-- Common -->
+    <string name="accept">OK</string>
+    <string name="cancel">CANCEL</string>
 
     <!-- Bottom Navigation -->
     <string name="navigation_calendar">Calendar</string>
