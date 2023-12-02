@@ -35,7 +35,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 Column {
                     CalendarTopAppBar(
                         title = "Noviembre",
-                        onShowCalendarClick = { viewModel.showCalendarPicker.postValue(true) })
+                        onShowCalendarClick = { viewModel.showCalendarPicker.value = true })
                     CalendarTest(songMap = (state.value as CalendarState.ShowSongList).comebackMap)
                 }
             }
