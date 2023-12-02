@@ -15,23 +15,31 @@ import javax.inject.Inject
 
 class ComebacksRemoteDataSource @Inject constructor() : ComebacksDataSource {
 
+    companion object {
+        private const val FIRESTORE_IN_MAX_SIZE = 30
+    }
+
     override suspend fun getComebackMap(dateList: List<String>): DataResult<Map<String, List<ComebackEntity>>> {
         return try {
-            val db = Firebase.firestore
-            val result = db.collection(COMEBACKS_COLLECTION)
-                .whereIn(DATE_FIELD, dateList)
-                .get()
-                .await()
-
             val comebackMap: MutableMap<String, List<ComebackEntity>> =
                 dateList.associateBy({ date -> date }, { mutableListOf<ComebackEntity>() })
                     .toMutableMap()
-            result.documents.forEach { document ->
-                try {
-                    comebackMap[document.get(DATE_FIELD) as String] =
-                        (document.get(COMEBACKS_FIELD) as List<HashMap<String, Any>>).mapToComebackEntityList()
-                } catch (e: Exception) {
-                    Firebase.crashlytics.recordException(e)
+
+            val db = Firebase.firestore
+
+            dateList.chunked(FIRESTORE_IN_MAX_SIZE).forEach { dateListChunk ->
+                val result = db.collection(COMEBACKS_COLLECTION)
+                    .whereIn(DATE_FIELD, dateListChunk)
+                    .get()
+                    .await()
+
+                result.documents.forEach { document ->
+                    try {
+                        comebackMap[document.get(DATE_FIELD) as String] =
+                            (document.get(COMEBACKS_FIELD) as List<HashMap<String, Any>>).mapToComebackEntityList()
+                    } catch (e: Exception) {
+                        Firebase.crashlytics.recordException(e)
+                    }
                 }
             }
             DataResult.Success(data = comebackMap)

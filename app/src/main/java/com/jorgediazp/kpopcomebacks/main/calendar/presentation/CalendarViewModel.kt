@@ -12,6 +12,9 @@ import com.jorgediazp.kpopcomebacks.main.common.domain.GetComebackUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,28 +27,42 @@ class CalendarViewModel @Inject constructor(
         MutableStateFlow<CalendarScreenForegroundState>(CalendarScreenForegroundState.ShowNothing)
 
     fun loadData() {
-        foregroundState.value = CalendarScreenForegroundState.ShowLoading
-
-        viewModelScope.launch {
-            val comebackResult = getComebackUseCase.getComebackMapByMonth(2023, 11)
-            if (comebackResult is DataResult.Success && comebackResult.data != null) {
-                backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
-                    getComebackMap(
-                        comebackResult.data
-                    )
-                )
-            } else {
-                Log.e("KPC", "Error")
-            }
-            foregroundState.value = CalendarScreenForegroundState.ShowNothing
-        }
+        loadSongList(System.currentTimeMillis())
     }
 
-    fun initDatePicker() {
+    fun loadDatePicker() {
         val minTimestamp = 1577836800000
         val maxTimestamp = 1735689599000
         foregroundState.value =
             CalendarScreenForegroundState.ShowCalendarPicker(minTimestamp, maxTimestamp)
+    }
+
+    fun loadSongList(selectedDateMillis: Long?) {
+        selectedDateMillis?.let {
+            val date = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(selectedDateMillis),
+                ZoneId.systemDefault()
+            )
+            foregroundState.value = CalendarScreenForegroundState.ShowLoading
+
+            viewModelScope.launch {
+                val comebackResult =
+                    getComebackUseCase.getComebackMapByMonth(date.year, date.monthValue)
+                if (comebackResult is DataResult.Success && comebackResult.data != null) {
+                    backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
+                        getComebackMap(
+                            comebackResult.data
+                        )
+                    )
+                } else {
+                    Log.e("KPC", "Error")
+                }
+                foregroundState.value = CalendarScreenForegroundState.ShowNothing
+            }
+
+        } ?: {
+            foregroundState.value = CalendarScreenForegroundState.ShowNothing
+        }
     }
 
     private fun getComebackMap(remoteMap: Map<String, List<ComebackEntity>>): Map<String, List<ComebackVO>> {
