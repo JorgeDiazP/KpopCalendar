@@ -4,5 +4,5 @@ sealed class CalendarScreenBackgroundState {
 
     data object ShowNothing : CalendarScreenBackgroundState()
 
-    class ShowSongList(val comebackMap: Map<String, List<ComebackVO>>) : CalendarScreenBackgroundState()
+    data class ShowSongList(val comebackMap: Map<String, List<ComebackVO>>) : CalendarScreenBackgroundState()
 }

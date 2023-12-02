@@ -14,7 +14,12 @@ import com.jorgediazp.kpopcomebacks.common.theme.KpopComebacksTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarPicker(onAccept: (selectedDateMillis: Long?) -> Unit, onCancel: () -> Unit) {
+fun CalendarPicker(
+    minTimestamp: Long,
+    maxTimestamp: Long,
+    onAccept: (selectedDateMillis: Long?) -> Unit,
+    onCancel: () -> Unit
+) {
     val state = rememberDatePickerState()
 
     DatePickerDialog(
@@ -35,7 +40,9 @@ fun CalendarPicker(onAccept: (selectedDateMillis: Long?) -> Unit, onCancel: () -
                 Text(text = stringResource(id = R.string.cancel))
             }
         }) {
-        DatePicker(state = state)
+        DatePicker(
+            state = state,
+            dateValidator = { timestamp -> timestamp in minTimestamp..maxTimestamp })
     }
 }
 
@@ -43,6 +50,10 @@ fun CalendarPicker(onAccept: (selectedDateMillis: Long?) -> Unit, onCancel: () -
 @Composable
 private fun CalendarPickerPreview() {
     KpopComebacksTheme {
-        CalendarPicker({}, {})
+        CalendarPicker(
+            minTimestamp = 0,
+            maxTimestamp = Long.MAX_VALUE,
+            onAccept = {},
+            onCancel = {})
     }
 }

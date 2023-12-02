@@ -6,5 +6,5 @@ sealed class CalendarScreenForegroundState {
 
     data object ShowLoading : CalendarScreenForegroundState()
 
-    data object ShowCalendarPicker : CalendarScreenForegroundState()
+    data class ShowCalendarPicker(val minTimestamp: Long, val maxTimestamp: Long) : CalendarScreenForegroundState()
 }

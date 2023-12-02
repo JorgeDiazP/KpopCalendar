@@ -39,29 +39,32 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 Column {
                     CalendarTopAppBar(
                         title = "Noviembre",
-                        onShowCalendarClick = {
-                            viewModel.foregroundState.value =
-                                CalendarScreenForegroundState.ShowCalendarPicker
-                        })
+                        onShowCalendarClick = { viewModel.initDatePicker() }
+                    )
                     CalendarTest(songMap = (backgroundState.value as CalendarScreenBackgroundState.ShowSongList).comebackMap)
                 }
             }
         }
         when (foregroundState.value) {
-            CalendarScreenForegroundState.ShowNothing -> {
+            is CalendarScreenForegroundState.ShowNothing -> {
                 // nothing to do
             }
 
-            CalendarScreenForegroundState.ShowLoading -> {
+            is CalendarScreenForegroundState.ShowLoading -> {
                 LoadingView()
             }
 
-            CalendarScreenForegroundState.ShowCalendarPicker -> {
-                CalendarPicker(
-                    onAccept = {},
-                    onCancel = {
-                        viewModel.foregroundState.value = CalendarScreenForegroundState.ShowNothing
-                    })
+            is CalendarScreenForegroundState.ShowCalendarPicker -> {
+                (foregroundState.value as CalendarScreenForegroundState.ShowCalendarPicker).let { state ->
+                    CalendarPicker(
+                        minTimestamp = state.minTimestamp,
+                        maxTimestamp = state.maxTimestamp,
+                        onAccept = {},
+                        onCancel = {
+                            viewModel.foregroundState.value =
+                                CalendarScreenForegroundState.ShowNothing
+                        })
+                }
             }
         }
     }

@@ -41,6 +41,13 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
+    fun initDatePicker() {
+        val minTimestamp = 1577836800000
+        val maxTimestamp = 1735689599000
+        foregroundState.value =
+            CalendarScreenForegroundState.ShowCalendarPicker(minTimestamp, maxTimestamp)
+    }
+
     private fun getComebackMap(remoteMap: Map<String, List<ComebackEntity>>): Map<String, List<ComebackVO>> {
         val comebackMap = mutableMapOf<String, List<ComebackVO>>()
         remoteMap.forEach { (dateString, comebackEntityList) ->
