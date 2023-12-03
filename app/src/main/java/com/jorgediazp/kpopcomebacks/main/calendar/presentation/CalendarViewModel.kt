@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,7 +42,7 @@ class CalendarViewModel @Inject constructor(
 
     fun loadSongList(selectedDateMillis: Long?) {
         selectedDateMillis?.let {
-            val date = LocalDateTime.ofInstant(
+            val dateTime = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(selectedDateMillis),
                 ZoneId.systemDefault()
             )
@@ -49,12 +50,11 @@ class CalendarViewModel @Inject constructor(
 
             viewModelScope.launch {
                 val comebackResult =
-                    getComebackUseCase.getComebackMapByMonth(date.year, date.monthValue)
+                    getComebackUseCase.getComebackMapByMonth(dateTime.year, dateTime.monthValue)
                 if (comebackResult is DataResult.Success && comebackResult.data != null) {
                     backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
-                        getComebackMap(
-                            comebackResult.data
-                        )
+                        topBarTitle = getMonthTitle(dateTime),
+                        comebackMap = getComebackMap(comebackResult.data)
                     )
                 } else {
                     Log.e("KPC", "Error")
@@ -65,6 +65,11 @@ class CalendarViewModel @Inject constructor(
         } ?: {
             foregroundState.value = CalendarScreenForegroundState.ShowNothing
         }
+    }
+
+    private fun getMonthTitle(dateTime: LocalDateTime): String {
+        val pattern = if (dateTime.year == LocalDateTime.now().year) "MMMM" else "MMMM yyyy"
+        return dateTime.format(DateTimeFormatter.ofPattern(pattern)).replaceFirstChar(Char::uppercase)
     }
 
     private fun getComebackMap(remoteMap: Map<String, List<ComebackEntity>>): Map<String, List<ComebackVO>> {

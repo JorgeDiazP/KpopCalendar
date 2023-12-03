@@ -38,12 +38,14 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
             }
 
             is CalendarScreenBackgroundState.ShowSongList -> {
-                Column {
-                    CalendarTopAppBar(
-                        title = "Noviembre",
-                        onShowCalendarClick = { viewModel.loadDatePicker() }
-                    )
-                    CalendarTest(songMap = (backgroundState.value as CalendarScreenBackgroundState.ShowSongList).comebackMap)
+                (backgroundState.value as CalendarScreenBackgroundState.ShowSongList).let { state ->
+                    Column {
+                        CalendarTopAppBar(
+                            title = state.topBarTitle,
+                            onShowCalendarClick = { viewModel.loadDatePicker() }
+                        )
+                        CalendarTest(songMap = state.comebackMap)
+                    }
                 }
             }
         }
