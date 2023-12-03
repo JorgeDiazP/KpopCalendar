@@ -26,7 +26,9 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     val foregroundState = viewModel.foregroundState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = viewModel) {
-        viewModel.loadData()
+        if (!viewModel.dataLoaded) {
+            viewModel.loadData()
+        }
     }
 
     Screen {

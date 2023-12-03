@@ -21,12 +21,14 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getComebackUseCase: GetComebackUseCase
 ) : ViewModel() {
+    var dataLoaded = false
     val backgroundState =
         MutableStateFlow<CalendarScreenBackgroundState>(CalendarScreenBackgroundState.ShowNothing)
     val foregroundState =
         MutableStateFlow<CalendarScreenForegroundState>(CalendarScreenForegroundState.ShowNothing)
 
     fun loadData() {
+        dataLoaded = true
         loadSongList(System.currentTimeMillis())
     }
 

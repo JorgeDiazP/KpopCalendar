@@ -40,8 +40,9 @@ fun MainNavigationBar(navController: NavHostController) {
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
                     navController.navigate(screen.route) {
-                        popUpTo(navController.graph.startDestinationId)
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
                         launchSingleTop = true
+                        restoreState = true
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
