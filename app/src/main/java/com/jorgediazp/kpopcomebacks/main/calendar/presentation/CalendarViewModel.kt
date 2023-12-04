@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
+import com.jorgediazp.kpopcomebacks.common.util.DateUtils.Companion.MONTH_AND_YEAR_DATE_FORMAT
+import com.jorgediazp.kpopcomebacks.common.util.DateUtils.Companion.MONTH_DATE_FORMAT
 import com.jorgediazp.kpopcomebacks.common.util.FirebaseRemoteConfigKey
-import com.jorgediazp.kpopcomebacks.common.util.FirebaseUtils
+import com.jorgediazp.kpopcomebacks.common.util.FirebaseUtils.Companion.getRemoteConfigLong
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
@@ -37,10 +39,8 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun loadDatePicker() {
-        val minTimestamp =
-            FirebaseUtils.getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MIN_TIME)
-        val maxTimestamp =
-            FirebaseUtils.getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MAX_TIME)
+        val minTimestamp = getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MIN_TIME)
+        val maxTimestamp = getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MAX_TIME)
         foregroundState.value =
             CalendarScreenForegroundState.ShowCalendarPicker(minTimestamp, maxTimestamp)
     }
@@ -73,7 +73,8 @@ class CalendarViewModel @Inject constructor(
     }
 
     private fun getMonthTitle(dateTime: LocalDateTime): String {
-        val pattern = if (dateTime.year == LocalDateTime.now().year) "MMMM" else "MMMM yyyy"
+        val pattern =
+            if (dateTime.year == LocalDateTime.now().year) MONTH_DATE_FORMAT else MONTH_AND_YEAR_DATE_FORMAT
         return dateTime.format(DateTimeFormatter.ofPattern(pattern))
             .replaceFirstChar(Char::uppercase)
     }
