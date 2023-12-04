@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
+import com.jorgediazp.kpopcomebacks.common.util.FirebaseRemoteConfigKey
+import com.jorgediazp.kpopcomebacks.common.util.FirebaseUtils
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
@@ -22,6 +24,7 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getComebackUseCase: GetComebackUseCase
 ) : ViewModel() {
+
     var dataLoaded = false
     val backgroundState =
         MutableStateFlow<CalendarScreenBackgroundState>(CalendarScreenBackgroundState.ShowNothing)
@@ -34,8 +37,10 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun loadDatePicker() {
-        val minTimestamp = 1577836800000
-        val maxTimestamp = 1735689599000
+        val minTimestamp =
+            FirebaseUtils.getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MIN_TIME)
+        val maxTimestamp =
+            FirebaseUtils.getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MAX_TIME)
         foregroundState.value =
             CalendarScreenForegroundState.ShowCalendarPicker(minTimestamp, maxTimestamp)
     }
@@ -69,7 +74,8 @@ class CalendarViewModel @Inject constructor(
 
     private fun getMonthTitle(dateTime: LocalDateTime): String {
         val pattern = if (dateTime.year == LocalDateTime.now().year) "MMMM" else "MMMM yyyy"
-        return dateTime.format(DateTimeFormatter.ofPattern(pattern)).replaceFirstChar(Char::uppercase)
+        return dateTime.format(DateTimeFormatter.ofPattern(pattern))
+            .replaceFirstChar(Char::uppercase)
     }
 
     private fun getComebackMap(remoteMap: Map<String, List<ComebackEntity>>): Map<String, List<ComebackVO>> {
