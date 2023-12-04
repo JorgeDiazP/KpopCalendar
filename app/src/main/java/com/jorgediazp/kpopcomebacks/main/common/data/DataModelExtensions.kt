@@ -1,8 +1,8 @@
 package com.jorgediazp.kpopcomebacks.main.common.data
 
-import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.common.domain.SongDomainModel
 
-class ComebackExtensions {
+class DataModelExtensions {
 
     companion object {
 
@@ -19,11 +19,10 @@ class ComebackExtensions {
         const val TEASER_POSTER_FIELD = "teaserPoster"
         const val TEASER_VIDEO_FIELD = "teaserVideo"
 
-        fun HashMap<String, Any>.mapToComebackEntity(): ComebackEntity {
-            return ComebackEntity(
-                artist = this[ARTIST_FIELD] as String?
-                    ?: (this[ARTISTS_FIELD] as List<String>?)?.joinToString()
-                    ?: throw IllegalStateException("artist is null"),
+        fun HashMap<String, Any>.toDomainModel(): SongDomainModel {
+            return SongDomainModel(
+                artist = this[ARTIST_FIELD] as String?,
+                artists = this[ARTISTS_FIELD] as List<String>?,
                 titleTrack = this[TITLE_TRACK_FIELD] as String?,
                 musicVideo = this[MUSIC_VIDEO_FIELD] as String?,
                 album = this[ALBUM_FIELD] as String?,
@@ -31,10 +30,6 @@ class ComebackExtensions {
                 teaserPoster = this[TEASER_POSTER_FIELD] as String?,
                 teaserVideo = this[TEASER_VIDEO_FIELD] as String?
             )
-        }
-
-        fun List<HashMap<String, Any>>.mapToComebackEntityList(): List<ComebackEntity> {
-            return this.map { it.mapToComebackEntity() }
         }
     }
 }

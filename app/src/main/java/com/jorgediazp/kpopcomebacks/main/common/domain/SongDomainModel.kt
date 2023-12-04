@@ -1,7 +1,8 @@
 package com.jorgediazp.kpopcomebacks.main.common.domain
 
-data class ComebackEntity(
-    val artist: String,
+data class SongDomainModel(
+    val artist: String?,
+    val artists: List<String>?,
     val titleTrack: String?,
     val musicVideo: String?,
     val album: String?,

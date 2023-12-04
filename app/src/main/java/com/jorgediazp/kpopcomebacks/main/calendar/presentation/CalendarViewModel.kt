@@ -3,6 +3,8 @@ package com.jorgediazp.kpopcomebacks.main.calendar.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcomebacks.common.util.DataResult
 import com.jorgediazp.kpopcomebacks.common.util.DateUtils.Companion.MONTH_AND_YEAR_DATE_FORMAT
 import com.jorgediazp.kpopcomebacks.common.util.DateUtils.Companion.MONTH_DATE_FORMAT
@@ -10,8 +12,9 @@ import com.jorgediazp.kpopcomebacks.common.util.FirebaseRemoteConfigKey
 import com.jorgediazp.kpopcomebacks.common.util.FirebaseUtils.Companion.getRemoteConfigLong
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
-import com.jorgediazp.kpopcomebacks.main.common.domain.ComebackEntity
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcomebacks.main.common.domain.SongDomainModel
 import com.jorgediazp.kpopcomebacks.main.common.domain.GetComebackUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +38,7 @@ class CalendarViewModel @Inject constructor(
 
     fun loadData() {
         dataLoaded = true
-        loadSongList(System.currentTimeMillis())
+        loadSongList(Instant.now().toEpochMilli())
     }
 
     fun loadDatePicker() {
@@ -79,31 +82,19 @@ class CalendarViewModel @Inject constructor(
             .replaceFirstChar(Char::uppercase)
     }
 
-    private fun getComebackMap(remoteMap: Map<String, List<ComebackEntity>>): Map<String, List<ComebackVO>> {
-        val comebackMap = mutableMapOf<String, List<ComebackVO>>()
+    private fun getComebackMap(remoteMap: Map<String, List<SongDomainModel>>): Map<String, List<SongPresentationModel>> {
+        val comebackMap = mutableMapOf<String, List<SongPresentationModel>>()
         remoteMap.forEach { (dateString, comebackEntityList) ->
-            val comebackList = mutableListOf<ComebackVO>()
-            comebackEntityList.forEach { comebackEntity ->
-                comebackList.add(
-                    ComebackVO(
-                        artist = comebackEntity.artist + " - " + comebackEntity.titleTrack,
-                        youtubeUrl = getYoutubeUrl(comebackEntity.musicVideo ?: "=a"),
-                        thumbnailUrl = getThumbnailUrl(comebackEntity.musicVideo ?: "=a")
-                    )
-                )
+            val comebackList = mutableListOf<SongPresentationModel>()
+            comebackEntityList.forEach { songDomain ->
+                try {
+                    comebackList.add(songDomain.toPresentationModel())
+                } catch (e: Exception) {
+                    Firebase.crashlytics.recordException(e)
+                }
             }
-            comebackMap.put(dateString, comebackList)
+            comebackMap[dateString] = comebackList
         }
         return comebackMap
-    }
-
-    private fun getYoutubeUrl(youtubeUrl: String): String {
-        val id = youtubeUrl.substringAfter(".be/").substringBefore("?")
-        return "https://www.youtube.com/watch?v=${id}"
-    }
-
-    private fun getThumbnailUrl(youtubeUrl: String): String {
-        val id = youtubeUrl.substringAfter(".be/").substringBefore("?")
-        return "https://img.youtube.com/vi/${id}/0.jpg"
     }
 }

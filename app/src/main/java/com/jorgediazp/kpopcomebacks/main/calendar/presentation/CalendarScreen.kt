@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,9 +16,8 @@ import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.DayCard
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.component.SongCard
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.CalendarScreenForegroundState
-import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.ComebackVO
+import com.jorgediazp.kpopcomebacks.main.calendar.presentation.model.SongPresentationModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     val backgroundState = viewModel.backgroundState.collectAsStateWithLifecycle()
@@ -76,7 +74,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CalendarTest(songMap: Map<String, List<ComebackVO>>) {
+fun CalendarTest(songMap: Map<String, List<SongPresentationModel>>) {
     LazyColumn {
         var currentDate = songMap.entries.iterator().next().key
         songMap.forEach { entry ->
@@ -86,12 +84,12 @@ fun CalendarTest(songMap: Map<String, List<ComebackVO>>) {
                     DayCard(text = currentDate)
                 }
             }
-            itemsIndexed(entry.value) { index, comebackVO ->
+            itemsIndexed(entry.value) { index, song ->
                 SongCard(
                     isOdd = index % 2 != 0,
-                    text = comebackVO.artist,
-                    youtubeURL = comebackVO.youtubeUrl,
-                    thumbnailUrl = comebackVO.thumbnailUrl
+                    text = song.text,
+                    youtubeURL = song.youtubeUrl ?: "",
+                    thumbnailUrl = song.thumbnailUrl ?: ""
                 )
             }
         }

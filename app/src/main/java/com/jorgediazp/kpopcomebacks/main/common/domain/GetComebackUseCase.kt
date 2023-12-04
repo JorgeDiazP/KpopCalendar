@@ -14,7 +14,7 @@ class GetComebackUseCase @Inject constructor(
     suspend fun getComebackMapByMonth(
         year: Int,
         month: Int
-    ): DataResult<Map<String, List<ComebackEntity>>> {
+    ): DataResult<Map<String, List<SongDomainModel>>> {
         val calendar = GregorianCalendar()
         calendar.set(year, month - 1, 1)
         val daysInMonth = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
