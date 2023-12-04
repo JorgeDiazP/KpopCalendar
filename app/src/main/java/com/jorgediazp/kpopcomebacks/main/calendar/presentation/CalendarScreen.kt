@@ -76,13 +76,13 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 @Composable
 fun CalendarTest(songMap: Map<String, List<SongPresentationModel>>) {
     LazyColumn {
-        var currentDate = songMap.entries.iterator().next().key
+        var currentDate = ""
         songMap.forEach { entry ->
             if (currentDate != entry.key) {
-                currentDate = entry.key
                 stickyHeader {
-                    DayCard(text = currentDate)
+                    DayCard(text = entry.key)
                 }
+                currentDate = entry.key
             }
             itemsIndexed(entry.value) { index, song ->
                 SongCard(

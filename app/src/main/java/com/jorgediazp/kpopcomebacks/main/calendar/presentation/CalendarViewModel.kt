@@ -62,7 +62,7 @@ class CalendarViewModel @Inject constructor(
                 if (comebackResult is DataResult.Success && comebackResult.data != null) {
                     backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
                         topBarTitle = getMonthTitle(dateTime),
-                        comebackMap = getComebackMap(comebackResult.data)
+                        comebackMap = getPresentationSongMap(comebackResult.data)
                     )
                 } else {
                     Log.e("KPC", "Error")
@@ -82,9 +82,9 @@ class CalendarViewModel @Inject constructor(
             .replaceFirstChar(Char::uppercase)
     }
 
-    private fun getComebackMap(remoteMap: Map<String, List<SongDomainModel>>): Map<String, List<SongPresentationModel>> {
-        val comebackMap = mutableMapOf<String, List<SongPresentationModel>>()
-        remoteMap.forEach { (dateString, comebackEntityList) ->
+    private fun getPresentationSongMap(domainMap: Map<String, List<SongDomainModel>>): Map<String, List<SongPresentationModel>> {
+        val presentationMap = mutableMapOf<String, List<SongPresentationModel>>()
+        domainMap.forEach { (dateString, comebackEntityList) ->
             val comebackList = mutableListOf<SongPresentationModel>()
             comebackEntityList.forEach { songDomain ->
                 try {
@@ -93,8 +93,8 @@ class CalendarViewModel @Inject constructor(
                     Firebase.crashlytics.recordException(e)
                 }
             }
-            comebackMap[dateString] = comebackList
+            presentationMap[dateString] = comebackList
         }
-        return comebackMap
+        return presentationMap
     }
 }
