@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">KpopComebacks</string>
+    <string name="app_name" translatable="false">Kpop Calendar</string>
 
     <!-- Common -->
     <string name="accept">OK</string>

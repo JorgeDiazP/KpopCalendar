@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.jorgediazp.kpopcomebacks"
+    namespace = "com.jorgediazp.kpopcalendar"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.jorgediazp.kpopcomebacks"
+        applicationId = "com.jorgediazp.kpopcalendar"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

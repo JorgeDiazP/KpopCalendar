@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KpopComebacks"
+rootProject.name = "KpopCalendar"
 include(":app")
  
