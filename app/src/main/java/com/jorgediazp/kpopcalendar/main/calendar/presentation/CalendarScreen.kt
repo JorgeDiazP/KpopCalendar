@@ -16,7 +16,7 @@ import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.DayCard
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.SongCard
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenForegroundState
-import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.DatePresentationModel
 
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
@@ -35,16 +35,20 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 // nothing to do
             }
 
-            is CalendarScreenBackgroundState.ShowSongList -> {
-                (backgroundState.value as CalendarScreenBackgroundState.ShowSongList).let { state ->
+            is CalendarScreenBackgroundState.ShowDateList -> {
+                (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
                     Column {
                         CalendarTopAppBar(
                             title = state.topBarTitle,
                             onShowCalendarClick = { viewModel.loadDatePicker() }
                         )
-                        CalendarTest(songMap = state.songMap)
+                        CalendarTest(dateList = state.dateList)
                     }
                 }
+            }
+
+            is CalendarScreenBackgroundState.ShowError -> {
+                // TODO
             }
         }
         when (foregroundState.value) {
@@ -61,7 +65,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                     CalendarPicker(
                         minTimestamp = state.minTimestamp,
                         maxTimestamp = state.maxTimestamp,
-                        onAccept = { selectedDateMillis -> viewModel.loadSongList(selectedDateMillis) },
+                        onAccept = { selectedDateMillis -> viewModel.loadDateList(selectedDateMillis) },
                         onCancel = {
                             viewModel.foregroundState.value =
                                 CalendarScreenForegroundState.ShowNothing
@@ -74,17 +78,17 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CalendarTest(songMap: Map<String, List<SongPresentationModel>>) {
+fun CalendarTest(dateList: List<DatePresentationModel>) {
     LazyColumn {
         var currentDate = ""
-        songMap.forEach { entry ->
-            if (currentDate != entry.key) {
+        dateList.forEach { dateModel ->
+            if (currentDate != dateModel.date) {
                 stickyHeader {
-                    DayCard(text = entry.key)
+                    DayCard(text = dateModel.date, isToday = dateModel.isToday)
                 }
-                currentDate = entry.key
+                currentDate = dateModel.date
             }
-            itemsIndexed(entry.value) { index, song ->
+            itemsIndexed(dateModel.songList) { index, song ->
                 SongCard(
                     isOdd = index % 2 != 0,
                     text = song.text,

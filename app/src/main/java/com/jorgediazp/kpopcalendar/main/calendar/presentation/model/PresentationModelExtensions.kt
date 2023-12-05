@@ -9,7 +9,7 @@ class PresentationModelExtensions {
 
     companion object {
 
-        fun SongDomainModel.toPresentationModel(): SongPresentationModel {
+        fun SongDomainModel.toPresentationModel(isOddRow: Boolean): SongPresentationModel {
             val type =
                 if (isValidYoutubeUrl(musicVideo)) SongPresentationType.RELEASED
                 else if (isValidYoutubeUrl(teaserVideo)) SongPresentationType.TEASER
@@ -51,7 +51,8 @@ class PresentationModelExtensions {
                 album = album,
                 ost = ost,
                 youtubeUrl = youtubeUrl,
-                thumbnailUrl = thumbnailUrl
+                thumbnailUrl = thumbnailUrl,
+                isOddRow = isOddRow
             )
         }
     }

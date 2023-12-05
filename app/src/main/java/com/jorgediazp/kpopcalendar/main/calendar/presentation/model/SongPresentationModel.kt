@@ -9,4 +9,5 @@ data class SongPresentationModel(
     val ost: String?,
     val youtubeUrl: String?,
     val thumbnailUrl: String?,
+    val isOddRow: Boolean
 )

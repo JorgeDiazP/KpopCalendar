@@ -7,7 +7,7 @@ class DateUtils {
 
     companion object {
 
-        const val COMEBACK_DATE_FORMAT = "yyyyMMdd"
+        const val SONG_DATE_FORMAT = "yyyyMMdd"
         const val MONTH_DATE_FORMAT = "MMMM"
         const val MONTH_AND_YEAR_DATE_FORMAT = "MMMM yyyy"
 

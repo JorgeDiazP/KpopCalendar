@@ -18,7 +18,7 @@ class GetSongsUseCase @Inject constructor(
         val calendar = GregorianCalendar()
         calendar.set(year, month - 1, 1)
         val daysInMonth = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
-        val sdf = SimpleDateFormat(DateUtils.COMEBACK_DATE_FORMAT)
+        val sdf = SimpleDateFormat(DateUtils.SONG_DATE_FORMAT)
         val dateList = mutableListOf<String>()
         for (i in 1..daysInMonth) {
             dateList.add(sdf.format(calendar.time))
