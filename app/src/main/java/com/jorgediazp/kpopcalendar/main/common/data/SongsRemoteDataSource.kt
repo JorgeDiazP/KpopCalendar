@@ -8,20 +8,20 @@ import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companio
 import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.COMEBACKS_FIELD
 import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.DATE_FIELD
 import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.toDomainModel
-import com.jorgediazp.kpopcalendar.main.common.domain.ComebacksDataSource
 import com.jorgediazp.kpopcalendar.main.common.domain.SongDomainModel
+import com.jorgediazp.kpopcalendar.main.common.domain.SongsDataSource
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class ComebacksRemoteDataSource @Inject constructor() : ComebacksDataSource {
+class SongsRemoteDataSource @Inject constructor() : SongsDataSource {
 
     companion object {
         private const val FIRESTORE_IN_MAX_SIZE = 30
     }
 
-    override suspend fun getComebackMap(dateList: List<String>): DataResult<Map<String, List<SongDomainModel>>> {
+    override suspend fun getSongMap(dateList: List<String>): DataResult<Map<String, List<SongDomainModel>>> {
         return try {
-            val comebackMap: MutableMap<String, List<SongDomainModel>> =
+            val songMap: MutableMap<String, List<SongDomainModel>> =
                 dateList.associateBy({ date -> date }, { mutableListOf<SongDomainModel>() })
                     .toMutableMap()
 
@@ -35,14 +35,14 @@ class ComebacksRemoteDataSource @Inject constructor() : ComebacksDataSource {
 
                 result.documents.forEach { document ->
                     try {
-                        comebackMap[document.get(DATE_FIELD) as String] =
+                        songMap[document.get(DATE_FIELD) as String] =
                             (document.get(COMEBACKS_FIELD) as List<HashMap<String, Any>>).map { it.toDomainModel() }
                     } catch (e: Exception) {
                         Firebase.crashlytics.recordException(e)
                     }
                 }
             }
-            DataResult.Success(data = comebackMap)
+            DataResult.Success(data = songMap)
 
         } catch (e: Exception) {
             Firebase.crashlytics.recordException(e)

@@ -15,7 +15,7 @@ import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScre
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.main.common.domain.SongDomainModel
-import com.jorgediazp.kpopcalendar.main.common.domain.GetComebackUseCase
+import com.jorgediazp.kpopcalendar.main.common.domain.GetSongsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    private val getComebackUseCase: GetComebackUseCase
+    private val getSongsUseCase: GetSongsUseCase
 ) : ViewModel() {
 
     var dataLoaded = false
@@ -57,12 +57,12 @@ class CalendarViewModel @Inject constructor(
             foregroundState.value = CalendarScreenForegroundState.ShowLoading
 
             viewModelScope.launch {
-                val comebackResult =
-                    getComebackUseCase.getComebackMapByMonth(dateTime.year, dateTime.monthValue)
-                if (comebackResult is DataResult.Success && comebackResult.data != null) {
+                val result =
+                    getSongsUseCase.getComebackMapByMonth(dateTime.year, dateTime.monthValue)
+                if (result is DataResult.Success && result.data != null) {
                     backgroundState.value = CalendarScreenBackgroundState.ShowSongList(
                         topBarTitle = getMonthTitle(dateTime),
-                        comebackMap = getPresentationSongMap(comebackResult.data)
+                        songMap = getPresentationSongMap(result.data)
                     )
                 } else {
                     Log.e("KPC", "Error")
@@ -84,16 +84,16 @@ class CalendarViewModel @Inject constructor(
 
     private fun getPresentationSongMap(domainMap: Map<String, List<SongDomainModel>>): Map<String, List<SongPresentationModel>> {
         val presentationMap = mutableMapOf<String, List<SongPresentationModel>>()
-        domainMap.forEach { (dateString, comebackEntityList) ->
-            val comebackList = mutableListOf<SongPresentationModel>()
-            comebackEntityList.forEach { songDomain ->
+        domainMap.forEach { (dateString, songDomainList) ->
+            val songPresentationList = mutableListOf<SongPresentationModel>()
+            songDomainList.forEach { songDomain ->
                 try {
-                    comebackList.add(songDomain.toPresentationModel())
+                    songPresentationList.add(songDomain.toPresentationModel())
                 } catch (e: Exception) {
                     Firebase.crashlytics.recordException(e)
                 }
             }
-            presentationMap[dateString] = comebackList
+            presentationMap[dateString] = songPresentationList
         }
         return presentationMap
     }

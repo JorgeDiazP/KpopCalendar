@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.common.theme.KpopComebacksTheme
+import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +44,7 @@ fun CalendarTopAppBar(title: String, onShowCalendarClick: () -> Unit) {
 @Preview
 @Composable
 fun CalendarTopAppBarPreview() {
-    KpopComebacksTheme {
+    KpopCalendarTheme {
         CalendarTopAppBar(title = "Noviembre", onShowCalendarClick = {})
     }
 }

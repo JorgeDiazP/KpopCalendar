@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jorgediazp.kpopcalendar.R
-import com.jorgediazp.kpopcalendar.common.theme.KpopComebacksTheme
+import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +49,7 @@ fun CalendarPicker(
 @Preview
 @Composable
 private fun CalendarPickerPreview() {
-    KpopComebacksTheme {
+    KpopCalendarTheme {
         CalendarPicker(
             minTimestamp = 0,
             maxTimestamp = Long.MAX_VALUE,

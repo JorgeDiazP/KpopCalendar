@@ -2,13 +2,13 @@ package com.jorgediazp.kpopcalendar.main.common.domain
 
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils
-import com.jorgediazp.kpopcalendar.main.common.di.ComebacksRepositoryModule
+import com.jorgediazp.kpopcalendar.main.common.di.SongsRepositoryModule
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import javax.inject.Inject
 
-class GetComebackUseCase @Inject constructor(
-    @ComebacksRepositoryModule.ComebacksRepositoryQualifier private val repository: ComebacksDataSource
+class GetSongsUseCase @Inject constructor(
+    @SongsRepositoryModule.SongsRepositoryQualifier private val repository: SongsDataSource
 ) {
 
     suspend fun getComebackMapByMonth(
@@ -25,6 +25,6 @@ class GetComebackUseCase @Inject constructor(
             calendar.add(GregorianCalendar.DAY_OF_MONTH, 1)
         }
 
-        return repository.getComebackMap(dateList)
+        return repository.getSongMap(dateList)
     }
 }

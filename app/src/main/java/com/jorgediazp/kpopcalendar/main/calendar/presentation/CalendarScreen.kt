@@ -42,7 +42,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                             title = state.topBarTitle,
                             onShowCalendarClick = { viewModel.loadDatePicker() }
                         )
-                        CalendarTest(songMap = state.comebackMap)
+                        CalendarTest(songMap = state.songMap)
                     }
                 }
             }

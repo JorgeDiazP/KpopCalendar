@@ -5,11 +5,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jorgediazp.kpopcalendar.common.theme.KpopComebacksTheme
+import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @Composable
 fun Screen(content: @Composable () -> Unit) {
-    KpopComebacksTheme {
+    KpopCalendarTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

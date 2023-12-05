@@ -92,7 +92,7 @@ val DarkCustomColorsPalette = CustomColorsPalette(
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
 
 @Composable
-fun KpopComebacksTheme(
+fun KpopCalendarTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
