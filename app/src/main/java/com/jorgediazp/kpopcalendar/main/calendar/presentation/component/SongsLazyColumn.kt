@@ -18,13 +18,19 @@ fun SongsLazyColumn(dateList: List<DatePresentationModel>) {
                 }
                 currentDate = dateModel.date
             }
-            itemsIndexed(dateModel.songList) { index, song ->
-                SongCard(
-                    isOdd = song.isOddRow,
-                    text = song.text,
-                    youtubeURL = song.youtubeUrl ?: "",
-                    thumbnailUrl = song.thumbnailUrl ?: ""
-                )
+            if (dateModel.songList.isNotEmpty()) {
+                itemsIndexed(dateModel.songList) { index, song ->
+                    SongCard(
+                        isOdd = song.isOddRow,
+                        text = song.text,
+                        youtubeURL = song.youtubeUrl ?: "",
+                        thumbnailUrl = song.thumbnailUrl ?: ""
+                    )
+                }
+            } else {
+                item {
+                    SongsEmptyCard()
+                }
             }
         }
     }

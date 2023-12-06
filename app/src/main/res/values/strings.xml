@@ -9,4 +9,7 @@
     <string name="navigation_calendar">Calendar</string>
     <string name="navigation_search">Search</string>
     <string name="navigation_about">About</string>
+
+    <!-- Calendar -->
+    <string name="calendar_songs_empty">No new songs this day</string>
 </resources>

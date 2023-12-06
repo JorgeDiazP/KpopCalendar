@@ -10,4 +10,7 @@
     <string name="navigation_search">Buscar</string>
     <string name="navigation_about">Información</string>
 
+    <!-- Calendar -->
+    <string name="calendar_songs_empty">No hay canciones nuevas este día</string>
+
 </resources>
