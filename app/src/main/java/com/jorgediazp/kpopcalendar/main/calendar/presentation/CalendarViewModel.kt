@@ -98,8 +98,11 @@ class CalendarViewModel @Inject constructor(
             val songPresentationList = mutableListOf<SongPresentationModel>()
             songDomainListAux.forEach { songDomain ->
                 try {
-                    songPresentationList.add(songDomain.toPresentationModel(isOddRow))
-                    isOddRow = !isOddRow
+                    if (songDomain.ost == null) {
+                        // Do not add songs from ost
+                        songPresentationList.add(songDomain.toPresentationModel(isOddRow))
+                        isOddRow = !isOddRow
+                    }
                 } catch (e: Exception) {
                     Firebase.crashlytics.recordException(e)
                 }

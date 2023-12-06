@@ -49,7 +49,6 @@ class PresentationModelExtensions {
                 artist = artist,
                 titleTrack = titleTrack,
                 album = album,
-                ost = ost,
                 youtubeUrl = youtubeUrl,
                 thumbnailUrl = thumbnailUrl,
                 isOddRow = isOddRow

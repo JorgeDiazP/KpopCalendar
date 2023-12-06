@@ -6,7 +6,6 @@ data class SongPresentationModel(
     val artist: String,
     val titleTrack: String?,
     val album: String?,
-    val ost: String?,
     val youtubeUrl: String?,
     val thumbnailUrl: String?,
     val isOddRow: Boolean
