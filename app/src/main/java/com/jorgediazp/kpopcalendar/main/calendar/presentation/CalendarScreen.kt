@@ -1,9 +1,6 @@
 package com.jorgediazp.kpopcalendar.main.calendar.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,11 +9,9 @@ import com.jorgediazp.kpopcalendar.common.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.CalendarPicker
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.CalendarTopAppBar
-import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.DateCard
-import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.SongCard
+import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.SongsLazyColumn
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenForegroundState
-import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.DatePresentationModel
 
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
@@ -42,7 +37,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                             title = state.topBarTitle,
                             onShowCalendarClick = { viewModel.loadDatePicker() }
                         )
-                        CalendarTest(dateList = state.dateList)
+                        SongsLazyColumn(dateList = state.dateList)
                     }
                 }
             }
@@ -71,30 +66,6 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                                 CalendarScreenForegroundState.ShowNothing
                         })
                 }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun CalendarTest(dateList: List<DatePresentationModel>) {
-    LazyColumn {
-        var currentDate = ""
-        dateList.forEach { dateModel ->
-            if (currentDate != dateModel.date) {
-                stickyHeader {
-                    DateCard(text = dateModel.date, isToday = dateModel.isToday)
-                }
-                currentDate = dateModel.date
-            }
-            itemsIndexed(dateModel.songList) { index, song ->
-                SongCard(
-                    isOdd = index % 2 != 0,
-                    text = song.text,
-                    youtubeURL = song.youtubeUrl ?: "",
-                    thumbnailUrl = song.thumbnailUrl ?: ""
-                )
             }
         }
     }
