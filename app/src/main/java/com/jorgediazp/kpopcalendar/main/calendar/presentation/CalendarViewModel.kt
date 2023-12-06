@@ -93,8 +93,10 @@ class CalendarViewModel @Inject constructor(
         val dateList = mutableListOf<DatePresentationModel>()
         var isOddRow = true
         domainMap.forEach { (dateString, songDomainList) ->
+            // The list of songs has random order so user can discover different songs
+            val songDomainListAux = songDomainList.shuffled()
             val songPresentationList = mutableListOf<SongPresentationModel>()
-            songDomainList.forEach { songDomain ->
+            songDomainListAux.forEach { songDomain ->
                 try {
                     songPresentationList.add(songDomain.toPresentationModel(isOddRow))
                     isOddRow = !isOddRow
@@ -106,7 +108,7 @@ class CalendarViewModel @Inject constructor(
                 DatePresentationModel(
                     date = getDisplayDate(dateString),
                     isToday = dateStringIsToday(dateString),
-                    songPresentationList.shuffled() // The list of songs has random order so user can discover different songs
+                    songPresentationList
                 )
             )
         }

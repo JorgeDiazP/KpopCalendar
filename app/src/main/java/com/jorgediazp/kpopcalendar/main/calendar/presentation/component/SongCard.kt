@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @Composable
 fun SongCard(
@@ -101,11 +102,13 @@ fun SongCard(
 
 @Preview
 @Composable
-fun SongCardPreview() {
-    SongCard(
-        isOdd = true,
-        text = "Stray Kids - Maniac",
-        youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
-        thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg"
-    )
+private fun SongCardPreview() {
+    KpopCalendarTheme {
+        SongCard(
+            isOdd = true,
+            text = "Stray Kids - Maniac",
+            youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
+            thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg"
+        )
+    }
 }
