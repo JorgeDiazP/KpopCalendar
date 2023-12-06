@@ -10,11 +10,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
+import com.jorgediazp.kpopcalendar.common.ui.Screen
 
 @Composable
-fun DayCard(
+fun DateCard(
     text: String,
     isToday: Boolean
 ) {
@@ -29,17 +30,25 @@ fun DayCard(
         ),
         shape = RoundedCornerShape(0.dp),
     ) {
-        val textModifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
+        var textModifier = Modifier.background(color = MaterialTheme.colorScheme.surfaceVariant)
         if (isToday) {
-            textModifier.background(
-                color = LocalCustomColorsPalette.current.surfaceVariantSecondary,
-                shape = RoundedCornerShape(8.dp)
-            )
+            textModifier = textModifier.then(Modifier.background(
+                color = MaterialTheme.colorScheme.primaryContainer,
+                shape = RoundedCornerShape(24.dp)
+            ))
         }
         Text(
             text = text,
-            modifier = textModifier,
+            modifier = textModifier.then(Modifier.padding(horizontal = 24.dp, vertical = 8.dp)),
             style = MaterialTheme.typography.titleMedium
         )
+    }
+}
+
+@Preview
+@Composable
+private fun DateCardPreview() {
+    Screen {
+        DateCard(text = "Lunes 10", isToday = true)
     }
 }

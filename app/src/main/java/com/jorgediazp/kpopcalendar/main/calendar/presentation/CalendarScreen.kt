@@ -12,7 +12,7 @@ import com.jorgediazp.kpopcalendar.common.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.CalendarPicker
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.CalendarTopAppBar
-import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.DayCard
+import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.DateCard
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.SongCard
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenForegroundState
@@ -84,7 +84,7 @@ fun CalendarTest(dateList: List<DatePresentationModel>) {
         dateList.forEach { dateModel ->
             if (currentDate != dateModel.date) {
                 stickyHeader {
-                    DayCard(text = dateModel.date, isToday = dateModel.isToday)
+                    DateCard(text = dateModel.date, isToday = dateModel.isToday)
                 }
                 currentDate = dateModel.date
             }
