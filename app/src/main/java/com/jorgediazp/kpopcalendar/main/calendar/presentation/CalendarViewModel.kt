@@ -76,7 +76,8 @@ class CalendarViewModel @Inject constructor(
                     dateList = getDatePresentationList(result.data)
                 )
             } else {
-                backgroundState.value = CalendarScreenBackgroundState.ShowError
+                backgroundState.value =
+                    CalendarScreenBackgroundState.ShowError(topBarTitle = getTopBarTitle(dateTime))
             }
             foregroundState.value = CalendarScreenForegroundState.ShowNothing
         }

@@ -3,6 +3,10 @@ package com.jorgediazp.kpopcalendar.main.calendar.presentation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcalendar.common.ui.LoadingView
@@ -25,25 +29,30 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     }
 
     Screen {
-        when (backgroundState.value) {
-            is CalendarScreenBackgroundState.ShowNothing -> {
-                // nothing to do
-            }
+        Column {
+            var topBarTitle by remember { mutableStateOf("")}
+            CalendarTopAppBar(
+                title = topBarTitle,
+                onShowCalendarClick = { viewModel.loadDatePicker() }
+            )
+            when (backgroundState.value) {
+                is CalendarScreenBackgroundState.ShowNothing -> {
+                    // nothing to do
+                }
 
-            is CalendarScreenBackgroundState.ShowDateList -> {
-                (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
-                    Column {
-                        CalendarTopAppBar(
-                            title = state.topBarTitle,
-                            onShowCalendarClick = { viewModel.loadDatePicker() }
-                        )
+                is CalendarScreenBackgroundState.ShowDateList -> {
+                    (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
+                        topBarTitle = state.topBarTitle
                         SongsLazyColumn(dateList = state.dateList)
                     }
                 }
-            }
 
-            is CalendarScreenBackgroundState.ShowError -> {
-                // TODO
+                is CalendarScreenBackgroundState.ShowError -> {
+                    (backgroundState.value as CalendarScreenBackgroundState.ShowError).let { state ->
+                        topBarTitle = state.topBarTitle
+
+                    }
+                }
             }
         }
         when (foregroundState.value) {
