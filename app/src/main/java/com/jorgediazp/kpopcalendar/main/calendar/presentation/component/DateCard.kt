@@ -1,6 +1,7 @@
 package com.jorgediazp.kpopcalendar.main.calendar.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,16 +33,32 @@ fun DateCard(
     ) {
         var textModifier = Modifier.background(color = MaterialTheme.colorScheme.surfaceVariant)
         if (isToday) {
-            textModifier = textModifier.then(Modifier.background(
-                color = MaterialTheme.colorScheme.primaryContainer,
-                shape = RoundedCornerShape(24.dp)
-            ))
+            textModifier = textModifier.then(
+                Modifier.background(
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    shape = RoundedCornerShape(24.dp)
+                )
+            )
         }
-        Text(
-            text = text,
-            modifier = textModifier.then(Modifier.padding(horizontal = 24.dp, vertical = 8.dp)),
-            style = MaterialTheme.typography.titleMedium
-        )
+        Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+            var textModifier = Modifier.background(color = MaterialTheme.colorScheme.surfaceVariant)
+            if (isToday) {
+                textModifier = textModifier.then(
+                    Modifier
+                        .background(
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            shape = RoundedCornerShape(24.dp)
+                        )
+
+                )
+            }
+            Text(
+                text = text,
+                modifier = textModifier.then(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)),
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+
     }
 }
 
