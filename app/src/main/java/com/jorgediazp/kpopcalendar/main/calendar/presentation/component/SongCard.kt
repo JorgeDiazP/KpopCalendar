@@ -45,9 +45,7 @@ fun SongCard(
         if (isOdd) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = cardColor
         ),
