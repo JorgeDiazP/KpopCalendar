@@ -77,7 +77,10 @@ class CalendarViewModel @Inject constructor(
                 )
             } else {
                 backgroundState.value =
-                    CalendarScreenBackgroundState.ShowError(topBarTitle = getTopBarTitle(dateTime))
+                    CalendarScreenBackgroundState.ShowError(
+                        topBarTitle = getTopBarTitle(dateTime),
+                        selectedDateMillis = selectedDateMillis
+                    )
             }
             foregroundState.value = CalendarScreenForegroundState.ShowNothing
         }

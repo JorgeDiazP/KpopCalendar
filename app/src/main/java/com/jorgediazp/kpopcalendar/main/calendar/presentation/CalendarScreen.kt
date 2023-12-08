@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jorgediazp.kpopcalendar.common.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.component.CalendarPicker
@@ -30,7 +31,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
     Screen {
         Column {
-            var topBarTitle by remember { mutableStateOf("")}
+            var topBarTitle by remember { mutableStateOf("") }
             CalendarTopAppBar(
                 title = topBarTitle,
                 onShowCalendarClick = { viewModel.loadDatePicker() }
@@ -50,7 +51,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 is CalendarScreenBackgroundState.ShowError -> {
                     (backgroundState.value as CalendarScreenBackgroundState.ShowError).let { state ->
                         topBarTitle = state.topBarTitle
-
+                        ErrorView(onTryAgainClick = { viewModel.loadDateList(state.selectedDateMillis) })
                     }
                 }
             }

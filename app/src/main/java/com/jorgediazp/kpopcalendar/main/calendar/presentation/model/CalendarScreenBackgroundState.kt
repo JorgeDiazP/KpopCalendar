@@ -7,5 +7,5 @@ sealed class CalendarScreenBackgroundState {
     data class ShowDateList(val topBarTitle: String, val dateList: List<DatePresentationModel>) :
         CalendarScreenBackgroundState()
 
-    data class ShowError(val topBarTitle: String) : CalendarScreenBackgroundState()
+    data class ShowError(val topBarTitle: String, val selectedDateMillis: Long) : CalendarScreenBackgroundState()
 }
