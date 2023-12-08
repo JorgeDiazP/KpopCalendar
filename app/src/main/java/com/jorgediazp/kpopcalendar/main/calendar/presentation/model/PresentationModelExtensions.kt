@@ -46,9 +46,6 @@ class PresentationModelExtensions {
             return SongPresentationModel(
                 type = type,
                 text = text,
-                artist = artist,
-                titleTrack = titleTrack,
-                album = album,
                 youtubeUrl = youtubeUrl,
                 thumbnailUrl = thumbnailUrl,
                 isOddRow = isOddRow

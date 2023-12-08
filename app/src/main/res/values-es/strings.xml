@@ -2,8 +2,6 @@
 <resources>
 
     <!-- Common -->
-    <string name="accept">ACEPTAR</string>
-    <string name="cancel">CANCELAR</string>
     <string name="try_again">Reintentar</string>
     <string name="error_text">Error: No se ha podido obtener la información</string>
 
@@ -14,5 +12,6 @@
 
     <!-- Calendar -->
     <string name="calendar_songs_empty">No hay canciones nuevas este día</string>
+    <string name="calendar_teaser_not_available">Teaser no disponible</string>
 
 </resources>

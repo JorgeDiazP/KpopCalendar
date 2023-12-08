@@ -27,7 +27,7 @@ fun CalendarPicker(
             TextButton(onClick = {
                 onAccept(state.selectedDateMillis)
             }) {
-                Text(text = stringResource(id = R.string.accept))
+                Text(text = stringResource(id = android.R.string.ok))
             }
         },
         onDismissRequest = {
@@ -37,7 +37,7 @@ fun CalendarPicker(
             TextButton(onClick = {
                 onCancel()
             }) {
-                Text(text = stringResource(id = R.string.cancel))
+                Text(text = stringResource(id = android.R.string.cancel))
             }
         }) {
         DatePicker(

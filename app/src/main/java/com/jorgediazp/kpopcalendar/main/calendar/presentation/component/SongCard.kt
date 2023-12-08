@@ -20,16 +20,16 @@ import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @Composable
 fun SongCard(
-    isOdd: Boolean,
+    isOddRow: Boolean,
     text: String,
     youtubeURL: String,
     thumbnailUrl: String,
 ) {
     var loadVideo by remember { mutableStateOf(false) }
     val cardColor =
-        if (isOdd) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
+        if (isOddRow) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
     val buttonColor =
-        if (isOdd) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
+        if (isOddRow) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
 
     Card(
         modifier = Modifier.padding(horizontal = 16.dp),
@@ -45,7 +45,7 @@ fun SongCard(
         Column {
             Text(
                 text = text,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 style = MaterialTheme.typography.titleSmall
             )
             if (loadVideo) {
@@ -66,7 +66,7 @@ fun SongCard(
 private fun SongCardPreview() {
     KpopCalendarTheme {
         SongCard(
-            isOdd = true,
+            isOddRow = true,
             text = "Stray Kids - Maniac",
             youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
             thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg"
