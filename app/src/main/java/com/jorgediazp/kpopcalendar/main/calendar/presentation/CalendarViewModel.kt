@@ -45,11 +45,16 @@ class CalendarViewModel @Inject constructor(
         loadDateList(Instant.now().toEpochMilli())
     }
 
-    fun loadDatePicker() {
+    fun loadDatePicker(selectedDateMillis: Long) {
         val minTimestamp = getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MIN_TIME)
         val maxTimestamp = getRemoteConfigLong(FirebaseRemoteConfigKey.CALENDAR_MAX_TIME)
         foregroundState.value =
-            CalendarScreenForegroundState.ShowCalendarPicker(minTimestamp, maxTimestamp)
+            CalendarScreenForegroundState.ShowCalendarPicker(
+                initialSelectedDateMillis = selectedDateMillis,
+                yearRange = getCalendarPickerYearRange(minTimestamp, maxTimestamp),
+                minTimestamp = minTimestamp,
+                maxTimestamp = maxTimestamp
+            )
     }
 
     fun loadDateList(selectedDateMillis: Long?) {
@@ -58,6 +63,18 @@ class CalendarViewModel @Inject constructor(
         } ?: {
             foregroundState.value = CalendarScreenForegroundState.ShowNothing
         }
+    }
+
+    private fun getCalendarPickerYearRange(minTimestamp: Long, maxTimestamp: Long): IntRange {
+        val minDateTime = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(minTimestamp),
+            ZoneId.systemDefault()
+        )
+        val maxDateTime = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(maxTimestamp),
+            ZoneId.systemDefault()
+        )
+        return IntRange(start = minDateTime.year, endInclusive = maxDateTime.year)
     }
 
     private fun loadDateList(selectedDateMillis: Long) {
@@ -73,6 +90,7 @@ class CalendarViewModel @Inject constructor(
             if (result is DataResult.Success && result.data != null) {
                 backgroundState.value = CalendarScreenBackgroundState.ShowDateList(
                     topBarTitle = getTopBarTitle(dateTime),
+                    selectedDateMillis = selectedDateMillis,
                     dateList = getDatePresentationList(result.data)
                 )
             } else {

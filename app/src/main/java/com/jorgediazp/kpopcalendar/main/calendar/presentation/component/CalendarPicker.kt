@@ -9,18 +9,22 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarPicker(
+    initialSelectedDateMillis: Long,
+    yearRange: IntRange,
     minTimestamp: Long,
     maxTimestamp: Long,
     onAccept: (selectedDateMillis: Long?) -> Unit,
     onCancel: () -> Unit
 ) {
-    val state = rememberDatePickerState()
+    val state = rememberDatePickerState(
+        initialSelectedDateMillis = initialSelectedDateMillis,
+        yearRange = yearRange
+    )
 
     DatePickerDialog(
         confirmButton = {
@@ -51,6 +55,8 @@ fun CalendarPicker(
 private fun CalendarPickerPreview() {
     KpopCalendarTheme {
         CalendarPicker(
+            initialSelectedDateMillis = 0,
+            yearRange = IntRange(2020, 2024),
             minTimestamp = 0,
             maxTimestamp = Long.MAX_VALUE,
             onAccept = {},

@@ -3,10 +3,6 @@ package com.jorgediazp.kpopcalendar.main.calendar.presentation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcalendar.common.ui.ErrorView
@@ -31,10 +27,9 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
     Screen {
         Column {
-            var topBarTitle by remember { mutableStateOf("") }
             CalendarTopAppBar(
-                title = topBarTitle,
-                onShowCalendarClick = { viewModel.loadDatePicker() }
+                title = backgroundState.value.topBarTitle,
+                onShowCalendarClick = { viewModel.loadDatePicker(backgroundState.value.selectedDateMillis) }
             )
             when (backgroundState.value) {
                 is CalendarScreenBackgroundState.ShowNothing -> {
@@ -43,16 +38,12 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
                 is CalendarScreenBackgroundState.ShowDateList -> {
                     (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
-                        topBarTitle = state.topBarTitle
                         SongsLazyColumn(dateList = state.dateList)
                     }
                 }
 
                 is CalendarScreenBackgroundState.ShowError -> {
-                    (backgroundState.value as CalendarScreenBackgroundState.ShowError).let { state ->
-                        topBarTitle = state.topBarTitle
-                        ErrorView(onTryAgainClick = { viewModel.loadDateList(state.selectedDateMillis) })
-                    }
+                    ErrorView(onTryAgainClick = { viewModel.loadDateList(backgroundState.value.selectedDateMillis) })
                 }
             }
         }
@@ -68,6 +59,8 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
             is CalendarScreenForegroundState.ShowCalendarPicker -> {
                 (foregroundState.value as CalendarScreenForegroundState.ShowCalendarPicker).let { state ->
                     CalendarPicker(
+                        initialSelectedDateMillis = state.initialSelectedDateMillis,
+                        yearRange = state.yearRange,
                         minTimestamp = state.minTimestamp,
                         maxTimestamp = state.maxTimestamp,
                         onAccept = { selectedDateMillis -> viewModel.loadDateList(selectedDateMillis) },
