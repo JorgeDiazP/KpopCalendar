@@ -26,21 +26,22 @@ fun SongCard(
     thumbnailUrl: String,
 ) {
     var loadVideo by remember { mutableStateOf(false) }
-    val cardColor =
-        if (isOddRow) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
-    val buttonColor =
+    
+    val color =
         if (isOddRow) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
+    val backgroundColor =
+        if (isOddRow) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
 
     Card(
         modifier = Modifier.padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = cardColor
+            containerColor = backgroundColor
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+        border = BorderStroke(1.dp, color)
     ) {
         Column {
             Text(
@@ -49,12 +50,12 @@ fun SongCard(
                 style = MaterialTheme.typography.titleSmall
             )
             if (loadVideo) {
-                YoutubeVideoPlayer(youtubeURL = youtubeURL, backgroundColor = cardColor)
+                YoutubeVideoPlayer(youtubeURL = youtubeURL, backgroundColor = backgroundColor)
             } else {
                 ThumbnailView(
                     thumbnailUrl = thumbnailUrl,
-                    cardColor = cardColor,
-                    buttonColor = buttonColor,
+                    cardColor = backgroundColor,
+                    buttonColor = color,
                     onPlayClick = { loadVideo = true })
             }
         }
