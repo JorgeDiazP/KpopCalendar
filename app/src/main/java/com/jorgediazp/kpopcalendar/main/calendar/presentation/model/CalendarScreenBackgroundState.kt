@@ -15,6 +15,7 @@ sealed class CalendarScreenBackgroundState(
     class ShowDateList(
         topBarTitle: String,
         selectedDateMillis: Long,
+        val selectedDateIndex: Int,
         val dateList: List<DatePresentationModel>
     ) :
         CalendarScreenBackgroundState(

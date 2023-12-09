@@ -78,7 +78,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     private fun loadDateList(selectedDateMillis: Long) {
-        val dateTime = LocalDateTime.ofInstant(
+        val selectedDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(selectedDateMillis),
             ZoneId.systemDefault()
         )
@@ -86,17 +86,23 @@ class CalendarViewModel @Inject constructor(
 
         viewModelScope.launch {
             val result =
-                getSongsUseCase.getComebackMapByMonth(dateTime.year, dateTime.monthValue)
+                getSongsUseCase.getComebackMapByMonth(
+                    selectedDateTime.year,
+                    selectedDateTime.monthValue
+                )
             if (result is DataResult.Success && result.data != null) {
+                val dateList = getDatePresentationList(selectedDateTime, result.data)
+                val selectedDateIndex = getSelectedDateIndex(dateList)
                 backgroundState.value = CalendarScreenBackgroundState.ShowDateList(
-                    topBarTitle = getTopBarTitle(dateTime),
+                    selectedDateIndex = selectedDateIndex,
+                    topBarTitle = getTopBarTitle(selectedDateTime),
                     selectedDateMillis = selectedDateMillis,
-                    dateList = getDatePresentationList(result.data)
+                    dateList = dateList
                 )
             } else {
                 backgroundState.value =
                     CalendarScreenBackgroundState.ShowError(
-                        topBarTitle = getTopBarTitle(dateTime),
+                        topBarTitle = getTopBarTitle(selectedDateTime),
                         selectedDateMillis = selectedDateMillis
                     )
             }
@@ -111,7 +117,10 @@ class CalendarViewModel @Inject constructor(
             .replaceFirstChar(Char::uppercase)
     }
 
-    private fun getDatePresentationList(domainMap: Map<String, List<SongDomainModel>>): List<DatePresentationModel> {
+    private fun getDatePresentationList(
+        selectedDateTime: LocalDateTime,
+        domainMap: Map<String, List<SongDomainModel>>
+    ): List<DatePresentationModel> {
         val dateList = mutableListOf<DatePresentationModel>()
         var isOddRow = true
         domainMap.forEach { (dateString, songDomainList) ->
@@ -132,6 +141,7 @@ class CalendarViewModel @Inject constructor(
             dateList.add(
                 DatePresentationModel(
                     date = getDisplayDate(dateString),
+                    isSelectedDate = dateStringIsSelectedDate(selectedDateTime, dateString),
                     isToday = dateStringIsToday(dateString),
                     songPresentationList
                 )
@@ -155,5 +165,34 @@ class CalendarViewModel @Inject constructor(
         val dateFormatter = DateTimeFormatter.ofPattern(SONG_DATE_FORMAT)
         val date = LocalDate.parse(dateString, dateFormatter)
         return date.equals(LocalDate.now(ZoneId.systemDefault()))
+    }
+
+    private fun dateStringIsSelectedDate(
+        selectedDateTime: LocalDateTime,
+        dateString: String
+    ): Boolean {
+        val dateFormatter = DateTimeFormatter.ofPattern(SONG_DATE_FORMAT)
+        return selectedDateTime.format(dateFormatter) == dateString
+    }
+
+    private fun getSelectedDateIndex(dateList: List<DatePresentationModel>): Int {
+        var index = 0
+        run breaking@{
+            dateList.forEach { dateModel ->
+                if (dateModel.isSelectedDate) {
+                    return@breaking
+                }
+                // one for each stickyHeader
+                index++
+                if (dateModel.songList.isEmpty()) {
+                    // one for the displayed SongsEmptyCard
+                    index++
+                } else {
+                    // each song or teaser card displayed
+                    index += dateModel.songList.size
+                }
+            }
+        }
+        return index
     }
 }

@@ -38,7 +38,10 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
                 is CalendarScreenBackgroundState.ShowDateList -> {
                     (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
-                        SongsLazyColumn(dateList = state.dateList)
+                        SongsLazyColumn(
+                            selectedDateIndex = state.selectedDateIndex,
+                            dateList = state.dateList
+                        )
                     }
                 }
 
