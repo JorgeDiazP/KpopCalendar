@@ -24,18 +24,18 @@ fun SongsEmptyCard() {
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, LocalCustomColorsPalette.current.surfaceVariantSecondary)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Text(
             text = stringResource(id = R.string.calendar_songs_empty),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }

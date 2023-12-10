@@ -81,13 +81,26 @@ private val LightColorScheme = lightColorScheme(
 
 @Immutable
 data class CustomColorsPalette(
-    val surfaceVariantSecondary: Color = Color.Unspecified
+    val surfaceVariantSecondary: Color = Color.Unspecified,
+    val complementary: Color = Color.Unspecified,
+    val onComplementary: Color = Color.Unspecified,
+    val complementaryContainer: Color = Color.Unspecified,
+    val onComplementaryContainer: Color = Color.Unspecified,
 )
+
 val LightCustomColorsPalette = CustomColorsPalette(
-    surfaceVariantSecondary = md_theme_light_surfaceVariantSecondary
+    surfaceVariantSecondary = md_theme_light_surfaceVariantSecondary,
+    complementary = light_Complementary,
+    onComplementary = light_onComplementary,
+    complementaryContainer = light_ComplementaryContainer,
+    onComplementaryContainer = light_onComplementaryContainer
 )
 val DarkCustomColorsPalette = CustomColorsPalette(
-    surfaceVariantSecondary = md_theme_dark_surfaceVariantSecondary
+    surfaceVariantSecondary = md_theme_dark_surfaceVariantSecondary,
+    complementary = dark_Complementary,
+    onComplementary = dark_onComplementary,
+    complementaryContainer = dark_ComplementaryContainer,
+    onComplementaryContainer = dark_onComplementaryContainer
 )
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
 

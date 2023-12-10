@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 
 @Composable
@@ -37,12 +38,12 @@ fun DateCard(
             textModifier = textModifier.then(
                 Modifier
                     .background(
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        color = LocalCustomColorsPalette.current.complementaryContainer,
                         shape = RoundedCornerShape(24.dp)
                     )
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = LocalCustomColorsPalette.current.complementary,
                         shape = RoundedCornerShape(24.dp)
                     )
             )

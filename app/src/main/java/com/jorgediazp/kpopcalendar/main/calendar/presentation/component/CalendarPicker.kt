@@ -1,6 +1,7 @@
 package com.jorgediazp.kpopcalendar.main.calendar.presentation.component
 
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +48,12 @@ fun CalendarPicker(
         }) {
         DatePicker(
             state = state,
-            dateValidator = { timestamp -> timestamp in minTimestamp..maxTimestamp })
+            dateValidator = { timestamp -> timestamp in minTimestamp..maxTimestamp },
+            colors = DatePickerDefaults.colors(
+                todayContentColor = LocalCustomColorsPalette.current.complementary,
+                todayDateBorderColor = LocalCustomColorsPalette.current.complementary
+            )
+        )
     }
 }
 
