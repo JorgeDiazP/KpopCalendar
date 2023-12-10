@@ -20,7 +20,7 @@ import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 @Composable
 fun CalendarTopAppBar(title: String, onShowCalendarClick: () -> Unit) {
     TopAppBar(
-        colors = TopAppBarDefaults.smallTopAppBarColors(
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
         ),

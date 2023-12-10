@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
 
 @Composable
 fun SongsEmptyCard() {
@@ -29,7 +30,7 @@ fun SongsEmptyCard() {
             defaultElevation = 4.dp
         ),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+        border = BorderStroke(1.dp, LocalCustomColorsPalette.current.surfaceVariantSecondary)
     ) {
         Text(
             text = stringResource(id = R.string.calendar_songs_empty),
