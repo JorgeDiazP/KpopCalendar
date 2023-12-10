@@ -65,6 +65,11 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
+    fun goToToday() {
+        backgroundState.value = CalendarScreenBackgroundState.ShowNothing
+        loadData()
+    }
+
     private fun getCalendarPickerYearRange(minTimestamp: Long, maxTimestamp: Long): IntRange {
         val minDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(minTimestamp),
@@ -96,6 +101,7 @@ class CalendarViewModel @Inject constructor(
                 backgroundState.value = CalendarScreenBackgroundState.ShowDateList(
                     selectedDateIndex = selectedDateIndex,
                     topBarTitle = getTopBarTitle(selectedDateTime),
+                    todayDayString = getTodayDayString(),
                     selectedDateMillis = selectedDateMillis,
                     dateList = dateList
                 )
@@ -103,6 +109,7 @@ class CalendarViewModel @Inject constructor(
                 backgroundState.value =
                     CalendarScreenBackgroundState.ShowError(
                         topBarTitle = getTopBarTitle(selectedDateTime),
+                        todayDayString = getTodayDayString(),
                         selectedDateMillis = selectedDateMillis
                     )
             }
@@ -194,5 +201,9 @@ class CalendarViewModel @Inject constructor(
             }
         }
         return index
+    }
+
+    private fun getTodayDayString(): String {
+        return LocalDateTime.now(ZoneId.systemDefault()).dayOfMonth.toString()
     }
 }

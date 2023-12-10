@@ -29,7 +29,9 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
         Column {
             CalendarTopAppBar(
                 title = backgroundState.value.topBarTitle,
-                onShowCalendarClick = { viewModel.loadDatePicker(backgroundState.value.selectedDateMillis) }
+                todayDayString = backgroundState.value.todayDayString,
+                onShowCalendarClick = { viewModel.loadDatePicker(backgroundState.value.selectedDateMillis) },
+                onGoToTodayClick = { viewModel.goToToday() }
             )
             when (backgroundState.value) {
                 is CalendarScreenBackgroundState.ShowNothing -> {

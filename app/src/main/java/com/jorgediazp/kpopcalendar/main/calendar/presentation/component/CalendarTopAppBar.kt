@@ -1,8 +1,10 @@
 package com.jorgediazp.kpopcalendar.main.calendar.presentation.component
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EditCalendar
+import androidx.compose.material.icons.outlined.Circle
+import androidx.compose.material.icons.outlined.Square
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,7 +20,12 @@ import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarTopAppBar(title: String, onShowCalendarClick: () -> Unit) {
+fun CalendarTopAppBar(
+    title: String,
+    todayDayString: String,
+    onShowCalendarClick: () -> Unit,
+    onGoToTodayClick: () -> Unit
+) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -30,12 +37,21 @@ fun CalendarTopAppBar(title: String, onShowCalendarClick: () -> Unit) {
         actions = {
             IconButton(
                 onClick = { onShowCalendarClick() },
-                modifier = Modifier.padding(end = 8.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.EditCalendar,
                     contentDescription = null,
                 )
+            }
+            IconButton(
+                onClick = { onGoToTodayClick() },
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Circle,
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
+                )
+                Text(text = todayDayString, style = MaterialTheme.typography.labelSmall)
             }
         }
     )
@@ -45,6 +61,10 @@ fun CalendarTopAppBar(title: String, onShowCalendarClick: () -> Unit) {
 @Composable
 fun CalendarTopAppBarPreview() {
     KpopCalendarTheme {
-        CalendarTopAppBar(title = "Noviembre", onShowCalendarClick = {})
+        CalendarTopAppBar(
+            title = "Noviembre",
+            todayDayString = "31",
+            onShowCalendarClick = {},
+            onGoToTodayClick = {})
     }
 }
