@@ -66,6 +66,8 @@ fun SongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: 
     }
 
     LaunchedEffect(key1 = dateList) {
-        listState.scrollToItem(selectedDateIndex)
+        // This is performed to show TopBar and NavigationBar because are hidden when scroll down
+        listState.scrollToItem(selectedDateIndex + 1)
+        listState.animateScrollToItem(selectedDateIndex)
     }
 }
