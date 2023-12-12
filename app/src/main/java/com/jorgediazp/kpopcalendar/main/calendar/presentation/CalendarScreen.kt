@@ -1,10 +1,14 @@
 package com.jorgediazp.kpopcalendar.main.calendar.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingDown
+import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingUp
 import com.jorgediazp.kpopcalendar.common.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.ui.Screen
@@ -15,7 +19,7 @@ import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScre
 import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.CalendarScreenForegroundState
 
 @Composable
-fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
+fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hiltViewModel()) {
     val backgroundState = viewModel.backgroundState.collectAsStateWithLifecycle()
     val foregroundState = viewModel.foregroundState.collectAsStateWithLifecycle()
 
@@ -27,12 +31,14 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
 
     Screen {
         Column {
-            CalendarTopAppBar(
-                title = backgroundState.value.topBarTitle,
-                todayDayString = backgroundState.value.todayDayString,
-                onShowCalendarClick = { viewModel.loadDatePicker(backgroundState.value.selectedDateMillis) },
-                onGoToTodayClick = { viewModel.goToToday() }
-            )
+            AnimatedVisibility(visible = listState.isScrollingUp()) {
+                CalendarTopAppBar(
+                    title = backgroundState.value.topBarTitle,
+                    todayDayString = backgroundState.value.todayDayString,
+                    onShowCalendarClick = { viewModel.loadDatePicker(backgroundState.value.selectedDateMillis) },
+                    onGoToTodayClick = { viewModel.goToToday() }
+                )
+            }
             when (backgroundState.value) {
                 is CalendarScreenBackgroundState.ShowNothing -> {
                     // nothing to do
@@ -41,6 +47,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 is CalendarScreenBackgroundState.ShowDateList -> {
                     (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
                         SongsLazyColumn(
+                            listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
                             dateList = state.dateList
                         )

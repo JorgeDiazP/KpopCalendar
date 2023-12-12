@@ -3,6 +3,7 @@ package com.jorgediazp.kpopcalendar.main.calendar.presentation.component
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -13,9 +14,7 @@ import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.SongPresenta
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SongsLazyColumn(selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
-    val listState = rememberLazyListState()
-
+fun SongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(24.dp)
