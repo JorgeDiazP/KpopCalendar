@@ -30,7 +30,6 @@ fun SongsEmptyCard() {
             defaultElevation = 4.dp
         ),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Text(
             text = stringResource(id = R.string.calendar_songs_empty),

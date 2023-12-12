@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingDown
 import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingUp
 import com.jorgediazp.kpopcalendar.common.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.ui.LoadingView

@@ -17,7 +17,7 @@ import com.jorgediazp.kpopcalendar.main.calendar.presentation.model.SongPresenta
 fun SongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
     LazyColumn(
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         var currentDate = ""
         dateList.forEach { dateModel ->

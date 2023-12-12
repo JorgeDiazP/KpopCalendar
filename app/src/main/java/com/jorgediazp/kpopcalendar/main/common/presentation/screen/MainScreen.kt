@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingDown
 import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingUp
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 import com.jorgediazp.kpopcalendar.main.about.AboutScreen
