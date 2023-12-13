@@ -9,6 +9,7 @@ class DataModelExtensions {
         const val SONGS_COLLECTION = "songs"
         const val SONGS_FIELD = "songs"
         const val DATE_FIELD = "date"
+        const val TAGS_FIELD = "tags"
 
         const val ARTIST_FIELD = "artist"
         const val ARTISTS_FIELD = "artists"

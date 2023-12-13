@@ -27,4 +27,8 @@ class GetSongsUseCase @Inject constructor(
 
         return repository.getSongMap(dateList)
     }
+
+    suspend fun getSongListByQuery(query: String): DataResult<List<SongDomainModel>> {
+        return repository.getSongListByQuery(query)
+    }
 }

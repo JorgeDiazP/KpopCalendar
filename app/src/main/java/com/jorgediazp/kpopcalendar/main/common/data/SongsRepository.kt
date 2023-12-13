@@ -13,4 +13,8 @@ class SongsRepository @Inject constructor(
     override suspend fun getSongMap(dateList: List<String>): DataResult<Map<String, List<SongDomainModel>>> {
         return dataSource.getSongMap(dateList)
     }
+
+    override suspend fun getSongListByQuery(query: String): DataResult<List<SongDomainModel>> {
+        return dataSource.getSongListByQuery(query)
+    }
 }
