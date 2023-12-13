@@ -3,8 +3,8 @@ package com.jorgediazp.kpopcalendar.home.common.domain
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils
 import com.jorgediazp.kpopcalendar.home.common.di.SongsRepositoryModule
-import java.text.SimpleDateFormat
-import java.util.GregorianCalendar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class GetSongsUseCase @Inject constructor(
@@ -15,14 +15,15 @@ class GetSongsUseCase @Inject constructor(
         year: Int,
         month: Int
     ): DataResult<Map<String, List<SongDomainModel>>> {
-        val calendar = GregorianCalendar()
-        calendar.set(year, month - 1, 1)
-        val daysInMonth = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
-        val sdf = SimpleDateFormat(DateUtils.SONG_DATE_FORMAT)
         val dateList = mutableListOf<String>()
-        for (i in 1..daysInMonth) {
-            dateList.add(sdf.format(calendar.time))
-            calendar.add(GregorianCalendar.DAY_OF_MONTH, 1)
+        val startDate = LocalDate.of(year, month, 1)
+        val endDate = startDate.withDayOfMonth(startDate.lengthOfMonth())
+        val formatter = DateTimeFormatter.ofPattern(DateUtils.SONG_DATE_FORMAT)
+
+        var currentDate = startDate
+        while (!currentDate.isAfter(endDate)) {
+            dateList.add(currentDate.format(formatter))
+            currentDate = currentDate.plusDays(1)
         }
 
         return repository.getSongMap(dateList)
