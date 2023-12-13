@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.search
+package com.jorgediazp.kpopcalendar.home.search.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

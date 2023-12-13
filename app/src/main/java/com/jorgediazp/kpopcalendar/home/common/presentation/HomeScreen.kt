@@ -13,7 +13,7 @@ import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingU
 import com.jorgediazp.kpopcalendar.common.ui.Screen
 import com.jorgediazp.kpopcalendar.home.about.AboutScreen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.CalendarScreen
-import com.jorgediazp.kpopcalendar.home.search.SearchScreen
+import com.jorgediazp.kpopcalendar.home.search.presentation.SearchScreen
 
 @Composable
 fun HomeScreen() {
