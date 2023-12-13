@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:393544728555:android:f639ed20dc5d6c6a91a3ae",
+        "mobilesdk_app_id": "1:393544728555:android:34abe6cab250f95291a3ae",
         "android_client_info": {
-          "package_name": "com.jorgediazp.kpopcomebacks"
+          "package_name": "com.jorgediazp.kpopcalendar"
         }
       },
       "oauth_client": [],

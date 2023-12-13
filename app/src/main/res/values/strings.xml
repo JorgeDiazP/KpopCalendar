@@ -1,8 +1,16 @@
 <resources>
-    <string name="app_name" translatable="false">KpopComebacks</string>
+    <string name="app_name" translatable="false">Kpop Calendar</string>
 
-    <!-- Bottom Navigation   -->
+    <!-- Common -->
+    <string name="try_again">Try Again</string>
+    <string name="error_text">Error: The information could not be obtained</string>
+
+    <!-- Bottom Navigation -->
     <string name="navigation_calendar">Calendar</string>
     <string name="navigation_search">Search</string>
     <string name="navigation_about">About</string>
+
+    <!-- Calendar -->
+    <string name="calendar_songs_empty">No new songs this day</string>
+    <string name="calendar_teaser_not_available">Teaser not available</string>
 </resources>
