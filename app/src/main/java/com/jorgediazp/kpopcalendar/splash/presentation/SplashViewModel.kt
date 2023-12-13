@@ -12,10 +12,13 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor() : ViewModel() {
 
+    var dataLoaded = false
+
     val state = MutableStateFlow<SplashActivityState>(SplashActivityState.ShowNothing)
     private val configMap = EnumMap(SplashConfigEnum.values().associateWith { false })
 
     fun loadData() {
+        dataLoaded = true
         configMap.forEach { entry ->
             if (!entry.value) {
                 when (entry.key) {
