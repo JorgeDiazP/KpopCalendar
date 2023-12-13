@@ -6,8 +6,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.InternetUtils
-import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.COMEBACKS_COLLECTION
-import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.COMEBACKS_FIELD
+import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.SONGS_COLLECTION
+import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.SONGS_FIELD
 import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.DATE_FIELD
 import com.jorgediazp.kpopcalendar.main.common.data.DataModelExtensions.Companion.toDomainModel
 import com.jorgediazp.kpopcalendar.main.common.domain.SongDomainModel
@@ -36,7 +36,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                     val db = Firebase.firestore
 
                     dateList.chunked(FIRESTORE_IN_MAX_SIZE).forEach { dateListChunk ->
-                        val result = db.collection(COMEBACKS_COLLECTION)
+                        val result = db.collection(SONGS_COLLECTION)
                             .whereIn(DATE_FIELD, dateListChunk)
                             .get()
                             .await()
@@ -44,7 +44,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                         result.documents.forEach { document ->
                             try {
                                 songMap[document.get(DATE_FIELD) as String] =
-                                    (document.get(COMEBACKS_FIELD) as List<HashMap<String, Any>>).map { it.toDomainModel() }
+                                    (document.get(SONGS_FIELD) as List<HashMap<String, Any>>).map { it.toDomainModel() }
                             } catch (e: Exception) {
                                 Firebase.crashlytics.recordException(e)
                             }

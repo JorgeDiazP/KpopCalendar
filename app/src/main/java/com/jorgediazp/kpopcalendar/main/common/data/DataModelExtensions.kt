@@ -6,8 +6,8 @@ class DataModelExtensions {
 
     companion object {
 
-        const val COMEBACKS_COLLECTION = "comebacks"
-        const val COMEBACKS_FIELD = "comebacks"
+        const val SONGS_COLLECTION = "songs"
+        const val SONGS_FIELD = "songs"
         const val DATE_FIELD = "date"
 
         const val ARTIST_FIELD = "artist"
