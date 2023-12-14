@@ -11,7 +11,7 @@ import com.jorgediazp.kpopcalendar.home.search.presentation.component.SearchText
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     Screen {
         Column {
-            SearchTextField()
+            SearchTextField(onValueChange = {})
             LazyColumn { }
         }
 

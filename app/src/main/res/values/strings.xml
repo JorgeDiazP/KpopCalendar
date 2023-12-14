@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name" translatable="false">Kpop Calendar</string>
 
     <!-- Common -->
@@ -13,4 +15,8 @@
     <!-- Calendar -->
     <string name="calendar_songs_empty">No new songs this day</string>
     <string name="calendar_teaser_not_available">Teaser not available</string>
+
+    <!-- Search -->
+    <string name="search_text_field_placeholder">Search for a song</string>
+
 </resources>
