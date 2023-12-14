@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.calendar.presentation.model
+package com.jorgediazp.kpopcalendar.home.common.presentation.model
 
 import com.jorgediazp.kpopcalendar.common.util.YoutubeUtils.Companion.getCompleteYoutubeUrlOrNull
 import com.jorgediazp.kpopcalendar.common.util.YoutubeUtils.Companion.getYoutubeThumbnailUrlOrNull

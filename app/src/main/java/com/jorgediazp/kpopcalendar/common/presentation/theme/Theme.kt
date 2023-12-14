@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.theme
+package com.jorgediazp.kpopcalendar.common.presentation.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

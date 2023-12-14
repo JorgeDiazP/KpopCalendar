@@ -79,12 +79,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                         try {
                             (document.get(SONGS_FIELD) as List<HashMap<String, Any>>).map { it.toDomainModel() }
                                 .forEach { song ->
-                                    if (song.artist?.lowercase()
-                                            ?.contains(query) == true || song.titleTrack?.lowercase()
-                                            ?.contains(
-                                                query
-                                            ) == true
-                                    ) {
+                                    if (songMatchesQuery(query, song)) {
                                         songList.add(song)
                                     }
                                 }
@@ -103,5 +98,11 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                 DataResult.Error(message = e.message, exception = e)
             }
         }
+    }
+
+    private fun songMatchesQuery(query: String, song: SongDomainModel): Boolean {
+        return song.titleTrack?.lowercase()?.contains(query) == true
+                || song.artist?.lowercase()?.contains(query) == true
+                || song.artists?.any { it.lowercase().contains(query) } == true
     }
 }

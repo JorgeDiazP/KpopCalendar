@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.calendar.presentation.component
+package com.jorgediazp.kpopcalendar.home.common.presentation.ui.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.ThumbnailView
+import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.YoutubeVideoPlayer
 
 @Composable
 fun SongCard(

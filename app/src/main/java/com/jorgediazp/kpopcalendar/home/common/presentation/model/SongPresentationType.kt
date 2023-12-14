@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.calendar.presentation.model
+package com.jorgediazp.kpopcalendar.home.common.presentation.model
 
 enum class SongPresentationType {
     RELEASED,

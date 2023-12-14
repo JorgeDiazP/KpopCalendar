@@ -10,8 +10,8 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
-import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
+import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

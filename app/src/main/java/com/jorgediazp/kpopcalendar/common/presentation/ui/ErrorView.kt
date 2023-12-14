@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.ui
+package com.jorgediazp.kpopcalendar.common.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.R
-import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
 
 @Composable
 fun ErrorView(onTryAgainClick: (() -> Unit)? = null) {

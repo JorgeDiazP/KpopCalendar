@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.common.presentation
+package com.jorgediazp.kpopcalendar.home.common.presentation.ui.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -12,7 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
+import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.MainNavItemModel
 
 @Composable
 fun MainNavigationBar(navController: NavHostController) {

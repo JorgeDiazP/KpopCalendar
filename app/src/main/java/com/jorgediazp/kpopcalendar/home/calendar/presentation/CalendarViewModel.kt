@@ -13,8 +13,8 @@ import com.jorgediazp.kpopcalendar.common.util.FirebaseUtils.Companion.getRemote
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
-import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
-import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.domain.GetSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.domain.SongDomainModel
 import dagger.hilt.android.lifecycle.HiltViewModel

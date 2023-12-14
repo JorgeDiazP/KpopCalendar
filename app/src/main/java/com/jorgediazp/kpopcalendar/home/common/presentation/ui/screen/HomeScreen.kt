@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.common.presentation
+package com.jorgediazp.kpopcalendar.home.common.presentation.ui.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.padding
@@ -9,10 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jorgediazp.kpopcalendar.common.ui.ComposeUtils.Companion.isScrollingUp
-import com.jorgediazp.kpopcalendar.common.ui.Screen
+import com.jorgediazp.kpopcalendar.common.presentation.ui.ComposeUtils.Companion.isScrollingUp
+import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 import com.jorgediazp.kpopcalendar.home.about.AboutScreen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.CalendarScreen
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.MainNavItemModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.MainNavigationBar
 import com.jorgediazp.kpopcalendar.home.search.presentation.SearchScreen
 
 @Composable

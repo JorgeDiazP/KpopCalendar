@@ -14,8 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.common.theme.LocalCustomColorsPalette
-import com.jorgediazp.kpopcalendar.common.ui.Screen
+import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
+import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 
 @Composable
 fun DateCard(
