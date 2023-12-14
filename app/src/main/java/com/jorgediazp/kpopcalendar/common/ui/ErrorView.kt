@@ -24,7 +24,7 @@ import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.theme.KpopCalendarTheme
 
 @Composable
-fun ErrorView(onTryAgainClick: () -> Unit) {
+fun ErrorView(onTryAgainClick: (() -> Unit)? = null) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -47,8 +47,10 @@ fun ErrorView(onTryAgainClick: () -> Unit) {
                 modifier = Modifier.padding(horizontal = 32.dp),
                 textAlign = TextAlign.Center
             )
-            Button(onClick = { onTryAgainClick() }) {
-                Text(text = stringResource(id = R.string.try_again))
+            if (onTryAgainClick != null) {
+                Button(onClick = { onTryAgainClick() }) {
+                    Text(text = stringResource(id = R.string.try_again))
+                }
             }
         }
     }
