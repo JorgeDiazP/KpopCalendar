@@ -22,7 +22,7 @@ class SearchViewModel @Inject constructor(private val getSongsUseCase: GetSongsU
                 val result = getSongsUseCase.getSongListByQuery(query)
                 if (result is DataResult.Success && result.data != null) {
                     if (result.data.isNotEmpty()) {
-                        state.value = SearchScreenState.ShowNothing
+
 
                     } else {
                         state.value = SearchScreenState.ShowNoResults

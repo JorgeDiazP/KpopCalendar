@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SentimentDissatisfied
+import androidx.compose.material.icons.filled.SentimentNeutral
 import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -38,7 +40,7 @@ fun NoResultsView() {
             verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.Search,
+                imageVector = Icons.Default.SentimentNeutral,
                 contentDescription = null,
                 tint = LocalCustomColorsPalette.current.warning,
                 modifier = Modifier.size(64.dp)
