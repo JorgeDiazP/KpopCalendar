@@ -16,5 +16,6 @@
 
     <!-- Search -->
     <string name="search_text_field_placeholder">Buscar una canción</string>
+    <string name="search_no_results">No se han encontrado canciones</string>
 
 </resources>

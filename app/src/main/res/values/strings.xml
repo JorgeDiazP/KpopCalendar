@@ -18,5 +18,6 @@
 
     <!-- Search -->
     <string name="search_text_field_placeholder">Search for a song</string>
+    <string name="search_no_results">No songs found</string>
 
 </resources>

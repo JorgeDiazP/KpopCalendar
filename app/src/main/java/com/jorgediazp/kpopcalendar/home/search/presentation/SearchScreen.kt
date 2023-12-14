@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcalendar.common.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.ui.Screen
+import com.jorgediazp.kpopcalendar.home.search.presentation.component.NoResultsView
 import com.jorgediazp.kpopcalendar.home.search.presentation.component.SearchTextField
 import com.jorgediazp.kpopcalendar.home.search.presentation.model.SearchScreenState
 
@@ -27,7 +28,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                 }
 
                 SearchScreenState.ShowNoResults -> {
-                    TODO()
+                    NoResultsView()
                 }
             }
         }
