@@ -1,11 +1,16 @@
 package com.jorgediazp.kpopcalendar.common.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +31,20 @@ fun ErrorView(onTryAgainClick: () -> Unit) {
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(32.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.WifiOff,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier.size(64.dp)
+            )
             Text(
                 text = stringResource(id = R.string.error_text),
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(32.dp),
+                modifier = Modifier.padding(horizontal = 32.dp),
                 textAlign = TextAlign.Center
             )
             Button(onClick = { onTryAgainClick() }) {
