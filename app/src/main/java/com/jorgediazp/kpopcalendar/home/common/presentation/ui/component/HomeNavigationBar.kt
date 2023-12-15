@@ -55,7 +55,11 @@ fun HomeNavigationBar(navController: NavHostController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = LocalCustomColorsPalette.current.surfaceVariantSecondary
+                    indicatorColor = LocalCustomColorsPalette.current.surfaceVariantSecondary,
+                    selectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    selectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.8f),
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.8f),
                 )
             )
         }
