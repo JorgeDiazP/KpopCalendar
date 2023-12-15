@@ -13,10 +13,10 @@ import com.jorgediazp.kpopcalendar.common.util.FirebaseUtils.Companion.getRemote
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.domain.GetSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.domain.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -24,6 +24,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
@@ -73,11 +74,11 @@ class CalendarViewModel @Inject constructor(
     private fun getCalendarPickerYearRange(minTimestamp: Long, maxTimestamp: Long): IntRange {
         val minDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(minTimestamp),
-            ZoneId.systemDefault()
+            ZoneId.of(ZoneOffset.UTC.id)
         )
         val maxDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(maxTimestamp),
-            ZoneId.systemDefault()
+            ZoneId.of(ZoneOffset.UTC.id)
         )
         return IntRange(start = minDateTime.year, endInclusive = maxDateTime.year)
     }
