@@ -15,6 +15,7 @@ import com.jorgediazp.kpopcalendar.home.about.AboutScreen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.CalendarScreen
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.MainNavItemModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.HomeNavigationBar
+import com.jorgediazp.kpopcalendar.home.liked.presentation.LikedScreen
 import com.jorgediazp.kpopcalendar.home.search.presentation.SearchScreen
 
 @Composable
@@ -40,6 +41,9 @@ fun HomeScreen() {
                 }
                 composable(MainNavItemModel.Search.route) {
                     SearchScreen()
+                }
+                composable(MainNavItemModel.Liked.route) {
+                    LikedScreen()
                 }
                 composable(MainNavItemModel.About.route) {
                     AboutScreen()

@@ -20,6 +20,7 @@ fun HomeNavigationBar(navController: NavHostController) {
     val screens = listOf(
         MainNavItemModel.Calendar,
         MainNavItemModel.Search,
+        MainNavItemModel.Liked,
         MainNavItemModel.About
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

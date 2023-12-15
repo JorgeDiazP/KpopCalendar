@@ -10,6 +10,7 @@
     <!-- Bottom Navigation -->
     <string name="navigation_calendar">Calendar</string>
     <string name="navigation_search">Search</string>
+    <string name="navigation_liked">Liked</string>
     <string name="navigation_about">About</string>
 
     <!-- Calendar -->
