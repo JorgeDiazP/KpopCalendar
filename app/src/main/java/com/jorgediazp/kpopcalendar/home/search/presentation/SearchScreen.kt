@@ -18,7 +18,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     Screen {
-        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Column {
             SearchTextField(onValueChange = { query -> viewModel.loadSongListByQuery(query) })
 
             when (state.value) {
