@@ -14,7 +14,7 @@ import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 import com.jorgediazp.kpopcalendar.home.about.AboutScreen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.CalendarScreen
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.MainNavItemModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.MainNavigationBar
+import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.HomeNavigationBar
 import com.jorgediazp.kpopcalendar.home.search.presentation.SearchScreen
 
 @Composable
@@ -26,7 +26,7 @@ fun HomeScreen() {
         Scaffold(
             bottomBar = {
                 AnimatedVisibility(visible = listState.isScrollingUp()) {
-                    MainNavigationBar(navController = navController)
+                    HomeNavigationBar(navController = navController)
                 }
             }
         ) { paddingValues ->

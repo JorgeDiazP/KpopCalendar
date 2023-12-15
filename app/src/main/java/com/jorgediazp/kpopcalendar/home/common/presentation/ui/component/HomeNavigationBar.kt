@@ -16,7 +16,7 @@ import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPa
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.MainNavItemModel
 
 @Composable
-fun MainNavigationBar(navController: NavHostController) {
+fun HomeNavigationBar(navController: NavHostController) {
     val screens = listOf(
         MainNavItemModel.Calendar,
         MainNavItemModel.Search,
