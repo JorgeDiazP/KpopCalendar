@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.jorgediazp.kpopcalendar.home.common.presentation.HomeScreen
+import com.jorgediazp.kpopcalendar.home.common.presentation.ui.screen.HomeScreen
 import com.jorgediazp.kpopcalendar.splash.presentation.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 

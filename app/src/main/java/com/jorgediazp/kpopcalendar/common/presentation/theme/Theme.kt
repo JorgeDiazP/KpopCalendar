@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.theme
+package com.jorgediazp.kpopcalendar.common.presentation.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -86,6 +86,7 @@ data class CustomColorsPalette(
     val onComplementary: Color = Color.Unspecified,
     val complementaryContainer: Color = Color.Unspecified,
     val onComplementaryContainer: Color = Color.Unspecified,
+    val warning: Color = Color.Unspecified
 )
 
 val LightCustomColorsPalette = CustomColorsPalette(
@@ -93,14 +94,16 @@ val LightCustomColorsPalette = CustomColorsPalette(
     complementary = light_Complementary,
     onComplementary = light_onComplementary,
     complementaryContainer = light_ComplementaryContainer,
-    onComplementaryContainer = light_onComplementaryContainer
+    onComplementaryContainer = light_onComplementaryContainer,
+    warning = warning
 )
 val DarkCustomColorsPalette = CustomColorsPalette(
     surfaceVariantSecondary = md_theme_dark_surfaceVariantSecondary,
     complementary = dark_Complementary,
     onComplementary = dark_onComplementary,
     complementaryContainer = dark_ComplementaryContainer,
-    onComplementaryContainer = dark_onComplementaryContainer
+    onComplementaryContainer = dark_onComplementaryContainer,
+    warning = warning
 )
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
 

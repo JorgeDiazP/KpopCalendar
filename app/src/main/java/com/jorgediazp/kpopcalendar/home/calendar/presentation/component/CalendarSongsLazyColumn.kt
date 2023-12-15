@@ -12,12 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
-import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.SongPresentationType
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
+fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(32.dp)

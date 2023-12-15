@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.theme
+package com.jorgediazp.kpopcalendar.common.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -77,3 +77,5 @@ val dark_Complementary = Color(0xFF98D781)
 val dark_onComplementary = Color(0xFF073900)
 val dark_ComplementaryContainer = Color(0xFF1A520C)
 val dark_onComplementaryContainer = Color(0xFFB3F39B)
+
+val warning = Color(0xFFfcbf49)

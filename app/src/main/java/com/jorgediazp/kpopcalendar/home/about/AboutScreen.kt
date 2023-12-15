@@ -2,7 +2,7 @@ package com.jorgediazp.kpopcalendar.home.about
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.jorgediazp.kpopcalendar.common.ui.Screen
+import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 
 @Composable
 fun AboutScreen() {

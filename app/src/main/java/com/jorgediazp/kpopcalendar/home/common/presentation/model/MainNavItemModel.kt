@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.common.presentation
+package com.jorgediazp.kpopcalendar.home.common.presentation.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth

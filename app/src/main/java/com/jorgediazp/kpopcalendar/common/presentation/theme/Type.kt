@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.theme
+package com.jorgediazp.kpopcalendar.common.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

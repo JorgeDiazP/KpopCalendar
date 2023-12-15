@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.common.ui
+package com.jorgediazp.kpopcalendar.common.presentation.ui
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
