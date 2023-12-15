@@ -78,22 +78,33 @@ dependencies {
 
     // Youtube
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
     // Coil: Load images by url
     implementation("io.coil-kt:coil-compose:2.5.0")
+
     // Compose icons
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-config")
+
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    // Room
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 
     // Tests
     testImplementation("junit:junit:4.13.2")

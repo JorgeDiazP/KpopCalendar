@@ -39,7 +39,7 @@ fun CalendarTopAppBar(
                 onClick = { onShowCalendarClick() },
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.EditCalendar,
+                    imageVector = Icons.Filled.EditCalendar,
                     contentDescription = null,
                 )
             }

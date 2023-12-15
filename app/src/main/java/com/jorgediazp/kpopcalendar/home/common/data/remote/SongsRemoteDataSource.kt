@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.common.data
+package com.jorgediazp.kpopcalendar.home.common.data.remote
 
 import android.content.Context
 import com.google.firebase.crashlytics.ktx.crashlytics
