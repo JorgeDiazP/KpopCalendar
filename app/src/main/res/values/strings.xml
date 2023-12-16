@@ -18,7 +18,7 @@
     <string name="calendar_teaser_not_available">Teaser not available</string>
 
     <!-- Search -->
-    <string name="search_text_field_placeholder">Search for a song</string>
-    <string name="search_no_results">No songs found</string>
+    <string name="search_text_field_placeholder">Search for an MV</string>
+    <string name="search_no_results">No MVs found</string>
 
 </resources>
