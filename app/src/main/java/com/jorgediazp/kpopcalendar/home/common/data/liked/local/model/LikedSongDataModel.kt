@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "LikedSongs")
 data class LikedSongDataModel(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Long,
     val artist: String?,
     val artists: String?,
     val titleTrack: String?,

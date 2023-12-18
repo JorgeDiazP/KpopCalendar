@@ -24,7 +24,7 @@ class SongsDataModelExtensions {
 
         fun HashMap<String, Any>.toDomainModel(): SongDomainModel {
             return SongDomainModel(
-                id = this[ID_FIELD] as Int,
+                id = this[ID_FIELD] as Long,
                 artist = this[ARTIST_FIELD] as String?,
                 artists = this[ARTISTS_FIELD] as List<String>?,
                 titleTrack = this[TITLE_TRACK_FIELD] as String?,

@@ -1,7 +1,7 @@
 package com.jorgediazp.kpopcalendar.home.common.domain.model
 
 data class SongDomainModel(
-    val id: Int,
+    val id: Long,
     val artist: String?,
     val artists: List<String>?,
     val titleTrack: String?,

@@ -8,7 +8,7 @@ class DeleteLikedSongsUseCase @Inject constructor(
     @LikedSongsRepositoryModule.LikedSongsRepositoryQualifier private val repository: LikedSongsDataSource
 ) {
 
-    suspend fun deleteLikedSong(songId: Int): DataResult<Nothing> {
+    suspend fun deleteLikedSong(songId: Long): DataResult<Nothing> {
         return repository.deleteLikedSong(songId)
     }
 }

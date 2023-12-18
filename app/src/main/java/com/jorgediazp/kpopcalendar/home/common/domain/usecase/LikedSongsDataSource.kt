@@ -10,5 +10,5 @@ interface LikedSongsDataSource {
 
     suspend fun getAllLikedSongs(): Flow<List<SongDomainModel>>
 
-    suspend fun deleteLikedSong(songId: Int): DataResult<Nothing>
+    suspend fun deleteLikedSong(songId: Long): DataResult<Nothing>
 }
