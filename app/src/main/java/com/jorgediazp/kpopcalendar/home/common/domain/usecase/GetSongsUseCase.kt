@@ -1,8 +1,9 @@
-package com.jorgediazp.kpopcalendar.home.common.domain
+package com.jorgediazp.kpopcalendar.home.common.domain.usecase
 
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils
 import com.jorgediazp.kpopcalendar.home.common.di.SongsRepositoryModule
+import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject

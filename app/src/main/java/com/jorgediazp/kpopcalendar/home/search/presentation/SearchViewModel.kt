@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.common.util.DataResult
-import com.jorgediazp.kpopcalendar.home.common.domain.GetSongsUseCase
-import com.jorgediazp.kpopcalendar.home.common.domain.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetSongsUseCase
+import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType

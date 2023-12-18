@@ -1,8 +1,8 @@
 package com.jorgediazp.kpopcalendar.home.common.di
 
-import com.jorgediazp.kpopcalendar.home.common.data.SongsRepository
-import com.jorgediazp.kpopcalendar.home.common.data.remote.SongsRemoteDataSource
-import com.jorgediazp.kpopcalendar.home.common.domain.SongsDataSource
+import com.jorgediazp.kpopcalendar.home.common.data.songs.SongsRepository
+import com.jorgediazp.kpopcalendar.home.common.data.songs.remote.SongsRemoteDataSource
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.SongsDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -3,7 +3,7 @@ package com.jorgediazp.kpopcalendar.home.common.presentation.model
 import com.jorgediazp.kpopcalendar.common.util.YoutubeUtils.Companion.getCompleteYoutubeUrlOrNull
 import com.jorgediazp.kpopcalendar.common.util.YoutubeUtils.Companion.getYoutubeThumbnailUrlOrNull
 import com.jorgediazp.kpopcalendar.common.util.YoutubeUtils.Companion.isValidYoutubeUrl
-import com.jorgediazp.kpopcalendar.home.common.domain.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 
 class PresentationModelExtensions {
 

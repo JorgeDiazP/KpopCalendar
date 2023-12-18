@@ -1,9 +1,9 @@
-package com.jorgediazp.kpopcalendar.home.common.data
+package com.jorgediazp.kpopcalendar.home.common.data.songs
 
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.home.common.di.SongsRepositoryModule
-import com.jorgediazp.kpopcalendar.home.common.domain.SongsDataSource
-import com.jorgediazp.kpopcalendar.home.common.domain.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.SongsDataSource
+import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import javax.inject.Inject
 
 class SongsRepository @Inject constructor(
