@@ -43,7 +43,7 @@ fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, da
                             )
                         }
 
-                        SongPresentationType.TEASER -> {
+                        SongPresentationType.UNRELEASED_TEASER -> {
                             SongCard(
                                 isOddRow = song.isOddRow,
                                 text = song.text,
@@ -52,7 +52,7 @@ fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, da
                             )
                         }
 
-                        SongPresentationType.INFO -> {
+                        SongPresentationType.UNRELEASED_INFO -> {
                             InfoSongCard(
                                 isOddRow = song.isOddRow,
                                 text = song.text

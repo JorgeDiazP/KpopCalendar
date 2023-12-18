@@ -1,7 +1,5 @@
 package com.jorgediazp.kpopcalendar.home.common.presentation.model
 
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
-
 data class SongPresentationModel(
     val type: SongPresentationType,
     val text: String,
