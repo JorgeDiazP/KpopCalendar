@@ -12,13 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
+import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
+import kotlin.random.Random
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, dateList: List<DatePresentationModel>) {
+fun CalendarSongsLazyColumn(
+    listState: LazyListState,
+    selectedDateIndex: Int,
+    dateList: List<DatePresentationModel>
+) {
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(32.dp)
@@ -39,7 +44,9 @@ fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, da
                                 isOddRow = song.isOddRow,
                                 text = song.text,
                                 youtubeURL = song.youtubeUrl ?: "",
-                                thumbnailUrl = song.thumbnailUrl ?: ""
+                                thumbnailUrl = song.thumbnailUrl ?: "",
+                                onLikeClicked = {},
+                                liked = Random.nextBoolean()
                             )
                         }
 
@@ -68,7 +75,9 @@ fun CalendarSongsLazyColumn(listState: LazyListState, selectedDateIndex: Int, da
             }
         }
         item {
-            Spacer(modifier = Modifier.fillMaxWidth().height(64.dp))
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp))
         }
     }
 

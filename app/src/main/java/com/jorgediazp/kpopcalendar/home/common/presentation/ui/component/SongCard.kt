@@ -1,11 +1,20 @@
 package com.jorgediazp.kpopcalendar.home.common.presentation.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,10 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
+import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.ThumbnailView
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.YoutubeVideoPlayer
 
@@ -26,13 +37,17 @@ fun SongCard(
     text: String,
     youtubeURL: String,
     thumbnailUrl: String,
+    liked: Boolean = false,
+    onLikeClicked: (() -> Unit)? = null
 ) {
     var loadVideo by remember { mutableStateOf(false) }
-    
+
     val color =
         if (isOddRow) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
     val backgroundColor =
         if (isOddRow) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer
+    val onContainerColor =
+        if (isOddRow) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onTertiaryContainer
 
     Card(
         modifier = Modifier.padding(horizontal = 16.dp),
@@ -46,11 +61,34 @@ fun SongCard(
         border = BorderStroke(1.dp, color)
     ) {
         Column {
-            Text(
-                text = text,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                style = MaterialTheme.typography.titleSmall
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = onContainerColor,
+                    modifier = Modifier.weight(1f)
+                )
+                if (onLikeClicked != null) {
+                    IconButton(
+                        modifier = Modifier.padding(start = 8.dp),
+                        onClick = { onLikeClicked() },
+                    ) {
+                        Icon(
+                            imageVector = if (liked) Icons.TwoTone.Favorite else Icons.Outlined.FavoriteBorder,
+                            tint = if (liked) LocalCustomColorsPalette.current.complementary else onContainerColor,
+                            modifier = Modifier.size(32.dp),
+                            contentDescription = null,
+                        )
+                    }
+                }
+            }
+
             if (loadVideo) {
                 YoutubeVideoPlayer(youtubeURL = youtubeURL, backgroundColor = backgroundColor)
             } else {
@@ -70,9 +108,10 @@ private fun SongCardPreview() {
     KpopCalendarTheme {
         SongCard(
             isOddRow = true,
-            text = "Stray Kids - Maniac",
+            text = "Stray Kids - Maniac 1111111111111111111111111111111111111111111111111111111111111111",
             youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
-            thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg"
+            thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg",
+            onLikeClicked = {}
         )
     }
 }
