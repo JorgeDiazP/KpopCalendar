@@ -9,7 +9,10 @@ class PresentationModelExtensions {
 
     companion object {
 
-        fun SongDomainModel.toPresentationModel(isOddRow: Boolean): SongPresentationModel {
+        fun SongDomainModel.toPresentationModel(
+            isOddRow: Boolean,
+            liked: Boolean
+        ): SongPresentationModel {
             val type =
                 if (isValidYoutubeUrl(musicVideo)) SongPresentationType.RELEASED
                 else if (isValidYoutubeUrl(teaserVideo)) SongPresentationType.UNRELEASED_TEASER
@@ -50,11 +53,13 @@ class PresentationModelExtensions {
             }
 
             return SongPresentationModel(
+                id = id,
                 type = type,
                 text = text,
                 youtubeUrl = youtubeUrl,
                 thumbnailUrl = thumbnailUrl,
-                isOddRow = isOddRow
+                isOddRow = isOddRow,
+                liked = liked
             )
         }
     }

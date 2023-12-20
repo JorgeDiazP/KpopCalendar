@@ -6,15 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
-import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.ThumbnailView
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.YoutubeVideoPlayer
 
@@ -62,30 +55,26 @@ fun SongCard(
     ) {
         Column {
             Row(
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 16.dp)
             ) {
                 Text(
                     text = text,
                     style = MaterialTheme.typography.titleSmall,
                     color = onContainerColor,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 16.dp)
                 )
                 if (onLikeClicked != null) {
-                    IconButton(
-                        modifier = Modifier.padding(start = 8.dp),
-                        onClick = { onLikeClicked() },
-                    ) {
-                        Icon(
-                            imageVector = if (liked) Icons.TwoTone.Favorite else Icons.Outlined.FavoriteBorder,
-                            tint = if (liked) LocalCustomColorsPalette.current.complementary else onContainerColor,
-                            modifier = Modifier.size(32.dp),
-                            contentDescription = null,
-                        )
-                    }
+                    LikeIconButton(
+                        liked = liked,
+                        onLikeClicked = onLikeClicked,
+                        modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+                    )
                 }
             }
 

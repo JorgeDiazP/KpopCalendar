@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
 import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
-import kotlin.random.Random
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalendarSongsLazyColumn(
     listState: LazyListState,
     selectedDateIndex: Int,
-    dateList: List<DatePresentationModel>
+    dateList: List<DatePresentationModel>,
+    onLikeClicked: (songId: Int) -> Unit
 ) {
     LazyColumn(
         state = listState,
@@ -45,8 +45,8 @@ fun CalendarSongsLazyColumn(
                                 text = song.text,
                                 youtubeURL = song.youtubeUrl ?: "",
                                 thumbnailUrl = song.thumbnailUrl ?: "",
-                                onLikeClicked = {},
-                                liked = Random.nextBoolean()
+                                liked = song.liked,
+                                onLikeClicked = { onLikeClicked(song.id) },
                             )
                         }
 
@@ -75,9 +75,11 @@ fun CalendarSongsLazyColumn(
             }
         }
         item {
-            Spacer(modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(64.dp)
+            )
         }
     }
 

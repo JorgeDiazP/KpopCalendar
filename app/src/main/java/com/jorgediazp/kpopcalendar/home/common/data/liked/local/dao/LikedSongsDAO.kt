@@ -17,5 +17,5 @@ interface LikedSongsDAO {
     fun getAllLikedSongs(): Flow<List<LikedSongDataModel>>
 
     @Query("DELETE FROM LikedSongs WHERE id = :songId")
-    suspend fun deleteLikedSong(songId: Long)
+    suspend fun deleteLikedSong(songId: Int)
 }

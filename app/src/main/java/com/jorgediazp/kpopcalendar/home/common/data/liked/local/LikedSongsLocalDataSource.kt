@@ -42,7 +42,7 @@ class LikedSongsLocalDataSource @Inject constructor(
             }
     }
 
-    override suspend fun deleteLikedSong(songId: Long): DataResult<Nothing> {
+    override suspend fun deleteLikedSong(songId: Int): DataResult<Nothing> {
         return try {
             database.songsDAO().deleteLikedSong(songId)
             DataResult.Success()

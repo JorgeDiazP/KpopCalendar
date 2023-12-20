@@ -48,7 +48,8 @@ fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hilt
                         CalendarSongsLazyColumn(
                             listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
-                            dateList = state.dateList
+                            dateList = state.dateList,
+                            onLikeClicked = {}
                         )
                     }
                 }

@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(private val getSongsUseCase: GetSongsU
         var isOddRow = true
         domainList.forEach { songDomain ->
             try {
-                val presentationSong = songDomain.toPresentationModel(isOddRow)
+                val presentationSong = songDomain.toPresentationModel(isOddRow, false)
                 if (songDomain.ost == null && presentationSong.type == SongPresentationType.RELEASED) {
                     // Do not add songs from ost or unreleased
                     presentationList.add(presentationSong)
