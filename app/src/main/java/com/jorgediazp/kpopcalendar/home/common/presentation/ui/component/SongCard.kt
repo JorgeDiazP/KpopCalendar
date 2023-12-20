@@ -31,7 +31,7 @@ fun SongCard(
     youtubeURL: String,
     thumbnailUrl: String,
     liked: Boolean = false,
-    onLikeClicked: (() -> Unit)? = null
+    onLikeClicked: ((liked: Boolean) -> Unit)? = null
 ) {
     var loadVideo by remember { mutableStateOf(false) }
 
@@ -43,15 +43,11 @@ fun SongCard(
         if (isOddRow) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onTertiaryContainer
 
     Card(
-        modifier = Modifier.padding(horizontal = 16.dp),
-        colors = CardDefaults.cardColors(
+        modifier = Modifier.padding(horizontal = 16.dp), colors = CardDefaults.cardColors(
             containerColor = backgroundColor
-        ),
-        elevation = CardDefaults.cardElevation(
+        ), elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
-        ),
-        shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, color)
+        ), shape = RoundedCornerShape(24.dp), border = BorderStroke(1.dp, color)
     ) {
         Column {
             Row(
@@ -81,8 +77,7 @@ fun SongCard(
             if (loadVideo) {
                 YoutubeVideoPlayer(youtubeURL = youtubeURL, backgroundColor = backgroundColor)
             } else {
-                ThumbnailView(
-                    thumbnailUrl = thumbnailUrl,
+                ThumbnailView(thumbnailUrl = thumbnailUrl,
                     cardColor = backgroundColor,
                     buttonColor = color,
                     onPlayClick = { loadVideo = true })
@@ -95,12 +90,10 @@ fun SongCard(
 @Composable
 private fun SongCardPreview() {
     KpopCalendarTheme {
-        SongCard(
-            isOddRow = true,
+        SongCard(isOddRow = true,
             text = "Stray Kids - Maniac 1111111111111111111111111111111111111111111111111111111111111111",
             youtubeURL = "https://www.youtube.com/watch?v=OvioeS1ZZ7o",
             thumbnailUrl = "https://img.youtube.com/vi/OvioeS1ZZ7o/0.jpg",
-            onLikeClicked = {}
-        )
+            onLikeClicked = {})
     }
 }

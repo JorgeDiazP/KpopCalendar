@@ -14,7 +14,10 @@ import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScre
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
 import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.DeleteLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetSongsUseCase
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.InsertLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +35,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    private val getSongsUseCase: GetSongsUseCase
+    private val getSongsUseCase: GetSongsUseCase,
+    private val getLikedSongsUseCase: GetLikedSongsUseCase,
+    private val insertLikedSongsUseCase: InsertLikedSongsUseCase,
+    private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase
 ) : ViewModel() {
 
     var dataLoaded = false
@@ -71,6 +77,23 @@ class CalendarViewModel @Inject constructor(
         loadData()
     }
 
+    fun insertLikedSong(
+        domainIndexedMap: Map<Int, SongDomainModel>,
+        songPresentation: SongPresentationModel,
+        liked: Boolean
+    ) {
+        viewModelScope.launch {
+            domainIndexedMap[songPresentation.id]?.let { songDomain ->
+                if (liked) {
+                    insertLikedSongsUseCase.insertLikedSong(songDomain)
+
+                } else {
+                    deleteLikedSongsUseCase.deleteLikedSong(songDomain.id)
+                }
+            }
+        }
+    }
+
     private fun getCalendarPickerYearRange(minTimestamp: Long, maxTimestamp: Long): IntRange {
         val minDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(minTimestamp),
@@ -97,15 +120,24 @@ class CalendarViewModel @Inject constructor(
                     selectedDateTime.monthValue
                 )
             if (result is DataResult.Success && result.data != null) {
-                val dateList = getDatePresentationList(selectedDateTime, result.data)
+                var likedSongIds = listOf<Int>()
+                val likeResult = getLikedSongsUseCase.getAllLikedSongIds()
+                if (likeResult is DataResult.Success && likeResult.data != null) {
+                    likedSongIds = likeResult.data
+                }
+                val dateList = getDatePresentationList(selectedDateTime, result.data, likedSongIds)
                 val selectedDateIndex = getSelectedDateIndex(dateList)
+                val songDomainIndexedMap = getSongDomainIndexedMap(result.data)
+
                 backgroundState.value = CalendarScreenBackgroundState.ShowDateList(
                     selectedDateIndex = selectedDateIndex,
                     topBarTitle = getTopBarTitle(selectedDateTime),
                     todayDayString = getTodayDayString(),
                     selectedDateMillis = selectedDateMillis,
-                    dateList = dateList
+                    dateList = dateList,
+                    songDomainIndexedMap = songDomainIndexedMap
                 )
+
             } else {
                 backgroundState.value =
                     CalendarScreenBackgroundState.ShowError(
@@ -127,7 +159,8 @@ class CalendarViewModel @Inject constructor(
 
     private fun getDatePresentationList(
         selectedDateTime: LocalDateTime,
-        domainMap: Map<String, List<SongDomainModel>>
+        domainMap: Map<String, List<SongDomainModel>>,
+        likedSongIds: List<Int>
     ): List<DatePresentationModel> {
         val dateList = mutableListOf<DatePresentationModel>()
         var isOddRow = true
@@ -139,7 +172,12 @@ class CalendarViewModel @Inject constructor(
                 try {
                     if (songDomain.ost == null) {
                         // Do not add songs from ost
-                        songPresentationList.add(songDomain.toPresentationModel(isOddRow, false))
+                        songPresentationList.add(
+                            songDomain.toPresentationModel(
+                                isOddRow,
+                                likedSongIds.contains(songDomain.id)
+                            )
+                        )
                         isOddRow = !isOddRow
                     }
                 } catch (e: Exception) {
@@ -206,5 +244,15 @@ class CalendarViewModel @Inject constructor(
 
     private fun getTodayDayString(): String {
         return LocalDateTime.now(ZoneId.systemDefault()).dayOfMonth.toString()
+    }
+
+    private fun getSongDomainIndexedMap(domainMap: Map<String, List<SongDomainModel>>): Map<Int, SongDomainModel> {
+        val indexedMap = mutableMapOf<Int, SongDomainModel>()
+        domainMap.values.forEach { list ->
+            list.forEach { song ->
+                indexedMap[song.id] = song
+            }
+        }
+        return indexedMap
     }
 }

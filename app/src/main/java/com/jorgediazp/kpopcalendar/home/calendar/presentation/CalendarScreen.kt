@@ -12,8 +12,8 @@ import com.jorgediazp.kpopcalendar.common.presentation.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarPicker
-import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarSongsLazyColumn
+import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenForegroundState
 
@@ -49,7 +49,13 @@ fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hilt
                             listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
                             dateList = state.dateList,
-                            onLikeClicked = {}
+                            onLikeClicked = { song, liked ->
+                                viewModel.insertLikedSong(
+                                    state.songDomainIndexedMap,
+                                    song,
+                                    liked
+                                )
+                            }
                         )
                     }
                 }

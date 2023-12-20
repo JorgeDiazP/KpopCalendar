@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcalendar.home.common.domain.usecase
 
+import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.home.common.di.LikedSongsRepositoryModule
 import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import kotlinx.coroutines.flow.Flow
@@ -11,5 +12,9 @@ class GetLikedSongsUseCase @Inject constructor(
 
     suspend fun getAllLikedSongs(): Flow<List<SongDomainModel>> {
         return repository.getAllLikedSongs()
+    }
+
+    suspend fun getAllLikedSongIds(): DataResult<List<Int>> {
+        return repository.getAllLikedSongIds()
     }
 }

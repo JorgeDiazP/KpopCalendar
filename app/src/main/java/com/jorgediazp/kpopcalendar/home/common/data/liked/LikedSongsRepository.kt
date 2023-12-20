@@ -19,6 +19,10 @@ class LikedSongsRepository @Inject constructor(
         return dataSource.getAllLikedSongs()
     }
 
+    override suspend fun getAllLikedSongIds(): DataResult<List<Int>> {
+        return dataSource.getAllLikedSongIds()
+    }
+
     override suspend fun deleteLikedSong(songId: Int): DataResult<Nothing> {
         return dataSource.deleteLikedSong(songId)
     }

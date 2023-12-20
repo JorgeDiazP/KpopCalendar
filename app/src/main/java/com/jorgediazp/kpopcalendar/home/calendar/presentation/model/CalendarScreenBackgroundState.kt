@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcalendar.home.calendar.presentation.model
 
+import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import java.time.Instant
 
 sealed class CalendarScreenBackgroundState(
@@ -19,7 +20,8 @@ sealed class CalendarScreenBackgroundState(
         todayDayString: String,
         selectedDateMillis: Long,
         val selectedDateIndex: Int,
-        val dateList: List<DatePresentationModel>
+        val dateList: List<DatePresentationModel>,
+        val songDomainIndexedMap: Map<Int, SongDomainModel>
     ) :
         CalendarScreenBackgroundState(
             topBarTitle = topBarTitle,

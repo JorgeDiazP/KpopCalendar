@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.DatePresentationModel
+import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
 import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
 
@@ -22,7 +23,7 @@ fun CalendarSongsLazyColumn(
     listState: LazyListState,
     selectedDateIndex: Int,
     dateList: List<DatePresentationModel>,
-    onLikeClicked: (songId: Int) -> Unit
+    onLikeClicked: (song: SongPresentationModel, liked: Boolean) -> Unit
 ) {
     LazyColumn(
         state = listState,
@@ -46,7 +47,7 @@ fun CalendarSongsLazyColumn(
                                 youtubeURL = song.youtubeUrl ?: "",
                                 thumbnailUrl = song.thumbnailUrl ?: "",
                                 liked = song.liked,
-                                onLikeClicked = { onLikeClicked(song.id) },
+                                onLikeClicked = { liked -> onLikeClicked(song, liked) },
                             )
                         }
 

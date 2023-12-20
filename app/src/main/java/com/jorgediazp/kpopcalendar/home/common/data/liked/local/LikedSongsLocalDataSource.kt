@@ -42,6 +42,16 @@ class LikedSongsLocalDataSource @Inject constructor(
             }
     }
 
+    override suspend fun getAllLikedSongIds(): DataResult<List<Int>> {
+        return try {
+            val idList = database.songsDAO().getAllLikedSongIds()
+            DataResult.Success(idList)
+        } catch (e: Exception) {
+            Firebase.crashlytics.recordException(e)
+            DataResult.Error(message = e.message, exception = e)
+        }
+    }
+
     override suspend fun deleteLikedSong(songId: Int): DataResult<Nothing> {
         return try {
             database.songsDAO().deleteLikedSong(songId)

@@ -16,6 +16,9 @@ interface LikedSongsDAO {
     @Query("SELECT * FROM LikedSongs")
     fun getAllLikedSongs(): Flow<List<LikedSongDataModel>>
 
+    @Query("SELECT id FROM LikedSongs")
+    suspend fun getAllLikedSongIds(): List<Int>
+
     @Query("DELETE FROM LikedSongs WHERE id = :songId")
     suspend fun deleteLikedSong(songId: Int)
 }
