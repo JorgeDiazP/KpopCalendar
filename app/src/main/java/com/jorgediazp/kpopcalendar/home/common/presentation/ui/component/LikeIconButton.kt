@@ -8,10 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,21 +17,16 @@ import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPa
 @Composable
 fun LikeIconButton(
     liked: Boolean,
-    onLikeClicked: (liked: Boolean) -> Unit,
+    onLikeClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var likeState by remember { mutableStateOf(liked) }
-
     IconButton(
         modifier = modifier,
-        onClick = {
-            likeState = !likeState
-            onLikeClicked(likeState)
-        },
+        onClick = onLikeClicked,
     ) {
         Icon(
-            imageVector = if (likeState) Icons.TwoTone.Favorite else Icons.Outlined.FavoriteBorder,
-            tint = if (likeState) LocalCustomColorsPalette.current.complementary else LocalContentColor.current.copy(
+            imageVector = if (liked) Icons.TwoTone.Favorite else Icons.Outlined.FavoriteBorder,
+            tint = if (liked) LocalCustomColorsPalette.current.complementary else LocalContentColor.current.copy(
                 0.2f
             ),
             modifier = Modifier.size(32.dp),

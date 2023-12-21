@@ -78,17 +78,22 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun insertLikedSong(
-        domainIndexedMap: Map<Int, SongDomainModel>,
-        songPresentation: SongPresentationModel,
-        liked: Boolean
+        songPresentation: SongPresentationModel
     ) {
         viewModelScope.launch {
-            domainIndexedMap[songPresentation.id]?.let { songDomain ->
-                if (liked) {
-                    insertLikedSongsUseCase.insertLikedSong(songDomain)
+            if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
+                (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
 
-                } else {
-                    deleteLikedSongsUseCase.deleteLikedSong(songDomain.id)
+                    state.songDomainIndexedMap[songPresentation.id]?.let { songDomain ->
+                        if (!songPresentation.liked) {
+                            insertLikedSongsUseCase.insertLikedSong(songDomain)
+                        } else {
+                            deleteLikedSongsUseCase.deleteLikedSong(songDomain.id)
+                        }
+
+                        songPresentation.liked = !songPresentation.liked
+                        backgroundState.value = state.copy(update = state.update + 1)
+                    }
                 }
             }
         }

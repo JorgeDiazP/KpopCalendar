@@ -7,5 +7,5 @@ data class SongPresentationModel(
     val youtubeUrl: String?,
     val thumbnailUrl: String?,
     val isOddRow: Boolean,
-    val liked: Boolean
+    var liked: Boolean
 )

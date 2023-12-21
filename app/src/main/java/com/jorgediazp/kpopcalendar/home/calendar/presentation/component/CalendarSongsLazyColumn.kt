@@ -23,7 +23,7 @@ fun CalendarSongsLazyColumn(
     listState: LazyListState,
     selectedDateIndex: Int,
     dateList: List<DatePresentationModel>,
-    onLikeClicked: (song: SongPresentationModel, liked: Boolean) -> Unit
+    onLikeClicked: (song: SongPresentationModel) -> Unit
 ) {
     LazyColumn(
         state = listState,
@@ -47,7 +47,7 @@ fun CalendarSongsLazyColumn(
                                 youtubeURL = song.youtubeUrl ?: "",
                                 thumbnailUrl = song.thumbnailUrl ?: "",
                                 liked = song.liked,
-                                onLikeClicked = { liked -> onLikeClicked(song, liked) },
+                                onLikeClicked = { onLikeClicked(song) },
                             )
                         }
 

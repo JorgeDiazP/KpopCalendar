@@ -31,7 +31,7 @@ fun SongCard(
     youtubeURL: String,
     thumbnailUrl: String,
     liked: Boolean = false,
-    onLikeClicked: ((liked: Boolean) -> Unit)? = null
+    onLikeClicked: (() -> Unit)? = null
 ) {
     var loadVideo by remember { mutableStateOf(false) }
 

@@ -49,13 +49,7 @@ fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hilt
                             listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
                             dateList = state.dateList,
-                            onLikeClicked = { song, liked ->
-                                viewModel.insertLikedSong(
-                                    state.songDomainIndexedMap,
-                                    song,
-                                    liked
-                                )
-                            }
+                            onLikeClicked = { song -> viewModel.insertLikedSong(song) }
                         )
                     }
                 }
