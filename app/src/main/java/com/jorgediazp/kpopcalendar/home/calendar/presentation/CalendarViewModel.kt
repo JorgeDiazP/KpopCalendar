@@ -2,12 +2,15 @@ package com.jorgediazp.kpopcalendar.home.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.MONTH_AND_YEAR_DATE_FORMAT
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.MONTH_DATE_FORMAT
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.SONG_DATE_FORMAT
+import com.jorgediazp.kpopcalendar.common.util.Event
 import com.jorgediazp.kpopcalendar.common.util.FirebaseRemoteConfigKey
 import com.jorgediazp.kpopcalendar.common.util.FirebaseUtils.Companion.getRemoteConfigLong
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenBackgroundState
@@ -46,6 +49,7 @@ class CalendarViewModel @Inject constructor(
         MutableStateFlow<CalendarScreenBackgroundState>(CalendarScreenBackgroundState.ShowNothing)
     val foregroundState =
         MutableStateFlow<CalendarScreenForegroundState>(CalendarScreenForegroundState.ShowNothing)
+    val showSnackBarEvent = MutableStateFlow(Event<Int?>(null))
 
     fun loadData() {
         dataLoaded = true
@@ -85,14 +89,25 @@ class CalendarViewModel @Inject constructor(
                 (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
 
                     state.songDomainIndexedMap[songPresentation.id]?.let { songDomain ->
+                        val result: DataResult<Nothing>
+                        val snackBarResId: Int
                         if (!songPresentation.liked) {
-                            insertLikedSongsUseCase.insertLikedSong(songDomain)
+                            result = insertLikedSongsUseCase.insertLikedSong(songDomain)
+                            snackBarResId = R.string.liked_snackbar_song_added
                         } else {
-                            deleteLikedSongsUseCase.deleteLikedSong(songDomain.id)
+                            result = deleteLikedSongsUseCase.deleteLikedSong(songDomain.id)
+                            snackBarResId = R.string.liked_snackbar_song_removed
                         }
 
-                        songPresentation.liked = !songPresentation.liked
-                        backgroundState.value = state.copy(update = state.update + 1)
+                        if (result is DataResult.Success) {
+                            songPresentation.liked = !songPresentation.liked
+                            backgroundState.value = state.copy(update = state.update + 1)
+                            showSnackBarEvent.value = Event(snackBarResId)
+
+                        } else {
+                            FirebaseCrashlytics.getInstance()
+                                .recordException(Exception("Song liked error. Song: $songDomain"))
+                        }
                     }
                 }
             }

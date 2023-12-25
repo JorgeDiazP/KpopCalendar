@@ -21,4 +21,8 @@
     <string name="search_text_field_placeholder">Search for an MV</string>
     <string name="search_no_results">No MVs found</string>
 
+    <!-- Liked -->
+    <string name="liked_snackbar_song_added">Added to liked MVs</string>
+    <string name="liked_snackbar_song_removed">Removed from liked MVs</string>
+
 </resources>

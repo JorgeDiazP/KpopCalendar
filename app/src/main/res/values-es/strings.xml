@@ -19,4 +19,8 @@
     <string name="search_text_field_placeholder">Buscar un MV</string>
     <string name="search_no_results">No se han encontrado MVs</string>
 
+    <!-- Liked -->
+    <string name="liked_snackbar_song_added">Se ha añadido a MVs que te gustan</string>
+    <string name="liked_snackbar_song_removed">Se ha quitado de MVs que te gustan</string>
+
 </resources>
