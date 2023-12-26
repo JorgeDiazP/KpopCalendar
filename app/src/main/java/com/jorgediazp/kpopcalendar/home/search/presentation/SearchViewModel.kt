@@ -6,6 +6,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.util.DataResult
+import com.jorgediazp.kpopcalendar.common.util.Event
 import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
 import com.jorgediazp.kpopcalendar.home.common.domain.usecase.DeleteLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetLikedSongsUseCase
@@ -29,6 +30,7 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow<SearchScreenState>(SearchScreenState.ShowNothing)
+    val showSnackBarEvent = MutableStateFlow(Event<Int?>(null))
 
     private var currentQueryId = 0
 
@@ -88,7 +90,7 @@ class SearchViewModel @Inject constructor(
                             songPresentation.liked = !songPresentation.liked
                             state.value =
                                 showSongListState.copy(update = showSongListState.update + 1)
-                            //showSnackBarEvent.value = Event(snackBarResId)
+                            showSnackBarEvent.value = Event(snackBarResId)
                         }
                     }
                 }
