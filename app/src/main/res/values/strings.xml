@@ -24,5 +24,6 @@
     <!-- Liked -->
     <string name="liked_snackbar_song_added">Added to liked MVs</string>
     <string name="liked_snackbar_song_removed">Removed from liked MVs</string>
+    <string name="liked_top_app_bar">Liked MVs</string>
 
 </resources>

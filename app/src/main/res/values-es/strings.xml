@@ -22,5 +22,6 @@
     <!-- Liked -->
     <string name="liked_snackbar_song_added">Se ha añadido a MVs que te gustan</string>
     <string name="liked_snackbar_song_removed">Se ha quitado de MVs que te gustan</string>
+    <string name="liked_top_app_bar">MVs que te gustan</string>
 
 </resources>
