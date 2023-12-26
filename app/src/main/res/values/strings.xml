@@ -25,5 +25,6 @@
     <string name="liked_snackbar_song_added">Added to liked MVs</string>
     <string name="liked_snackbar_song_removed">Removed from liked MVs</string>
     <string name="liked_top_app_bar">Liked MVs</string>
+    <string name="liked_empty_view">You have not liked any videos. You can add them by clicking on the ❤️ that appears at the top right of each MV</string>
 
 </resources>

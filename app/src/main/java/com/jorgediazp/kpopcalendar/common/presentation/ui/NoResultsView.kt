@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.search.presentation.component
+package com.jorgediazp.kpopcalendar.common.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,12 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.SentimentDissatisfied
-import androidx.compose.material.icons.filled.SentimentNeutral
-import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material.icons.twotone.SentimentNeutral
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,7 +24,7 @@ import com.jorgediazp.kpopcalendar.common.presentation.theme.KpopCalendarTheme
 import com.jorgediazp.kpopcalendar.common.presentation.theme.LocalCustomColorsPalette
 
 @Composable
-fun NoResultsView() {
+fun NoResultsView(text: String) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -47,7 +42,7 @@ fun NoResultsView() {
                 modifier = Modifier.size(64.dp)
             )
             Text(
-                text = stringResource(id = R.string.search_no_results),
+                text = text,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 32.dp),
                 textAlign = TextAlign.Center
@@ -60,6 +55,6 @@ fun NoResultsView() {
 @Composable
 private fun NoResultsViewPreview() {
     KpopCalendarTheme {
-        NoResultsView()
+        NoResultsView(text = stringResource(id = R.string.search_no_results),)
     }
 }

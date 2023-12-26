@@ -16,7 +16,7 @@ import com.jorgediazp.kpopcalendar.common.presentation.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 import com.jorgediazp.kpopcalendar.home.liked.presentation.component.LikedSongLazyColumn
 import com.jorgediazp.kpopcalendar.home.liked.presentation.model.LikedScreenState
-import com.jorgediazp.kpopcalendar.home.search.presentation.component.NoResultsView
+import com.jorgediazp.kpopcalendar.common.presentation.ui.NoResultsView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +49,7 @@ fun LikedScreen(showSnackBar: (text: String) -> Unit, viewModel: LikedViewModel 
                 }
 
                 is LikedScreenState.ShowEmpty -> {
-                    NoResultsView()
+                    NoResultsView(text = stringResource(id = R.string.liked_empty_view))
                 }
 
                 is LikedScreenState.ShowError -> {
