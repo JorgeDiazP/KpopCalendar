@@ -12,28 +12,28 @@ class MoshiUtils {
         fun <T> String.getObjectFromJson(
             objectClass: Class<T>,
             moshiAdapters: List<Any>? = null
-        ): T {
+        ): T? {
             val moshiBuilder = Moshi.Builder()
             moshiAdapters?.forEach() {
                 moshiBuilder.add(it)
             }
             val moshi = moshiBuilder.build()
             val jsonAdapter: JsonAdapter<T> = moshi.adapter(objectClass)
-            return jsonAdapter.fromJson(this)!!
+            return jsonAdapter.fromJson(this)
         }
 
         @Throws(Exception::class)
         fun <T> String.getObjectFromJson(
             type: Type,
             moshiAdapters: List<Any>? = null
-        ): T {
+        ): T? {
             val moshiBuilder = Moshi.Builder()
             moshiAdapters?.forEach() {
                 moshiBuilder.add(it)
             }
             val moshi = moshiBuilder.build()
             val jsonAdapter: JsonAdapter<T> = moshi.adapter(type)
-            return jsonAdapter.fromJson(this)!!
+            return jsonAdapter.fromJson(this)
         }
 
         @Throws(Exception::class)

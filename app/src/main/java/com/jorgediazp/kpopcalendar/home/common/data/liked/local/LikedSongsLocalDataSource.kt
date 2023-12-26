@@ -35,7 +35,7 @@ class LikedSongsLocalDataSource @Inject constructor(
                     try {
                         domainList.add(dataSong.toDomainModel())
                     } catch (e: Exception) {
-                        FirebaseCrashlytics.getInstance().recordException(e)
+                        Firebase.crashlytics.recordException(e)
                     }
                 }
                 domainList
