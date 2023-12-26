@@ -55,7 +55,7 @@ fun CalendarScreen(
                             listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
                             dateList = state.dateList,
-                            onLikeClicked = { song -> viewModel.insertLikedSong(song) }
+                            onLikeClicked = { song -> viewModel.insertOrDeleteLikedSong(song) }
                         )
                     }
                 }

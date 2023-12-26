@@ -80,7 +80,7 @@ class CalendarViewModel @Inject constructor(
         loadData()
     }
 
-    fun insertLikedSong(songPresentation: SongPresentationModel) {
+    fun insertOrDeleteLikedSong(songPresentation: SongPresentationModel) {
         viewModelScope.launch {
             if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
                 (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->

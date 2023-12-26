@@ -70,7 +70,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun insertLikedSong(songPresentation: SongPresentationModel) {
+    fun insertOrDeleteLikedSong(songPresentation: SongPresentationModel) {
         viewModelScope.launch {
             if (state.value is SearchScreenState.ShowSongList) {
                 (state.value as SearchScreenState.ShowSongList).let { showSongListState ->

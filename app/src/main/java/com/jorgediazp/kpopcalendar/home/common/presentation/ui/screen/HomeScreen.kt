@@ -64,7 +64,11 @@ fun HomeScreen() {
                     })
                 }
                 composable(MainNavItemModel.Liked.route) {
-                    LikedScreen()
+                    LikedScreen(showSnackBar = { text ->
+                        scope.launch {
+                            snackBarHostState.showSnackbar(text)
+                        }
+                    })
                 }
                 composable(MainNavItemModel.About.route) {
                     AboutScreen()

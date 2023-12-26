@@ -20,8 +20,9 @@ import com.jorgediazp.kpopcalendar.home.search.presentation.component.NoResultsV
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LikedScreen(viewModel: LikedViewModel = hiltViewModel()) {
+fun LikedScreen(showSnackBar: (text: String) -> Unit, viewModel: LikedViewModel = hiltViewModel()) {
     val state = viewModel.state.collectAsStateWithLifecycle()
+    val showSnackBarEvent = viewModel.showSnackBarEvent.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = viewModel) {
         if (!viewModel.dataLoaded) {
@@ -58,9 +59,13 @@ fun LikedScreen(viewModel: LikedViewModel = hiltViewModel()) {
                 is LikedScreenState.ShowSongList -> {
                     LikedSongLazyColumn(
                         songList = (state.value as LikedScreenState.ShowSongList).songList,
-                        onLikeClicked = {})
+                        onLikeClicked = { song -> viewModel.deleteLikedSong(song) })
                 }
             }
         }
+    }
+
+    showSnackBarEvent.value.getContentIfNotHandled()?.let { textResId ->
+        showSnackBar(stringResource(textResId))
     }
 }

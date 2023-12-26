@@ -40,7 +40,7 @@ fun SearchScreen(
                 is SearchScreenState.ShowSongList -> {
                     SearchSongLazyColumn(
                         songList = (state.value as SearchScreenState.ShowSongList).songList,
-                        onLikeClicked = { song -> viewModel.insertLikedSong(song) })
+                        onLikeClicked = { song -> viewModel.insertOrDeleteLikedSong(song) })
                 }
             }
         }

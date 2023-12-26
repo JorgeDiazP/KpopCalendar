@@ -4,7 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.jorgediazp.kpopcalendar.R
+import com.jorgediazp.kpopcalendar.common.util.DataResult
+import com.jorgediazp.kpopcalendar.common.util.Event
 import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.DeleteLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
@@ -17,11 +21,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LikedViewModel @Inject constructor(
-    private val getLikedSongsUseCase: GetLikedSongsUseCase
+    private val getLikedSongsUseCase: GetLikedSongsUseCase,
+    private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase
 ) : ViewModel() {
 
     var dataLoaded = false
     val state = MutableStateFlow<LikedScreenState>(LikedScreenState.ShowNothing)
+    val showSnackBarEvent = MutableStateFlow(Event<Int?>(null))
 
     fun loadData() {
         viewModelScope.launch {
@@ -40,6 +46,15 @@ class LikedViewModel @Inject constructor(
                         state.value = LikedScreenState.ShowEmpty
                     }
                 }
+        }
+    }
+
+    fun deleteLikedSong(song: SongPresentationModel) {
+        viewModelScope.launch {
+            val result = deleteLikedSongsUseCase.deleteLikedSong(song.id)
+            if (result is DataResult.Success) {
+                showSnackBarEvent.value = Event(R.string.liked_snackbar_song_removed)
+            }
         }
     }
 
