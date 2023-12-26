@@ -7,5 +7,5 @@ interface SongsDataSource {
 
     suspend fun getSongMap(dateList: List<String>): DataResult<Map<String, List<SongDomainModel>>>
 
-    suspend fun getSongListByQuery(query: String): DataResult<List<SongDomainModel>>
+    suspend fun getSongMapByQuery(query: String): DataResult<Map<Int, SongDomainModel>>
 }

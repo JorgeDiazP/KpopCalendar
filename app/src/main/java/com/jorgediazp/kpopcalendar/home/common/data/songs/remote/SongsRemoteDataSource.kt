@@ -64,11 +64,11 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
         }
     }
 
-    override suspend fun getSongListByQuery(query: String): DataResult<List<SongDomainModel>> {
+    override suspend fun getSongMapByQuery(query: String): DataResult<Map<Int, SongDomainModel>> {
         return withContext(Dispatchers.IO) {
             try {
                 if (InternetUtils.isInternetAvailable(context)) {
-                    val songList = mutableListOf<SongDomainModel>()
+                    val songMap = mutableMapOf<Int, SongDomainModel>()
                     val db = Firebase.firestore
                     val result = db.collection(SONGS_COLLECTION)
                         .whereArrayContains(TAGS_FIELD, query)
@@ -80,7 +80,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                             (document.get(SONGS_FIELD) as List<HashMap<String, Any>>).map { it.toDomainModel() }
                                 .forEach { song ->
                                     if (songMatchesQuery(query, song)) {
-                                        songList.add(song)
+                                        songMap[song.id] = song
                                     }
                                 }
 
@@ -88,7 +88,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                             Firebase.crashlytics.recordException(e)
                         }
                     }
-                    DataResult.Success(songList)
+                    DataResult.Success(songMap)
 
                 } else {
                     DataResult.Error(message = "Internet is not available")

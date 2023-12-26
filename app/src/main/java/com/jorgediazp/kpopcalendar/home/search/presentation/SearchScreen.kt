@@ -1,9 +1,8 @@
 package com.jorgediazp.kpopcalendar.home.search.presentation
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcalendar.common.presentation.ui.ErrorView
@@ -35,7 +34,9 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                 }
 
                 is SearchScreenState.ShowSongList -> {
-                    SearchSongLazyColumn(songList = (state.value as SearchScreenState.ShowSongList).songList)
+                    SearchSongLazyColumn(
+                        songList = (state.value as SearchScreenState.ShowSongList).songList,
+                        onLikeClicked = { song -> viewModel.insertLikedSong(song) })
                 }
             }
         }

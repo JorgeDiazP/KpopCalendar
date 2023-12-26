@@ -13,21 +13,34 @@ import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentati
 import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
 
 @Composable
-fun SearchSongLazyColumn(songList: List<SongPresentationModel>) {
+fun SearchSongLazyColumn(
+    songList: List<SongPresentationModel>,
+    onLikeClicked: (song: SongPresentationModel) -> Unit
+) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(32.dp)) {
         item {
-            Spacer(modifier = Modifier.fillMaxWidth().height(0.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(0.dp)
+            )
         }
         items(songList) { song ->
             SongCard(
                 isOddRow = song.isOddRow,
                 text = song.text,
                 youtubeURL = song.youtubeUrl ?: "",
-                thumbnailUrl = song.thumbnailUrl ?: ""
+                thumbnailUrl = song.thumbnailUrl ?: "",
+                liked = song.liked,
+                onLikeClicked = { onLikeClicked(song) }
             )
         }
         item {
-            Spacer(modifier = Modifier.fillMaxWidth().height(64.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(64.dp)
+            )
         }
     }
 }

@@ -2,8 +2,8 @@ package com.jorgediazp.kpopcalendar.home.common.data.songs
 
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.home.common.di.SongsRepositoryModule
-import com.jorgediazp.kpopcalendar.home.common.domain.usecase.SongsDataSource
 import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.home.common.domain.usecase.SongsDataSource
 import javax.inject.Inject
 
 class SongsRepository @Inject constructor(
@@ -14,7 +14,7 @@ class SongsRepository @Inject constructor(
         return dataSource.getSongMap(dateList)
     }
 
-    override suspend fun getSongListByQuery(query: String): DataResult<List<SongDomainModel>> {
-        return dataSource.getSongListByQuery(query)
+    override suspend fun getSongMapByQuery(query: String): DataResult<Map<Int, SongDomainModel>> {
+        return dataSource.getSongMapByQuery(query)
     }
 }

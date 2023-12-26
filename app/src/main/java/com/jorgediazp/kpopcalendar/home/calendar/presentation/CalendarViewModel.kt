@@ -2,7 +2,6 @@ package com.jorgediazp.kpopcalendar.home.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.R
@@ -81,9 +80,7 @@ class CalendarViewModel @Inject constructor(
         loadData()
     }
 
-    fun insertLikedSong(
-        songPresentation: SongPresentationModel
-    ) {
+    fun insertLikedSong(songPresentation: SongPresentationModel) {
         viewModelScope.launch {
             if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
                 (backgroundState.value as CalendarScreenBackgroundState.ShowDateList).let { state ->
@@ -103,10 +100,6 @@ class CalendarViewModel @Inject constructor(
                             songPresentation.liked = !songPresentation.liked
                             backgroundState.value = state.copy(update = state.update + 1)
                             showSnackBarEvent.value = Event(snackBarResId)
-
-                        } else {
-                            FirebaseCrashlytics.getInstance()
-                                .recordException(Exception("Song liked error. Song: $songDomain"))
                         }
                     }
                 }
