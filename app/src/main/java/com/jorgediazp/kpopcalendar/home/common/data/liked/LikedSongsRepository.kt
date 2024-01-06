@@ -11,8 +11,8 @@ class LikedSongsRepository @Inject constructor(
     @LikedSongsRepositoryModule.LikedSongsDataSourceQualifier private val dataSource: LikedSongsDataSource
 ) : LikedSongsDataSource {
 
-    override suspend fun insertLikedSong(song: SongDomainModel): DataResult<Nothing> {
-        return dataSource.insertLikedSong(song)
+    override suspend fun insertLikedSong(song: SongDomainModel, dateMillis: Long): DataResult<Nothing> {
+        return dataSource.insertLikedSong(song, dateMillis)
     }
 
     override suspend fun getAllLikedSongs(): Flow<List<SongDomainModel>> {

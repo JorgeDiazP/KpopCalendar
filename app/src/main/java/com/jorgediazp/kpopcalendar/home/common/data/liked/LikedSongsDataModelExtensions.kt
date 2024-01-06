@@ -10,9 +10,10 @@ class LikedSongsDataModelExtensions {
 
     companion object {
 
-        fun SongDomainModel.toLikedDataLocalModel(): LikedSongDataModel {
+        fun SongDomainModel.toLikedDataLocalModel(dateMillis: Long): LikedSongDataModel {
             return LikedSongDataModel(
                 id = id,
+                dateMillis = dateMillis,
                 artist = artist,
                 artists = artists.getJsonFromObject(
                     Types.newParameterizedType(

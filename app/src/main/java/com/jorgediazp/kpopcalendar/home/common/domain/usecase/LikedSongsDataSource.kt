@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LikedSongsDataSource {
 
-    suspend fun insertLikedSong(song: SongDomainModel): DataResult<Nothing>
+    suspend fun insertLikedSong(song: SongDomainModel, dateMillis: Long): DataResult<Nothing>
 
     suspend fun getAllLikedSongs(): Flow<List<SongDomainModel>>
 

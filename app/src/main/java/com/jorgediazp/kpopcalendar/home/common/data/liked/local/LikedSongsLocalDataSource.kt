@@ -15,9 +15,12 @@ class LikedSongsLocalDataSource @Inject constructor(
     private val database: LikedSongsDataBase
 ) : LikedSongsDataSource {
 
-    override suspend fun insertLikedSong(song: SongDomainModel): DataResult<Nothing> {
+    override suspend fun insertLikedSong(
+        song: SongDomainModel,
+        dateMillis: Long
+    ): DataResult<Nothing> {
         return try {
-            database.songsDAO().insertLikedSong(song.toLikedDataLocalModel())
+            database.songsDAO().insertLikedSong(song.toLikedDataLocalModel(dateMillis))
             DataResult.Success()
 
         } catch (e: Exception) {
@@ -30,7 +33,7 @@ class LikedSongsLocalDataSource @Inject constructor(
         return database.songsDAO().getAllLikedSongs()
             .map { dataList ->
                 val domainList = mutableListOf<SongDomainModel>()
-                dataList.forEach { dataSong ->
+                dataList.sortedByDescending { it.dateMillis }.forEach { dataSong ->
                     try {
                         domainList.add(dataSong.toDomainModel())
                     } catch (e: Exception) {
