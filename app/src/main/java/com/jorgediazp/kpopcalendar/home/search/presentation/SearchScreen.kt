@@ -2,6 +2,7 @@ package com.jorgediazp.kpopcalendar.home.search.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,6 +21,12 @@ fun SearchScreen(
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val showSnackBarEvent = viewModel.showSnackBarEvent.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = viewModel) {
+        if (!viewModel.dataLoaded) {
+            viewModel.loadData()
+        }
+    }
 
     Screen {
         Column {

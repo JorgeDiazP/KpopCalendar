@@ -18,6 +18,7 @@ import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentati
 import com.jorgediazp.kpopcalendar.home.search.presentation.model.SearchScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,7 +33,29 @@ class SearchViewModel @Inject constructor(
     val state = MutableStateFlow<SearchScreenState>(SearchScreenState.ShowNothing)
     val showSnackBarEvent = MutableStateFlow(Event<Int?>(null))
 
+    var dataLoaded = false
     private var currentQueryId = 0
+    private var likedSongIds: List<Int> = listOf()
+
+    fun loadData() {
+        viewModelScope.launch {
+            getLikedSongsUseCase.getAllLikedSongIdsFlow()
+                .catch { throwable ->
+                    Firebase.crashlytics.recordException(throwable)
+
+                }.collect {
+                    likedSongIds = it
+                    if (!dataLoaded) {
+                        dataLoaded = true
+                    } else if (state.value is SearchScreenState.ShowSongList) {
+                        updateLikedSongs(
+                            state.value as SearchScreenState.ShowSongList,
+                            likedSongIds
+                        )
+                    }
+                }
+        }
+    }
 
     fun loadSongListByQuery(query: String) {
         currentQueryId++
@@ -45,12 +68,6 @@ class SearchViewModel @Inject constructor(
                     // Queries finished late are not shown
                     if (result is DataResult.Success && result.data != null) {
                         if (result.data.isNotEmpty()) {
-                            var likedSongIds = listOf<Int>()
-                            val likedResult = getLikedSongsUseCase.getAllLikedSongIds()
-                            if (likedResult is DataResult.Success && likedResult.data != null) {
-                                likedSongIds = likedResult.data
-                            }
-
                             state.value =
                                 SearchScreenState.ShowSongList(
                                     songList = getSongPresentationList(result.data, likedSongIds),
@@ -87,9 +104,6 @@ class SearchViewModel @Inject constructor(
                         }
 
                         if (result is DataResult.Success) {
-                            songPresentation.liked = !songPresentation.liked
-                            state.value =
-                                showSongListState.copy(update = showSongListState.update + 1)
                             showSnackBarEvent.value = Event(snackBarResId)
                         }
                     }
@@ -118,5 +132,15 @@ class SearchViewModel @Inject constructor(
             }
         }
         return presentationList
+    }
+
+    private fun updateLikedSongs(
+        songListState: SearchScreenState.ShowSongList,
+        likedSongIds: List<Int>
+    ) {
+        songListState.songList.forEach { songPresentation ->
+            songPresentation.liked = likedSongIds.contains(songPresentation.id)
+        }
+        state.value = songListState.copy(update = songListState.update + 1)
     }
 }
