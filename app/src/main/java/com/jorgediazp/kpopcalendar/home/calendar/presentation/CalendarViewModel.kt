@@ -24,6 +24,7 @@ import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationMo
 import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -43,16 +44,42 @@ class CalendarViewModel @Inject constructor(
     private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase
 ) : ViewModel() {
 
-    var dataLoaded = false
     val backgroundState =
         MutableStateFlow<CalendarScreenBackgroundState>(CalendarScreenBackgroundState.ShowNothing)
     val foregroundState =
         MutableStateFlow<CalendarScreenForegroundState>(CalendarScreenForegroundState.ShowNothing)
     val showSnackBarEvent = MutableStateFlow(Event<Int?>(null))
 
+    var dataLoaded = false
+    private var likedSongIds: List<Int> = listOf()
+
     fun loadData() {
-        dataLoaded = true
-        loadDateList(Instant.now().toEpochMilli())
+        viewModelScope.launch {
+            getLikedSongsUseCase.getAllLikedSongIdsFlow()
+                .catch { throwable ->
+                    Firebase.crashlytics.recordException(throwable)
+
+                }.collect {
+                    likedSongIds = it
+                    if (!dataLoaded) {
+                        dataLoaded = true
+                        goToToday()
+                    } else if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
+                        updateLikedSongs(
+                            backgroundState.value as CalendarScreenBackgroundState.ShowDateList,
+                            likedSongIds
+                        )
+                    }
+                }
+        }
+    }
+
+    fun loadDateList(selectedDateMillis: Long?) {
+        selectedDateMillis?.let {
+            loadDateList(selectedDateMillis)
+        } ?: {
+            foregroundState.value = CalendarScreenForegroundState.ShowNothing
+        }
     }
 
     fun loadDatePicker(selectedDateMillis: Long) {
@@ -67,17 +94,9 @@ class CalendarViewModel @Inject constructor(
             )
     }
 
-    fun loadDateList(selectedDateMillis: Long?) {
-        selectedDateMillis?.let {
-            loadDateList(selectedDateMillis)
-        } ?: {
-            foregroundState.value = CalendarScreenForegroundState.ShowNothing
-        }
-    }
-
     fun goToToday() {
         backgroundState.value = CalendarScreenBackgroundState.ShowNothing
-        loadData()
+        loadDateList(Instant.now().toEpochMilli())
     }
 
     fun insertOrDeleteLikedSong(songPresentation: SongPresentationModel) {
@@ -97,8 +116,6 @@ class CalendarViewModel @Inject constructor(
                         }
 
                         if (result is DataResult.Success) {
-                            songPresentation.liked = !songPresentation.liked
-                            backgroundState.value = state.copy(update = state.update + 1)
                             showSnackBarEvent.value = Event(snackBarResId)
                         }
                     }
@@ -133,11 +150,6 @@ class CalendarViewModel @Inject constructor(
                     selectedDateTime.monthValue
                 )
             if (result is DataResult.Success && result.data != null) {
-                var likedSongIds = listOf<Int>()
-                val likeResult = getLikedSongsUseCase.getAllLikedSongIds()
-                if (likeResult is DataResult.Success && likeResult.data != null) {
-                    likedSongIds = likeResult.data
-                }
                 val dateList = getDatePresentationList(selectedDateTime, result.data, likedSongIds)
                 val selectedDateIndex = getSelectedDateIndex(dateList)
                 val songDomainIndexedMap = getSongDomainIndexedMap(result.data)
@@ -267,5 +279,17 @@ class CalendarViewModel @Inject constructor(
             }
         }
         return indexedMap
+    }
+
+    private fun updateLikedSongs(
+        dateListState: CalendarScreenBackgroundState.ShowDateList,
+        likedSongIds: List<Int>
+    ) {
+        dateListState.dateList.forEach { dateModel ->
+            dateModel.songList.forEach { songPresentation ->
+                songPresentation.liked = likedSongIds.contains(songPresentation.id)
+            }
+        }
+        backgroundState.value = dateListState.copy(update = dateListState.update + 1)
     }
 }

@@ -19,6 +19,10 @@ class LikedSongsRepository @Inject constructor(
         return dataSource.getAllLikedSongs()
     }
 
+    override suspend fun getAllLikedSongIdsFlow(): Flow<List<Int>> {
+        return dataSource.getAllLikedSongIdsFlow()
+    }
+
     override suspend fun getAllLikedSongIds(): DataResult<List<Int>> {
         return dataSource.getAllLikedSongIds()
     }

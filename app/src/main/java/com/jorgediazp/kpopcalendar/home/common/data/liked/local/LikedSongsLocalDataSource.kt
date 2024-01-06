@@ -1,6 +1,5 @@
 package com.jorgediazp.kpopcalendar.home.common.data.liked.local
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.common.util.DataResult
@@ -40,6 +39,10 @@ class LikedSongsLocalDataSource @Inject constructor(
                 }
                 domainList
             }
+    }
+
+    override suspend fun getAllLikedSongIdsFlow(): Flow<List<Int>> {
+        return database.songsDAO().getAllLikedSongIdsFlow()
     }
 
     override suspend fun getAllLikedSongIds(): DataResult<List<Int>> {

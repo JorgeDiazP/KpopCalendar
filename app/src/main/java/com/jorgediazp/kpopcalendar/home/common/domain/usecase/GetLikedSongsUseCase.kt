@@ -14,6 +14,10 @@ class GetLikedSongsUseCase @Inject constructor(
         return repository.getAllLikedSongs()
     }
 
+    suspend fun getAllLikedSongIdsFlow(): Flow<List<Int>> {
+        return repository.getAllLikedSongIdsFlow()
+    }
+
     suspend fun getAllLikedSongIds(): DataResult<List<Int>> {
         return repository.getAllLikedSongIds()
     }
