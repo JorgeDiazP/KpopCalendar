@@ -1,4 +1,4 @@
-package com.jorgediazp.kpopcalendar.home.search.presentation.component
+package com.jorgediazp.kpopcalendar.home.liked.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +13,7 @@ import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentati
 import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
 
 @Composable
-fun SearchSongLazyColumn(
+fun LikedSongLazyColumn(
     songList: List<SongPresentationModel>,
     onLikeClicked: (song: SongPresentationModel) -> Unit
 ) {

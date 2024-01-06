@@ -10,6 +10,7 @@
     <!-- Bottom Navigation -->
     <string name="navigation_calendar">Calendar</string>
     <string name="navigation_search">Search</string>
+    <string name="navigation_liked">Liked</string>
     <string name="navigation_about">About</string>
 
     <!-- Calendar -->
@@ -17,7 +18,13 @@
     <string name="calendar_teaser_not_available">Teaser not available</string>
 
     <!-- Search -->
-    <string name="search_text_field_placeholder">Search for a song</string>
-    <string name="search_no_results">No songs found</string>
+    <string name="search_text_field_placeholder">Search for an MV</string>
+    <string name="search_no_results">No MVs found</string>
+
+    <!-- Liked -->
+    <string name="liked_snackbar_song_added">Added to liked MVs</string>
+    <string name="liked_snackbar_song_removed">Removed from liked MVs</string>
+    <string name="liked_top_app_bar">Liked MVs</string>
+    <string name="liked_empty_view">You have not liked any videos. You can add them by clicking on the ❤️ that appears at the top right of each MV</string>
 
 </resources>

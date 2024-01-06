@@ -1,11 +1,11 @@
 package com.jorgediazp.kpopcalendar.home.common.presentation.model
 
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationType
-
 data class SongPresentationModel(
+    val id: Int,
     val type: SongPresentationType,
     val text: String,
     val youtubeUrl: String?,
     val thumbnailUrl: String?,
-    val isOddRow: Boolean
+    val isOddRow: Boolean,
+    var liked: Boolean
 )

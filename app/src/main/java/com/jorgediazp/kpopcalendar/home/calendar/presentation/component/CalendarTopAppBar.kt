@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EditCalendar
 import androidx.compose.material.icons.outlined.Circle
+import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,7 +39,7 @@ fun CalendarTopAppBar(
                 onClick = { onShowCalendarClick() },
             ) {
                 Icon(
-                    imageVector = Icons.Default.EditCalendar,
+                    imageVector = Icons.Filled.EditCalendar,
                     contentDescription = null,
                 )
             }

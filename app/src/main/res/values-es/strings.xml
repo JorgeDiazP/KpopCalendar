@@ -8,6 +8,7 @@
     <!-- Bottom Navigation   -->
     <string name="navigation_calendar">Calendario</string>
     <string name="navigation_search">Buscar</string>
+    <string name="navigation_liked">Me gusta</string>
     <string name="navigation_about">Información</string>
 
     <!-- Calendar -->
@@ -15,7 +16,13 @@
     <string name="calendar_teaser_not_available">Teaser no disponible</string>
 
     <!-- Search -->
-    <string name="search_text_field_placeholder">Buscar una canción</string>
-    <string name="search_no_results">No se han encontrado canciones</string>
+    <string name="search_text_field_placeholder">Buscar un MV</string>
+    <string name="search_no_results">No se han encontrado MVs</string>
+
+    <!-- Liked -->
+    <string name="liked_snackbar_song_added">Se ha añadido a MVs que te gustan</string>
+    <string name="liked_snackbar_song_removed">Se ha quitado de MVs que te gustan</string>
+    <string name="liked_top_app_bar">MVs que te gustan</string>
+    <string name="liked_empty_view">No has añadido videos a \"Me gusta\". Puedes añadirlos pulsando en el ❤️ que aparece arriba a la derecha de cada video</string>
 
 </resources>

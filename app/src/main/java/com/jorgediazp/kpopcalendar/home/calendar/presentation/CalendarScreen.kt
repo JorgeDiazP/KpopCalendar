@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jorgediazp.kpopcalendar.common.presentation.ui.ComposeUtils.Companion.isScrollingUp
@@ -12,15 +13,20 @@ import com.jorgediazp.kpopcalendar.common.presentation.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarPicker
-import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarSongsLazyColumn
+import com.jorgediazp.kpopcalendar.home.calendar.presentation.component.CalendarTopAppBar
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenBackgroundState
 import com.jorgediazp.kpopcalendar.home.calendar.presentation.model.CalendarScreenForegroundState
 
 @Composable
-fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hiltViewModel()) {
+fun CalendarScreen(
+    listState: LazyListState,
+    showSnackBar: (text: String) -> Unit,
+    viewModel: CalendarViewModel = hiltViewModel()
+) {
     val backgroundState = viewModel.backgroundState.collectAsStateWithLifecycle()
     val foregroundState = viewModel.foregroundState.collectAsStateWithLifecycle()
+    val showSnackBarEvent = viewModel.showSnackBarEvent.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = viewModel) {
         if (!viewModel.dataLoaded) {
@@ -48,7 +54,8 @@ fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hilt
                         CalendarSongsLazyColumn(
                             listState = listState,
                             selectedDateIndex = state.selectedDateIndex,
-                            dateList = state.dateList
+                            dateList = state.dateList,
+                            onLikeClicked = { song -> viewModel.insertOrDeleteLikedSong(song) }
                         )
                     }
                 }
@@ -82,5 +89,9 @@ fun CalendarScreen(listState: LazyListState, viewModel: CalendarViewModel = hilt
                 }
             }
         }
+    }
+
+    showSnackBarEvent.value.getContentIfNotHandled()?.let { textResId ->
+        showSnackBar(stringResource(textResId))
     }
 }

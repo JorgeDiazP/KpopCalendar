@@ -20,6 +20,7 @@ fun HomeNavigationBar(navController: NavHostController) {
     val screens = listOf(
         MainNavItemModel.Calendar,
         MainNavItemModel.Search,
+        MainNavItemModel.Liked,
         MainNavItemModel.About
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -29,25 +30,36 @@ fun HomeNavigationBar(navController: NavHostController) {
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
     ) {
-        screens.forEach { screen ->
+        screens.forEach { itemModel ->
+            val selected =
+                currentDestination?.hierarchy?.any { it.route == itemModel.route } == true
             NavigationBarItem(
-                icon = { Icon(imageVector = screen.icon, contentDescription = null) },
+                icon = {
+                    Icon(
+                        imageVector = if (selected) itemModel.iconSelected else itemModel.icon,
+                        contentDescription = null
+                    )
+                },
                 label = {
                     Text(
-                        text = stringResource(screen.title),
+                        text = stringResource(itemModel.title),
                         style = MaterialTheme.typography.labelSmall
                     )
                 },
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                selected = selected,
                 onClick = {
-                    navController.navigate(screen.route) {
+                    navController.navigate(itemModel.route) {
                         popUpTo(navController.graph.startDestinationId) { saveState = true }
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = LocalCustomColorsPalette.current.surfaceVariantSecondary
+                    indicatorColor = LocalCustomColorsPalette.current.surfaceVariantSecondary,
+                    selectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    selectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.8f),
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.8f),
                 )
             )
         }
