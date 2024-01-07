@@ -27,4 +27,9 @@
     <string name="liked_top_app_bar">Liked MVs</string>
     <string name="liked_empty_view">You have not liked any videos. You can add them by clicking on the ❤️ that appears at the top right of each MV</string>
 
+    <!-- About -->
+    <string name="about_top_app_bar">Help me to improve the app</string>
+    <string name="about_text">Hi! Thank you for downloading Kpop Calendar.\n \nI\'m the developer of the app and a k-pop fan since 3rd generation.\n \nI decided to make this app because it\'s getting harder and harder for me to keep up with all the comebacks that come out, and I thought that maybe it\'s useful for other people.\n \nI would like to know what improvements you would make, for example:\nBeing able to put the MVs in full screen without having to go to YouTube?\nBeing able to add the songs to Spotify lists?\n \nIf you have any suggestions or want to rate the app, you can go to Play Store pressing the button below:</string>
+    <string name="about_button">Rate this app</string>
+
 </resources>
