@@ -47,6 +47,15 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/keystore.jks")
+            storePassword = "KpopCalendar1234@"
+            keyAlias = "keystore"
+            keyPassword = "KpopCalendar1234@"
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
@@ -59,6 +68,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
