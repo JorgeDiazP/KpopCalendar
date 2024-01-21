@@ -2,8 +2,10 @@ package com.jorgediazp.kpopcalendar.home.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.MONTH_AND_YEAR_DATE_FORMAT
@@ -54,6 +56,7 @@ class CalendarViewModel @Inject constructor(
     private var likedSongIds: List<Int> = listOf()
 
     fun loadData() {
+        FirebaseRemoteConfig.getInstance().fetchAndActivate()
         viewModelScope.launch {
             getLikedSongsUseCase.getAllLikedSongIdsFlow()
                 .catch { throwable ->
