@@ -1,6 +1,6 @@
 package com.jorgediazp.kpopcalendar.home.calendar.presentation.model
 
-import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.common.domain.model.SongDomainModel
 import java.time.Instant
 
 sealed class CalendarScreenBackgroundState(

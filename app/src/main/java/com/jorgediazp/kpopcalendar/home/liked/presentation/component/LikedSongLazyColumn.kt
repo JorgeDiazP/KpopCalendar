@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.ui.component.SongCard
+import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcalendar.common.presentation.ui.component.SongCard
 
 @Composable
 fun LikedSongLazyColumn(

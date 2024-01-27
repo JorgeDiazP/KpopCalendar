@@ -1,7 +1,7 @@
 package com.jorgediazp.kpopcalendar.home.search.presentation.model
 
-import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcalendar.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
 
 sealed class SearchScreenState {
 

@@ -3,7 +3,7 @@ package com.jorgediazp.kpopcalendar
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.jorgediazp.kpopcalendar.home.common.presentation.ui.screen.HomeScreen
+import com.jorgediazp.kpopcalendar.common.presentation.ui.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +13,7 @@ class KpopCalendarActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            HomeScreen()
+            MainScreen()
         }
     }
 }

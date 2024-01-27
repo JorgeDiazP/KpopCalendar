@@ -7,11 +7,11 @@ import com.google.firebase.ktx.Firebase
 import com.jorgediazp.kpopcalendar.R
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.Event
-import com.jorgediazp.kpopcalendar.home.common.domain.model.SongDomainModel
-import com.jorgediazp.kpopcalendar.home.common.domain.usecase.DeleteLikedSongsUseCase
-import com.jorgediazp.kpopcalendar.home.common.domain.usecase.GetLikedSongsUseCase
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
-import com.jorgediazp.kpopcalendar.home.common.presentation.model.SongPresentationModel
+import com.jorgediazp.kpopcalendar.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.common.domain.usecase.DeleteLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.GetLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
+import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.home.liked.presentation.model.LikedScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
