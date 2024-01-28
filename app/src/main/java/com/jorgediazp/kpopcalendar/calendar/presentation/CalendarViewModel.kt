@@ -2,11 +2,21 @@ package com.jorgediazp.kpopcalendar.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.jorgediazp.kpopcalendar.R
+import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenBackgroundState
+import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenForegroundState
+import com.jorgediazp.kpopcalendar.calendar.presentation.model.DatePresentationModel
+import com.jorgediazp.kpopcalendar.common.domain.model.SongDomainModel
+import com.jorgediazp.kpopcalendar.common.domain.usecase.DeleteLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.FirebaseSignInUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.GetLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.GetSongsUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.InsertLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
+import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.common.util.DataResult
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.MONTH_AND_YEAR_DATE_FORMAT
 import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.MONTH_DATE_FORMAT
@@ -14,16 +24,6 @@ import com.jorgediazp.kpopcalendar.common.util.DateUtils.Companion.SONG_DATE_FOR
 import com.jorgediazp.kpopcalendar.common.util.Event
 import com.jorgediazp.kpopcalendar.common.util.FirebaseRemoteConfigKey
 import com.jorgediazp.kpopcalendar.common.util.FirebaseUtils.Companion.getRemoteConfigLong
-import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenBackgroundState
-import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenForegroundState
-import com.jorgediazp.kpopcalendar.calendar.presentation.model.DatePresentationModel
-import com.jorgediazp.kpopcalendar.common.domain.model.SongDomainModel
-import com.jorgediazp.kpopcalendar.common.domain.usecase.DeleteLikedSongsUseCase
-import com.jorgediazp.kpopcalendar.common.domain.usecase.GetLikedSongsUseCase
-import com.jorgediazp.kpopcalendar.common.domain.usecase.GetSongsUseCase
-import com.jorgediazp.kpopcalendar.common.domain.usecase.InsertLikedSongsUseCase
-import com.jorgediazp.kpopcalendar.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
-import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
@@ -43,7 +43,8 @@ class CalendarViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
     private val getLikedSongsUseCase: GetLikedSongsUseCase,
     private val insertLikedSongsUseCase: InsertLikedSongsUseCase,
-    private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase
+    private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase,
+    private val firebaseSignInUseCase: FirebaseSignInUseCase
 ) : ViewModel() {
 
     val backgroundState =
@@ -58,22 +59,30 @@ class CalendarViewModel @Inject constructor(
     fun loadData() {
         FirebaseRemoteConfig.getInstance().fetchAndActivate()
         viewModelScope.launch {
-            getLikedSongsUseCase.getAllLikedSongIdsFlow()
-                .catch { throwable ->
-                    Firebase.crashlytics.recordException(throwable)
+            foregroundState.value = CalendarScreenForegroundState.ShowLoading
 
-                }.collect {
-                    likedSongIds = it
-                    if (!dataLoaded) {
-                        dataLoaded = true
-                        goToToday()
-                    } else if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
-                        updateLikedSongs(
-                            backgroundState.value as CalendarScreenBackgroundState.ShowDateList,
-                            likedSongIds
-                        )
+            if (firebaseSignInUseCase.signIn()) {
+                getLikedSongsUseCase.getAllLikedSongIdsFlow()
+                    .catch { throwable ->
+                        Firebase.crashlytics.recordException(throwable)
+
+                    }.collect {
+                        likedSongIds = it
+                        if (!dataLoaded) {
+                            dataLoaded = true
+                            goToToday()
+                        } else if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
+                            updateLikedSongs(
+                                backgroundState.value as CalendarScreenBackgroundState.ShowDateList,
+                                likedSongIds
+                            )
+                        }
                     }
-                }
+
+            } else {
+                backgroundState.value = CalendarScreenBackgroundState.ShowDefaultError
+                foregroundState.value = CalendarScreenForegroundState.ShowNothing
+            }
         }
     }
 

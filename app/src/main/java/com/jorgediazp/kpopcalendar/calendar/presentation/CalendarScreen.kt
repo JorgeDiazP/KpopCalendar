@@ -63,6 +63,10 @@ fun CalendarScreen(
                 is CalendarScreenBackgroundState.ShowError -> {
                     ErrorView(onTryAgainClick = { viewModel.loadDateList(backgroundState.value.selectedDateMillis) })
                 }
+
+                is CalendarScreenBackgroundState.ShowDefaultError -> {
+                    ErrorView(onTryAgainClick = { viewModel.loadData()})
+                }
             }
         }
         when (foregroundState.value) {
