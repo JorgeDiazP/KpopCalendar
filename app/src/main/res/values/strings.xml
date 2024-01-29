@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">Kpop Calendar</string>
+    <string name="app_name">Kpop Calendar</string>
+    <string name="firebase_notifications_channel">Comebacks and debuts</string>
+    <string name="firebase_notifications_channel_name">Comebacks and debuts</string>
 
     <!-- Common -->
     <string name="try_again">Try Again</string>
