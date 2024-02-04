@@ -15,6 +15,7 @@ import com.jorgediazp.kpopcalendar.common.domain.usecase.FirebaseSignInUseCase
 import com.jorgediazp.kpopcalendar.common.domain.usecase.GetLikedSongsUseCase
 import com.jorgediazp.kpopcalendar.common.domain.usecase.GetSongsUseCase
 import com.jorgediazp.kpopcalendar.common.domain.usecase.InsertLikedSongsUseCase
+import com.jorgediazp.kpopcalendar.common.domain.usecase.NotificationsPermissionUseCase
 import com.jorgediazp.kpopcalendar.common.presentation.model.PresentationModelExtensions.Companion.toPresentationModel
 import com.jorgediazp.kpopcalendar.common.presentation.model.SongPresentationModel
 import com.jorgediazp.kpopcalendar.common.util.DataResult
@@ -44,7 +45,8 @@ class CalendarViewModel @Inject constructor(
     private val getLikedSongsUseCase: GetLikedSongsUseCase,
     private val insertLikedSongsUseCase: InsertLikedSongsUseCase,
     private val deleteLikedSongsUseCase: DeleteLikedSongsUseCase,
-    private val firebaseSignInUseCase: FirebaseSignInUseCase
+    private val firebaseSignInUseCase: FirebaseSignInUseCase,
+    private val notificationsPermissionUseCase: NotificationsPermissionUseCase
 ) : ViewModel() {
 
     val backgroundState =
@@ -61,23 +63,11 @@ class CalendarViewModel @Inject constructor(
         viewModelScope.launch {
             foregroundState.value = CalendarScreenForegroundState.ShowLoading
 
-            if (firebaseSignInUseCase.signIn()) {
-                getLikedSongsUseCase.getAllLikedSongIdsFlow()
-                    .catch { throwable ->
-                        Firebase.crashlytics.recordException(throwable)
+            if (notificationsPermissionUseCase.requestNotificationsPermission()) {
+                foregroundState.value = CalendarScreenForegroundState.ShowNotificationsPermissionDialog
 
-                    }.collect {
-                        likedSongIds = it
-                        if (!dataLoaded) {
-                            dataLoaded = true
-                            goToToday()
-                        } else if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
-                            updateLikedSongs(
-                                backgroundState.value as CalendarScreenBackgroundState.ShowDateList,
-                                likedSongIds
-                            )
-                        }
-                    }
+            } else if (firebaseSignInUseCase.signIn()) {
+                loadLikedSongs()
 
             } else {
                 backgroundState.value = CalendarScreenBackgroundState.ShowDefaultError
@@ -134,6 +124,32 @@ class CalendarViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onCancelNotificationsPermission() {
+        viewModelScope.launch {
+            notificationsPermissionUseCase.updateNotificationsPermissionsFlag()
+            loadData()
+        }
+    }
+
+    private suspend fun loadLikedSongs() {
+        getLikedSongsUseCase.getAllLikedSongIdsFlow()
+            .catch { throwable ->
+                Firebase.crashlytics.recordException(throwable)
+
+            }.collect {
+                likedSongIds = it
+                if (!dataLoaded) {
+                    dataLoaded = true
+                    goToToday()
+                } else if (backgroundState.value is CalendarScreenBackgroundState.ShowDateList) {
+                    updateLikedSongs(
+                        backgroundState.value as CalendarScreenBackgroundState.ShowDateList,
+                        likedSongIds
+                    )
+                }
+            }
     }
 
     private fun getCalendarPickerYearRange(minTimestamp: Long, maxTimestamp: Long): IntRange {

@@ -18,6 +18,8 @@
     <!-- Calendar -->
     <string name="calendar_songs_empty">No hay canciones nuevas este día</string>
     <string name="calendar_teaser_not_available">Teaser no disponible</string>
+    <string name="calendar_notifications_permission_title">¡No te pierdas ningún comeback!</string>
+    <string name="calendar_notifications_permission_message">Si quieres recibir notificaciones y conocer todos los comebacks y debuts que hay cada día, pulsa en Aceptar y habilita el permiso de notificaciones</string>
 
     <!-- Search -->
     <string name="search_text_field_placeholder">Buscar un MV</string>

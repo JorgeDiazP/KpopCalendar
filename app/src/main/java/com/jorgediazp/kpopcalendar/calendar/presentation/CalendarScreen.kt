@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcalendar.calendar.presentation
 
+import android.Manifest
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyListState
@@ -8,15 +9,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarPicker
+import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarSongsLazyColumn
+import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarTopAppBar
+import com.jorgediazp.kpopcalendar.calendar.presentation.component.NotificationsPermissionDialog
+import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenBackgroundState
+import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenForegroundState
 import com.jorgediazp.kpopcalendar.common.presentation.ui.ComposeUtils.Companion.isScrollingUp
 import com.jorgediazp.kpopcalendar.common.presentation.ui.ErrorView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.LoadingView
 import com.jorgediazp.kpopcalendar.common.presentation.ui.Screen
-import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarPicker
-import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarSongsLazyColumn
-import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarTopAppBar
-import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenBackgroundState
-import com.jorgediazp.kpopcalendar.calendar.presentation.model.CalendarScreenForegroundState
 
 @Composable
 fun CalendarScreen(
@@ -65,7 +70,7 @@ fun CalendarScreen(
                 }
 
                 is CalendarScreenBackgroundState.ShowDefaultError -> {
-                    ErrorView(onTryAgainClick = { viewModel.loadData()})
+                    ErrorView(onTryAgainClick = { viewModel.loadData() })
                 }
             }
         }
@@ -77,6 +82,20 @@ fun CalendarScreen(
             is CalendarScreenForegroundState.ShowLoading -> {
                 LoadingView()
             }
+
+            is CalendarScreenForegroundState.ShowNotificationsPermissionDialog -> {
+                NotificationsPermissionDialog(
+                    onConfirm = {
+                        viewModel.foregroundState.value =
+                            CalendarScreenForegroundState.RequestNotificationsPermissionDialog
+                    },
+                    onCancel = { viewModel.onCancelNotificationsPermission() })
+            }
+
+            is CalendarScreenForegroundState.RequestNotificationsPermissionDialog -> {
+                RequestNotificationsPermission(viewModel = viewModel)
+            }
+
 
             is CalendarScreenForegroundState.ShowCalendarPicker -> {
                 (foregroundState.value as CalendarScreenForegroundState.ShowCalendarPicker).let { state ->
@@ -92,10 +111,29 @@ fun CalendarScreen(
                         })
                 }
             }
+
         }
     }
 
     showSnackBarEvent.value.getContentIfNotHandled()?.let { textResId ->
         showSnackBar(stringResource(textResId))
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun RequestNotificationsPermission(viewModel: CalendarViewModel) {
+    val permissionState =
+        rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.foregroundState.value = CalendarScreenForegroundState.ShowNothing
+        permissionState.launchPermissionRequest()
+    }
+
+    if (permissionState.status.isGranted) {
+        viewModel.loadData()
+    } else {
+        viewModel.onCancelNotificationsPermission()
     }
 }
