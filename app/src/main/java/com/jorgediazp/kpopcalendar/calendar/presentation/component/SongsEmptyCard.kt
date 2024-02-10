@@ -25,7 +25,7 @@ fun SongsEmptyCard() {
             containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 8.dp
         ),
         shape = RoundedCornerShape(24.dp),
     ) {

@@ -27,7 +27,7 @@ fun CalendarSongsLazyColumn(
 ) {
     LazyColumn(
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(32.dp)
+        verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         var currentDate = ""
         dateList.forEach { dateModel ->

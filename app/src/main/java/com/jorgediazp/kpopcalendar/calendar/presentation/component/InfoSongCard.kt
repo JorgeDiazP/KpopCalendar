@@ -32,10 +32,10 @@ fun InfoSongCard(isOddRow: Boolean, text: String) {
             containerColor = backgroundColor
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 8.dp
         ),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, color)
+        border = BorderStroke(2.dp, color)
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),

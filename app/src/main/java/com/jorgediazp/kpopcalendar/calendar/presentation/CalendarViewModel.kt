@@ -126,9 +126,10 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    fun onCancelNotificationsPermission() {
+    fun cancelNotificationsPermission() {
         viewModelScope.launch {
-            notificationsPermissionUseCase.updateNotificationsPermissionsFlag()
+            notificationsPermissionUseCase.updateNotificationsPermissionsFlag(
+                NotificationsPermissionUseCase.Status.CANCELED)
             loadData()
         }
     }

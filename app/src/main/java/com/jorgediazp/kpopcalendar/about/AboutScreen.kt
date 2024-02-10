@@ -50,7 +50,7 @@ fun AboutScreen() {
                 Text(
                     text = stringResource(R.string.about_text),
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(32.dp)
+                    modifier = Modifier.padding(vertical = 32.dp, horizontal = 24.dp)
                 )
                 Button(onClick = { launchPlayStore(context) }) {
                     Text(text = stringResource(id = R.string.about_button))

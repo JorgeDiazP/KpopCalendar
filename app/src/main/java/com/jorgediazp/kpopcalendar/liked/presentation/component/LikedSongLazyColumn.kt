@@ -17,7 +17,7 @@ fun LikedSongLazyColumn(
     songList: List<SongPresentationModel>,
     onLikeClicked: (song: SongPresentationModel) -> Unit
 ) {
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(32.dp)) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(40.dp)) {
         item {
             Spacer(
                 modifier = Modifier

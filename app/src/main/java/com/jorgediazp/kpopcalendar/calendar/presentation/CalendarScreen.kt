@@ -1,6 +1,8 @@
 package com.jorgediazp.kpopcalendar.calendar.presentation
 
 import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyListState
@@ -9,9 +11,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
 import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarPicker
 import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarSongsLazyColumn
 import com.jorgediazp.kpopcalendar.calendar.presentation.component.CalendarTopAppBar
@@ -89,7 +88,7 @@ fun CalendarScreen(
                         viewModel.foregroundState.value =
                             CalendarScreenForegroundState.RequestNotificationsPermissionDialog
                     },
-                    onCancel = { viewModel.onCancelNotificationsPermission() })
+                    onCancel = { viewModel.cancelNotificationsPermission() })
             }
 
             is CalendarScreenForegroundState.RequestNotificationsPermissionDialog -> {
@@ -120,20 +119,18 @@ fun CalendarScreen(
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun RequestNotificationsPermission(viewModel: CalendarViewModel) {
-    val permissionState =
-        rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
+    val permissionLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                viewModel.loadData()
+            } else {
+                viewModel.cancelNotificationsPermission()
+            }
+        }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.foregroundState.value = CalendarScreenForegroundState.ShowNothing
-        permissionState.launchPermissionRequest()
-    }
-
-    if (permissionState.status.isGranted) {
-        viewModel.loadData()
-    } else {
-        viewModel.onCancelNotificationsPermission()
+    LaunchedEffect(key1 = viewModel) {
+        permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 }

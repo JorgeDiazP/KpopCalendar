@@ -29,7 +29,7 @@ fun DateCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
+            defaultElevation = 0.dp
         ),
         shape = RoundedCornerShape(0.dp),
     ) {

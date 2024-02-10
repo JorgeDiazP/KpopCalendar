@@ -33,7 +33,7 @@
 
     <!-- About -->
     <string name="about_top_app_bar">Ayúdame a mejorar la app</string>
-    <string name="about_text">¡Hola! Gracias por descargar Kpop Calendar.\n \nSoy el desarrollador de la app y fan del k-pop desde 3ª generación.\n \nDecidí realizar esta app porque cada vez me es más difícil estar al día con todos los comebacks que salen y pensé que a lo mejor le resultaba útil a otras personas.\n \nMe gustaría saber que mejoras harías, por ejemplo:\n¿Poder poner los MVs a pantalla completa sin tener que ir a Youtube?\n¿Poder añadir las canciones a listas de Spotify?\n \nSi tienes alguna sugerencia o quieres valorar la app, puedes ir al Play Store pulsando el botón de abajo:</string>
+    <string name="about_text">¡Hola! Gracias por descargar Kpop Calendar.\n \nSoy el desarrollador de la app y fan del k-pop desde 3ª generación.\n \nDecidí realizar esta app porque cada vez me es más difícil estar al día con todos los comebacks que salen y pensé que a lo mejor le resultaba útil a otras personas.\n \nMe gustaría mejorar la app y necesito tu opinión. ¿Qué añadirías o cambiarías?, por ejemplo:\n¿Poder poner los MVs a pantalla completa sin tener que ir a Youtube?\n¿Poder añadir las canciones a listas de Spotify?\n \nSi tienes alguna sugerencia o quieres valorar la app, puedes ir al Play Store pulsando el botón de abajo:</string>
     <string name="about_button">Valorar esta app</string>
 
 </resources>

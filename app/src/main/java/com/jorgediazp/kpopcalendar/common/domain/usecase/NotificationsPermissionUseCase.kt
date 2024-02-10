@@ -1,6 +1,7 @@
 package com.jorgediazp.kpopcalendar.common.domain.usecase
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -14,9 +15,12 @@ class NotificationsPermissionUseCase @Inject constructor(@ApplicationContext pri
 
     companion object {
         private val SP_NAME = "notifications_sp"
-        private val FLAG_KEY = "request_notifications_flag"
+        private val STATUS_KEY = "request_notifications_status"
     }
 
+    enum class Status { FIRST_LAUNCH, REQUEST, CANCELED }
+
+    @SuppressLint("ApplySharedPref")
     suspend fun requestNotificationsPermission(): Boolean {
         return withContext(Dispatchers.IO) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ContextCompat.checkSelfPermission(
@@ -25,17 +29,24 @@ class NotificationsPermissionUseCase @Inject constructor(@ApplicationContext pri
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 val sharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-                sharedPreferences.getBoolean(FLAG_KEY, true)
+                val status = sharedPreferences.getString(STATUS_KEY, Status.FIRST_LAUNCH.name)
+
+                if (status == Status.FIRST_LAUNCH.name) {
+                    sharedPreferences.edit().putString(STATUS_KEY, Status.REQUEST.name).commit()
+                    false
+                } else {
+                    status == Status.REQUEST.name
+                }
             } else {
                 false
             }
         }
     }
 
-    suspend fun updateNotificationsPermissionsFlag() {
+    suspend fun updateNotificationsPermissionsFlag(status: Status) {
         withContext(Dispatchers.IO) {
             val sharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-            sharedPreferences.edit().putBoolean(FLAG_KEY, false).commit()
+            sharedPreferences.edit().putString(STATUS_KEY, status.name).commit()
         }
     }
 }
