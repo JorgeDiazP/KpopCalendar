@@ -30,7 +30,7 @@ fun SearchScreen(
 
     Screen {
         Column {
-            SearchTextField(onValueChange = { query -> viewModel.loadSongListByQuery(query) })
+            SearchTextField(onSearch = { query -> viewModel.loadSongListByQuery(query) })
 
             when (state.value) {
                 is SearchScreenState.ShowNothing -> {
