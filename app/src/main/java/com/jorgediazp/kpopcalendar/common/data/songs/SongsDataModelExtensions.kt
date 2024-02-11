@@ -16,6 +16,7 @@ class SongsDataModelExtensions {
         const val ARTISTS_FIELD = "artists"
         const val TITLE_TRACK_FIELD = "titleTrack"
         const val OFFICIAL_AUDIO_FIELD = "officialAudio"
+        const val PRE_REALEASE_FIELD = "preRelease"
         const val MUSIC_VIDEO_FIELD = "musicVideo"
         const val ALBUM_FIELD = "album"
         const val OST_FIELD = "ost"
@@ -28,8 +29,7 @@ class SongsDataModelExtensions {
                 artist = this[ARTIST_FIELD] as String?,
                 artists = this[ARTISTS_FIELD] as List<String>?,
                 titleTrack = this[TITLE_TRACK_FIELD] as String?,
-                officialAudio = this[OFFICIAL_AUDIO_FIELD] as String?,
-                musicVideo = this[MUSIC_VIDEO_FIELD] as String?,
+                musicVideo = (this[MUSIC_VIDEO_FIELD] as String?) ?: (this[PRE_REALEASE_FIELD] as String?) ?: (this[OFFICIAL_AUDIO_FIELD] as String?),
                 album = this[ALBUM_FIELD] as String?,
                 ost = this[OST_FIELD] as String?,
                 teaserPoster = this[TEASER_POSTER_FIELD] as String?,

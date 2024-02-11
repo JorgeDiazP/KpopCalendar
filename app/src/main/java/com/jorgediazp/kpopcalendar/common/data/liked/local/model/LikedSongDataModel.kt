@@ -10,7 +10,6 @@ data class LikedSongDataModel(
     val artist: String?,
     val artists: String?,
     val titleTrack: String?,
-    val bSide: String?,
     val musicVideo: String?,
     val album: String?,
     val ost: String?,

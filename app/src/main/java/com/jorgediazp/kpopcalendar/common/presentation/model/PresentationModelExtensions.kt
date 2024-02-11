@@ -24,9 +24,7 @@ class PresentationModelExtensions {
             var thumbnailUrl: String? = null
             when (type) {
                 SongPresentationType.RELEASED -> {
-                    if (officialAudio != null) {
-                        text = "$artist - $officialAudio (B-side)"
-                    } else if (titleTrack != null) {
+                    if (titleTrack != null) {
                         text = "$artist - $titleTrack"
                     }
                     youtubeUrl = getCompleteYoutubeUrlOrNull(musicVideo)
@@ -34,9 +32,7 @@ class PresentationModelExtensions {
                 }
 
                 SongPresentationType.UNRELEASED_TEASER -> {
-                    if (officialAudio != null) {
-                        text = "$artist - $officialAudio (B-side) (Teaser)"
-                    } else if (titleTrack != null) {
+                    if (titleTrack != null) {
                         text = "$artist - $titleTrack (Teaser)"
                     }
                     youtubeUrl = getCompleteYoutubeUrlOrNull(teaserVideo)
@@ -44,9 +40,7 @@ class PresentationModelExtensions {
                 }
 
                 SongPresentationType.UNRELEASED_INFO -> {
-                    if (officialAudio != null) {
-                        text = "$artist - $officialAudio (B-side)"
-                    } else if (titleTrack != null) {
+                    if (titleTrack != null) {
                         text = "$artist - $titleTrack"
                     }
                 }

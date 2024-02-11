@@ -138,6 +138,7 @@ class CalendarViewModel @Inject constructor(
         getLikedSongsUseCase.getAllLikedSongIdsFlow()
             .catch { throwable ->
                 Firebase.crashlytics.recordException(throwable)
+                likedSongIds = listOf()
 
             }.collect {
                 likedSongIds = it

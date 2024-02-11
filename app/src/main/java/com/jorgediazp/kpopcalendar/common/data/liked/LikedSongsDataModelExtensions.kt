@@ -22,7 +22,6 @@ class LikedSongsDataModelExtensions {
                     )
                 ),
                 titleTrack = titleTrack,
-                bSide = officialAudio,
                 musicVideo = musicVideo,
                 album = album,
                 ost = ost,
@@ -42,7 +41,6 @@ class LikedSongsDataModelExtensions {
                     )
                 ),
                 titleTrack = titleTrack,
-                officialAudio = bSide,
                 musicVideo = musicVideo,
                 album = album,
                 ost = ost,

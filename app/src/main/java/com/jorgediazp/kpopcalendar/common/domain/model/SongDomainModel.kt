@@ -5,7 +5,6 @@ data class SongDomainModel(
     val artist: String?,
     val artists: List<String>?,
     val titleTrack: String?,
-    val officialAudio: String?,
     val musicVideo: String?,
     val album: String?,
     val ost: String?,
