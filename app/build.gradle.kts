@@ -47,6 +47,15 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/keystore.jks")
+            storePassword = "KpopCalendar1234@"
+            keyAlias = "keystore"
+            keyPassword = "KpopCalendar1234@"
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
@@ -59,6 +68,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
@@ -106,6 +116,9 @@ dependencies {
     // Compose icons
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
+    // Compose permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
@@ -117,6 +130,8 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-config")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-messaging")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
