@@ -13,10 +13,7 @@ class PresentationModelExtensions {
             isOddRow: Boolean,
             liked: Boolean
         ): SongPresentationModel {
-            val type =
-                if (isValidYoutubeUrl(musicVideo)) SongPresentationType.RELEASED
-                else if (isValidYoutubeUrl(teaserVideo)) SongPresentationType.UNRELEASED_TEASER
-                else SongPresentationType.UNRELEASED_INFO
+            val type = SongPresentationType.RELEASED
             val artist =
                 artist ?: artists?.joinToString() ?: throw IllegalStateException("artist is null")
             var text = artist
@@ -27,8 +24,8 @@ class PresentationModelExtensions {
                     if (titleTrack != null) {
                         text = "$artist - $titleTrack"
                     }
-                    youtubeUrl = getCompleteYoutubeUrlOrNull(musicVideo)
-                    thumbnailUrl = getYoutubeThumbnailUrlOrNull(musicVideo)
+                    youtubeUrl = musicVideo
+                    thumbnailUrl = musicVideo
                 }
 
                 SongPresentationType.UNRELEASED_TEASER -> {

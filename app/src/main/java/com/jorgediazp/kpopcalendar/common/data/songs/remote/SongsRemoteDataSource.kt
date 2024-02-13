@@ -37,7 +37,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                     val db = Firebase.firestore
 
                     dateList.chunked(FIRESTORE_IN_MAX_SIZE).forEach { dateListChunk ->
-                        val result = db.collection(SONGS_COLLECTION)
+                        val result = db.collection("mocks")
                             .whereIn(DATE_FIELD, dateListChunk)
                             .get()
                             .await()
@@ -70,7 +70,7 @@ class SongsRemoteDataSource @Inject constructor(@ApplicationContext private val 
                 if (InternetUtils.isInternetAvailable(context)) {
                     val songMap = mutableMapOf<Int, SongDomainModel>()
                     val db = Firebase.firestore
-                    val result = db.collection(SONGS_COLLECTION)
+                    val result = db.collection("mocks")
                         .whereArrayContains(TAGS_FIELD, query)
                         .get()
                         .await()
