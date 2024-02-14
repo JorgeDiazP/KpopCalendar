@@ -18,7 +18,7 @@ class PresentationModelExtensions {
                 else if (isValidYoutubeUrl(teaserVideo)) SongPresentationType.UNRELEASED_TEASER
                 else SongPresentationType.UNRELEASED_INFO
             val artist =
-                artist ?: artists?.joinToString() ?: throw IllegalStateException("artist is null")
+                artist ?: artists?.joinToString() ?: throw IllegalStateException("artist is null, id: $id")
             var text = artist
             var youtubeUrl: String? = null
             var thumbnailUrl: String? = null
