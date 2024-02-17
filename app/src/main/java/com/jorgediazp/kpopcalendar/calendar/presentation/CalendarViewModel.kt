@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcalendar.calendar.presentation
 
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
@@ -234,6 +235,7 @@ class CalendarViewModel @Inject constructor(
                     Firebase.crashlytics.recordException(e)
                 }
             }
+            songPresentationList.sortBy { it.text.lowercase() }
             dateList.add(
                 DatePresentationModel(
                     date = getDisplayDate(dateString),
