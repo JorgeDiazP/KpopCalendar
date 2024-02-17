@@ -118,7 +118,8 @@ class SearchViewModel @Inject constructor(
     ): List<SongPresentationModel> {
         val presentationList = mutableListOf<SongPresentationModel>()
         var isOddRow = true
-        domainMap.values.forEach { songDomain ->
+        val auxDomainMap = domainMap.toSortedMap(Comparator.reverseOrder())
+        auxDomainMap.values.forEach { songDomain ->
             try {
                 val presentationSong =
                     songDomain.toPresentationModel(isOddRow, likedSongIds.contains(songDomain.id))
