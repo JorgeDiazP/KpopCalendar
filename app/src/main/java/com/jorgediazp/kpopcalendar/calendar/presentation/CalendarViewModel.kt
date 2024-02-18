@@ -222,7 +222,9 @@ class CalendarViewModel @Inject constructor(
         var isOddRow = true
         domainMap.forEach { (dateString, songDomainList) ->
             val songPresentationList = mutableListOf<SongPresentationModel>()
-            songDomainList.forEach { songDomain ->
+            // Sort alphabetically
+            val auxSongDomainList = songDomainList.sortedBy { it.artist?.lowercase() ?: it.artists?.joinToString()?.lowercase()  }
+            auxSongDomainList.forEach { songDomain ->
                 try {
                     songPresentationList.add(
                         songDomain.toPresentationModel(
@@ -235,7 +237,6 @@ class CalendarViewModel @Inject constructor(
                     Firebase.crashlytics.recordException(e)
                 }
             }
-            songPresentationList.sortBy { it.text.lowercase() }
             dateList.add(
                 DatePresentationModel(
                     date = getDisplayDate(dateString),
