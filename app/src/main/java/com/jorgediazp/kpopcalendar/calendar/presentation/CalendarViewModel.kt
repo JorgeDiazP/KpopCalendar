@@ -1,5 +1,6 @@
 package com.jorgediazp.kpopcalendar.calendar.presentation
 
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
@@ -220,21 +221,18 @@ class CalendarViewModel @Inject constructor(
         val dateList = mutableListOf<DatePresentationModel>()
         var isOddRow = true
         domainMap.forEach { (dateString, songDomainList) ->
-            // The list of songs has random order so user can discover different songs
-            val songDomainListAux = songDomainList.shuffled()
             val songPresentationList = mutableListOf<SongPresentationModel>()
-            songDomainListAux.forEach { songDomain ->
+            // Sort alphabetically
+            val auxSongDomainList = songDomainList.sortedBy { it.artist?.lowercase() ?: it.artists?.joinToString()?.lowercase()  }
+            auxSongDomainList.forEach { songDomain ->
                 try {
-                    if (songDomain.ost == null) {
-                        // Do not add songs from ost
-                        songPresentationList.add(
-                            songDomain.toPresentationModel(
-                                isOddRow,
-                                likedSongIds.contains(songDomain.id)
-                            )
+                    songPresentationList.add(
+                        songDomain.toPresentationModel(
+                            isOddRow,
+                            likedSongIds.contains(songDomain.id)
                         )
-                        isOddRow = !isOddRow
-                    }
+                    )
+                    isOddRow = !isOddRow
                 } catch (e: Exception) {
                     Firebase.crashlytics.recordException(e)
                 }
