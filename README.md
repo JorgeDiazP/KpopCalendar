@@ -13,16 +13,20 @@ Kpop Calendar muestra las siguientes funcionalidades en un menú principal con u
 
 ## Calendario
 
-Por defecto, la aplicación se sitúa en el día de hoy y despliega todas los videoclips o teasers del mes actual.
+Por defecto, la aplicación se sitúa en el día de hoy y despliega todos los videoclips o teasers del mes actual.
  
 Las URLs de los vídeos y la información de las canciones están almacenadas en un servidor remoto. Se necesita conexión a Internet.
 
 Se puede navegar por el mes haciendo swipe y las barras superior e inferior se colapsan.
 Cuando se pulsa en el botón de "play", se reproduce el videoclip.
 
+![Navegación del Calendario en el mes actual](https://github.com/JorgeDiazP/KpopCalendar/blob/master/images/calendario%201_small.gif?raw=true)
+
 Si se pulsa el icono superior con forma de edición de calendario, aparece un díalogo para seleccionar otro día, y se cargan todos los videoclips de ese mes.
 
 Si se pulsa el icono superior de círculo con número (el número indica el día de hoy), la aplicación vuelve a situarse en el día de hoy.
+
+![Navegación del Calendario a otros meses](https://github.com/JorgeDiazP/KpopCalendar/blob/master/images/calendario%202_small.gif?raw=true)
 
 
 ## Buscar
@@ -31,6 +35,7 @@ La aplicación incorpora un buscador simple que despliega los resultados en orde
 
 Por limitaciones del servidor, actualmente sólo se puede buscar introduciendo el título de la canción o el nombre del artista; no funciona con Strings parciales.
 
+![Buscador](https://github.com/JorgeDiazP/KpopCalendar/blob/master/images/buscar_small.gif?raw=true)
 
 ## Me gusta
 
@@ -40,6 +45,7 @@ Si se pulsa el corazón, la información del videoclip se guarda en una BBDD loc
 
 Si se vuelve a pulsar el corazón, el videoclip se elimina del listado.
 
+![Me Gusta](https://github.com/JorgeDiazP/KpopCalendar/blob/master/images/me%20gusta_small.gif?raw=true)
 
 ## Notificaciones
 
