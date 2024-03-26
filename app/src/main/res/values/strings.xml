@@ -1,3 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KpopComebacks</string>
+
+    <string name="app_name">Kpop Calendar</string>
+    <string name="firebase_notifications_channel">Comebacks and debuts</string>
+    <string name="firebase_notifications_channel_name">Comebacks and debuts</string>
+
+    <!-- Common -->
+    <string name="try_again">Try Again</string>
+    <string name="error_text">Error: The information could not be obtained</string>
+
+    <!-- Bottom Navigation -->
+    <string name="navigation_calendar">Calendar</string>
+    <string name="navigation_search">Search</string>
+    <string name="navigation_liked">Liked</string>
+    <string name="navigation_about">About</string>
+
+    <!-- Calendar -->
+    <string name="calendar_songs_empty">No new songs this day</string>
+    <string name="calendar_teaser_not_available">Teaser not available</string>
+    <string name="calendar_notifications_permission_title">¡No te pierdas ningún comeback!</string>
+    <string name="calendar_notifications_permission_message">Si quieres recibir notificaciones y conocer todos los comebacks y debuts que hay cada día, pulsa en Aceptar y habilita el permiso de notificaciones</string>
+
+    <!-- Search -->
+    <string name="search_text_field_placeholder">Search for an MV</string>
+    <string name="search_no_results">No MVs found</string>
+
+    <!-- Liked -->
+    <string name="liked_snackbar_song_added">Added to liked MVs</string>
+    <string name="liked_snackbar_song_removed">Removed from liked MVs</string>
+    <string name="liked_top_app_bar">Liked MVs</string>
+    <string name="liked_empty_view">You have not liked any videos. You can add them by clicking on the ❤️ that appears at the top right of each MV</string>
+
+    <!-- About -->
+    <string name="about_top_app_bar">Help me to improve the app</string>
+    <string name="about_text">Hi! Thank you for downloading Kpop Calendar.\n \nI\'m the developer of the app and a k-pop fan since 3rd generation.\n \nI decided to make this app because it\'s getting harder and harder for me to keep up with all the comebacks that come out, and I thought that maybe it\'s useful for other people.\n \nI would like to know what improvements you would make, for example:\nBeing able to put the MVs in full screen without having to go to YouTube?\nBeing able to add the songs to Spotify lists?\n \nIf you have any suggestions or want to rate the app, you can go to Play Store pressing the button below:</string>
+    <string name="about_button">Rate this app</string>
+
 </resources>

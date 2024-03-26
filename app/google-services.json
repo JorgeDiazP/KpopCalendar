@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "393544728555",
+    "project_id": "kpopcomebacks-c38e3",
+    "storage_bucket": "kpopcomebacks-c38e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393544728555:android:34abe6cab250f95291a3ae",
+        "android_client_info": {
+          "package_name": "com.jorgediazp.kpopcalendar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK7x9BCaz93XvBMzvFqWTJaQJbDB_HI0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393544728555:android:5043d0e3ad89528091a3ae",
+        "android_client_info": {
+          "package_name": "com.jorgediazp.kpopcalendar.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK7x9BCaz93XvBMzvFqWTJaQJbDB_HI0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
